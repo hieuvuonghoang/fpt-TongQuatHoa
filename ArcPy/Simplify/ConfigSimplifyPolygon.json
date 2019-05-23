@@ -1,0 +1,198 @@
+[
+ {
+  "featureDataSet": "PhuBeMat", 
+  "listPolygon": [
+   {
+    "featureClass": "PhuBeMat",
+    "runSimplify": false
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "ThuyHe", 
+  "listPolygon": [
+   {
+    "featureClass": "DamLay", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "SongSuoiA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "MatNuocTinh", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "MatBoKenhMuongA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "MangDanNuocA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "KenhMuongA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DeA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DapA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DaoA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BienDoiDongChayA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BienA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BaiBoiA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BaiCanBaiNgamA", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "MatNa", 
+  "listPolygon": [
+   {
+    "featureClass": "MatNa_DiemDoCao", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaDayDien", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaKhung", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaDiaGioi", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaCay", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaNau", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaLo", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "MatNaDen", 
+    "runSimplify": false
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "QuanSu", 
+  "listPolygon": [
+   {
+    "featureClass": "QuanSuA", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "BienGioiDiaGioi", 
+  "listPolygon": [
+   {
+    "featureClass": "VungBien", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "DiaPhan", 
+    "runSimplify": false
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "DiaHinh", 
+  "listPolygon": [
+   {
+    "featureClass": "DiaHinhDacBietA", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "DanCuCoSoHaTang", 
+  "listPolygon": [
+   {
+    "featureClass": "TramThuPhatSongA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CongTrinhKienTrucDacBietA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "TramQuanTracA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "TramDienA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "NhaA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "KhuChucNangA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DiemDanCuA", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "GiaoThong", 
+  "listPolygon": [
+   {
+    "featureClass": "MatDuongBo", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "HamGiaoThongA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongNoiBoA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CauGiaoThongA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BenBaiA", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CongGiaoThongA", 
+    "runSimplify": true
+   }
+  ]
+ }
+]
