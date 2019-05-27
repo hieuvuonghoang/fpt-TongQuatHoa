@@ -4,13 +4,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>de4d13b7-8987-4bb0-a073-74856f782f9d</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>XoayCongThuyLoiP.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>XoayCongThuyLoiPCauGiaoThongP.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>XoayCongThuyLoiP</Name>
+    <Name>XoayCongThuyLoiPCauGiaoThongP</Name>
     <RootNamespace>XoayCongThuyLoiP</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -22,7 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="XoayCongThuyLoiP.py" />
+    <Compile Include="XoayCongThuyLoiPCauGiaoThongP.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />

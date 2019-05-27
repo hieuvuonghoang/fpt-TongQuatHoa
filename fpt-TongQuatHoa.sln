@@ -13,7 +13,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CongThuyLoi", "ArcPy\CongTh
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Simplify", "ArcPy\Simplify\Simplify.pyproj", "{B04DA927-0680-4537-B2A9-8C5CD71B7EA7}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayCongThuyLoiP", "ArcPy\XoayCongThuyLoiP\XoayCongThuyLoiP.pyproj", "{DE4D13B7-8987-4BB0-A073-74856F782F9D}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayCongThuyLoiPCauGiaoThongP", "ArcPy\XoayCongThuyLoiP\XoayCongThuyLoiPCauGiaoThongP.pyproj", "{DE4D13B7-8987-4BB0-A073-74856F782F9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
