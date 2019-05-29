@@ -18,8 +18,8 @@ class SimplifyPolygon:
 
     def Excute(self):
         self.MergeTools()
-        self.SimplifyTools("v10.4")
-        self.UpdateShapeBeforeSimplify()
+        self.SimplifyTools()
+        self.UpdateShapeAfterSimplify()
         #self.GetGenerateNearTable("in_memory\\ThuyHeSongSuoiALayer")
 
     def CreateFileConfig(self, pathFile):
@@ -88,30 +88,23 @@ class SimplifyPolygon:
         arcpy.MakeFeatureLayer_management(in_features = self.outputMerge,
                                           out_layer = self.outputMergeLayer)
 
-    def SimplifyTools(self, version):
+    def SimplifyTools(self):
         print "SimplifyTools..."
-        if version == "v10.4":
-            #self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
-            self.outputSimplifyPolygon = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon")
-            #self.outputSimplifyPolygonPnt = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon_Pnt")
-            arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
-                                               out_feature_class = self.outputSimplifyPolygon,
-                                               algorithm = "BEND_SIMPLIFY",
-                                               tolerance = "50 Meters",
-                                               minimum_area = "#",
-                                               error_option = "RESOLVE_ERRORS")
-            self.outputSimplifyPolygonB = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygonB")
-            arcpy.SimplifyPolygon_cartography (in_features = self.outputSimplifyPolygon,
-                                               out_feature_class = self.outputSimplifyPolygonB,
-                                               algorithm = "BEND_SIMPLIFY",
-                                               tolerance = "50 Meters",
-                                               minimum_area = "#",
-                                               error_option = "NO_CHECK",
-                                               collapsed_point_option = "KEEP_COLLAPSED_POINTS")
+        #self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
+        self.outputSimplifyPolygon = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon")
+        #self.outputSimplifyPolygonPnt = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon_Pnt")
+        arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
+                                            out_feature_class = self.outputSimplifyPolygon,
+                                            algorithm = "BEND_SIMPLIFY",
+                                            tolerance = "50 Meters",
+                                            minimum_area = "#",
+                                            error_option = "RESOLVE_ERRORS",
+                                            collapsed_point_option = "NO_KEEP")
 
-    def UpdateShapeBeforeSimplify(self):
+    def UpdateShapeAfterSimplify(self):
+        print "UpdateShapeAfterSimplify..."
         outputSimplifyPolygonLayer = "FeatureClassSimplifyPolygonLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.outputSimplifyPolygonB,
+        arcpy.MakeFeatureLayer_management(in_features = self.outputSimplifyPolygon,
                                           out_layer = outputSimplifyPolygonLayer)
         for featureDataSetTemp in self.configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
