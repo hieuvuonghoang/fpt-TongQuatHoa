@@ -12,18 +12,21 @@ class DichNhaP:
         self.fDGiaoThong = "GiaoThong"
         self.fCNhaP = "NhaP"
         self.fCDoanTimDuongBo = "DoanTimDuongBo"
-        self.distanceDoanTimDuongBo = "20 Meters"
-        self.radiusMoveNhaP = "25 Meters"
-        self.radiusNhaP = "2 Meters"
+        self.distanceDoanTimDuongBoMeter = 20.0
+        self.distanceDoanTimDuongBo = str(self.distanceDoanTimDuongBoMeter) + " Meters"
+        self.radiusMoveNhaPMaxMeter = 21.0
+        self.radiusMoveNhaPMax = str(self.radiusMoveNhaPMaxMeter) + " Meters"
+        self.radiusNhaPMeter = 2.0
+        self.radiusNhaP = str(self.radiusNhaPMeter) + " Meters"
         self.pathFCNhaP = os.path.join(os.path.join(self.pathProcessGDB, self.fDDanCuCoSoHaTang), self.fCNhaP)
         self.pathDoanTimDuongBo = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
 
     def Excute(self):
         self.CopyNhaPToMemory()
         self.CreateBufferDoanTimDuongBo()
-        self.CreateLayer()
         self.CreateFeatureNhaPCanDich()
-        self.CreateNearTableNhaPDoanTimDuongBo()
+        self.CreateBufferNhaPCanDich()
+        self.CreatePolygonContainsA()
 
     def CopyNhaPToMemory(self):
         self.fCNhaPInMemory = "in_memory\\NhaPInMemory"
@@ -39,40 +42,25 @@ class DichNhaP:
         arcpy.DeleteField_management(in_table = self.pathFCNhaP,
                                      drop_field = ["FID_NhaP"])
 
-    def CreateLayer(self):
-        # Create Layer BufferDoanTimDuongBo
-        self.bufferDoanTimDuongBoLayer = "BufferDoanTimDuongBoLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.bufferDoanTimDuongBo,
-                                          out_layer = self.bufferDoanTimDuongBoLayer)
-        # Create Layer NhaP
-        self.nhaPLayer = "NhaPLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.fCNhaPInMemory,
-                                          out_layer = self.nhaPLayer)
-
     def CreateBufferDoanTimDuongBo(self):
         # Create Buffer DoanTimDuongBo
         self.bufferDoanTimDuongBo = "in_memory\\BufferDoanTimDuongBo"
         arcpy.Buffer_analysis(in_features = self.pathDoanTimDuongBo,
                               out_feature_class = self.bufferDoanTimDuongBo,
                               buffer_distance_or_field = self.distanceDoanTimDuongBo)
-
-    def CreateNearTableNhaPDoanTimDuongBo(self):
-        self.NearTableNhaPDoanTimDuongBo = os.path.join(self.pathDefaultGDB, "NearTableNhaPDoanTimDuongBo")
-        arcpy.GenerateNearTable_analysis(in_features = self.fCNhaPCanDich,
-                                         near_features = self.pathDoanTimDuongBo,
-                                         out_table = self.NearTableNhaPDoanTimDuongBo,
-                                         search_radius = self.distanceDoanTimDuongBo)
-        arcpy.JoinField_management(in_data = self.fCNhaPCanDich,
-                                   in_field = "OBJECTID",
-                                   join_table = self.NearTableNhaPDoanTimDuongBo,
-                                   join_field = "IN_FID")
-
-    def CalculateFieldRadiusBuffer(self, distance):
-        return 20.0 - long(distance)
+        # Create Layer BufferDoanTimDuongBo
+        self.bufferDoanTimDuongBoLayer = "BufferDoanTimDuongBoLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.bufferDoanTimDuongBo,
+                                          out_layer = self.bufferDoanTimDuongBoLayer)
 
     def CreateFeatureNhaPCanDich(self):
-        #self.fCNhaPCanDich = "in_memory\\NhaPCanDich"
-        self.fCNhaPCanDich = os.path.join(self.pathDefaultGDB, "NhaPCanDich")
+        # Create Layer NhaP
+        self.nhaPLayer = "NhaPLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.fCNhaPInMemory,
+                                          out_layer = self.nhaPLayer)
+        # Select NhaP nam trong bufferDoanTimDuongBo
+        self.fCNhaPCanDich = "in_memory\\NhaPCanDich"
+        #self.fCNhaPCanDich = os.path.join(self.pathDefaultGDB, "NhaPCanDich")
         arcpy.SelectLayerByLocation_management(in_layer = self.nhaPLayer,
                                                overlap_type = "WITHIN",
                                                select_features = self.bufferDoanTimDuongBoLayer,
@@ -80,7 +68,43 @@ class DichNhaP:
                                                selection_type = "NEW_SELECTION")
         arcpy.CopyFeatures_management(in_features = self.nhaPLayer,
                                       out_feature_class = self.fCNhaPCanDich)
+        # Create Layer NhaPCanDich
+        self.nhaPCanDichLayer = "NhaPCanDichLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.fCNhaPCanDich,
+                                          out_layer = self.nhaPCanDichLayer)
 
+    def CreateBufferNhaPCanDich(self):
+        self.NearTableNhaPDoanTimDuongBo = "in_memory\\NearTableNhaPDoanTimDuongBo"
+        #self.NearTableNhaPDoanTimDuongBo = os.path.join(self.pathDefaultGDB, "NearTableNhaPDoanTimDuongBo")
+        arcpy.GenerateNearTable_analysis(in_features = self.fCNhaPCanDich,
+                                         near_features = self.pathDoanTimDuongBo,
+                                         out_table = self.NearTableNhaPDoanTimDuongBo,
+                                         search_radius = self.distanceDoanTimDuongBo)
+        codeBlock = """def CalculateFieldRadiusBuffer(distance):
+            return str(""" + str(self.radiusMoveNhaPMaxMeter) + """ - distance) + \" Meters\""""
+        arcpy.AddField_management(in_table = self.fCNhaPCanDich,
+                                  field_name = "RadiusBuffer",
+                                  field_type = "Text")
+        arcpy.JoinField_management(in_data = self.fCNhaPCanDich,
+                                   in_field = "OBJECTID",
+                                   join_table = self.NearTableNhaPDoanTimDuongBo,
+                                   join_field = "IN_FID")
+        arcpy.CalculateField_management(in_table = self.fCNhaPCanDich,
+                                        field = "RadiusBuffer",
+                                        expression = "CalculateFieldRadiusBuffer(!NEAR_DIST!)",
+                                        expression_type = "PYTHON_9.3",
+                                        code_block = codeBlock)
+        #self.bufferNhaPCanDich = "in_memory\\BufferNhaPCanDich"
+        self.bufferNhaPCanDich = os.path.join(self.pathDefaultGDB, "BufferNhaPCanDich")
+        arcpy.Buffer_analysis(in_features = self.fCNhaPCanDich,
+                              out_feature_class = self.bufferNhaPCanDich,
+                              buffer_distance_or_field = "RadiusBuffer")
+
+    def CreatePolygonContainsA(self):
+        self.PolygonContains = os.path.join(self.pathDefaultGDB, "PolygonContains")
+        arcpy.Erase_analysis(in_features = self.bufferNhaPCanDich,
+                             erase_features = self.bufferDoanTimDuongBo,
+                             out_feature_class = self.PolygonContains)
 
     def CreatePolygonContains(self):
         # Create Buffer DoanTimDuongBo
