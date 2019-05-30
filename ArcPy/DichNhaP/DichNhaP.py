@@ -59,8 +59,8 @@ class DichNhaP:
         arcpy.MakeFeatureLayer_management(in_features = self.fCNhaPInMemory,
                                           out_layer = self.nhaPLayer)
         # Select NhaP nam trong bufferDoanTimDuongBo
-        self.fCNhaPCanDich = "in_memory\\NhaPCanDich"
-        #self.fCNhaPCanDich = os.path.join(self.pathDefaultGDB, "NhaPCanDich")
+        #self.fCNhaPCanDich = "in_memory\\NhaPCanDich"
+        self.fCNhaPCanDich = os.path.join(os.path.join(self.pathProcessGDB, self.fDDanCuCoSoHaTang), "NhaPCanDich")
         arcpy.SelectLayerByLocation_management(in_layer = self.nhaPLayer,
                                                overlap_type = "WITHIN",
                                                select_features = self.bufferDoanTimDuongBoLayer,
@@ -74,37 +74,74 @@ class DichNhaP:
                                           out_layer = self.nhaPCanDichLayer)
 
     def CreateBufferNhaPCanDich(self):
-        self.NearTableNhaPDoanTimDuongBo = "in_memory\\NearTableNhaPDoanTimDuongBo"
-        #self.NearTableNhaPDoanTimDuongBo = os.path.join(self.pathDefaultGDB, "NearTableNhaPDoanTimDuongBo")
+        tableTemp = "in_memory\\TableTemp"
         arcpy.GenerateNearTable_analysis(in_features = self.fCNhaPCanDich,
                                          near_features = self.pathDoanTimDuongBo,
-                                         out_table = self.NearTableNhaPDoanTimDuongBo,
+                                         out_table = tableTemp,
                                          search_radius = self.distanceDoanTimDuongBo)
         codeBlock = """def CalculateFieldRadiusBuffer(distance):
             return str(""" + str(self.radiusMoveNhaPMaxMeter) + """ - distance) + \" Meters\""""
         arcpy.AddField_management(in_table = self.fCNhaPCanDich,
                                   field_name = "RadiusBuffer",
                                   field_type = "Text")
-        arcpy.JoinField_management(in_data = self.fCNhaPCanDich,
-                                   in_field = "OBJECTID",
-                                   join_table = self.NearTableNhaPDoanTimDuongBo,
-                                   join_field = "IN_FID")
-        arcpy.CalculateField_management(in_table = self.fCNhaPCanDich,
+        arcpy.AddJoin_management(in_layer_or_view = self.nhaPCanDichLayer,
+                                 in_field = "OBJECTID",
+                                 join_table = tableTemp,
+                                 join_field = "IN_FID")
+        arcpy.CalculateField_management(in_table = self.nhaPCanDichLayer,
                                         field = "RadiusBuffer",
                                         expression = "CalculateFieldRadiusBuffer(!NEAR_DIST!)",
                                         expression_type = "PYTHON_9.3",
                                         code_block = codeBlock)
-        #self.bufferNhaPCanDich = "in_memory\\BufferNhaPCanDich"
-        self.bufferNhaPCanDich = os.path.join(self.pathDefaultGDB, "BufferNhaPCanDich")
+        arcpy.RemoveJoin_management(in_layer_or_view = self.nhaPCanDichLayer,
+                                    join_name = tableTemp.split("\\")[1])
+        self.bufferNhaPCanDich = "in_memory\\BufferNhaPCanDich"
+        #self.bufferNhaPCanDich = os.path.join(self.pathDefaultGDB, "BufferNhaPCanDich")
         arcpy.Buffer_analysis(in_features = self.fCNhaPCanDich,
                               out_feature_class = self.bufferNhaPCanDich,
                               buffer_distance_or_field = "RadiusBuffer")
+        arcpy.Delete_management(self.fCNhaPCanDich)
 
     def CreatePolygonContainsA(self):
-        self.PolygonContains = os.path.join(self.pathDefaultGDB, "PolygonContains")
+        polygonTempA = "in_memory\\PolygonTempA"
         arcpy.Erase_analysis(in_features = self.bufferNhaPCanDich,
                              erase_features = self.bufferDoanTimDuongBo,
-                             out_feature_class = self.PolygonContains)
+                             out_feature_class = polygonTempA)
+        polygonTempB = os.path.join(os.path.join(self.pathDefaultGDB, self.fDDanCuCoSoHaTang), "PolygonTempB")
+        arcpy.MultipartToSinglepart_management(in_features = polygonTempA,
+                                               out_feature_class = polygonTempB)
+        polygonTempBLayer = "PolygonTempBLayer"
+        arcpy.MakeFeatureLayer_management(in_features = polygonTempB,
+                                          out_layer = polygonTempBLayer)
+        tableTempA = "in_memory\\TableTempA"
+        arcpy.Statistics_analysis(in_table = polygonTempB,
+                                  out_table = tableTempA,
+                                  statistics_fields = [["Shape_Area", "MAX"]],
+                                  case_field = ["FID_NhaP"])
+        tableTempB = "in_memory\\TableTempB"
+        arcpy.TableSelect_analysis(in_table = tableTempA,
+                                   out_table = tableTempB,
+                                   where_clause = "FREQUENCY > 1")
+        arcpy.AddJoin_management(in_layer_or_view = polygonTempBLayer,
+                                 in_field = "FID_NhaP",
+                                 join_table = tableTempB,
+                                 join_field = "FID_NhaP")
+        arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonTempBLayer,
+                                                selection_type = "NEW_SELECTION",
+                                                where_clause = "(MAX_Shape_Area IS NOT NULL) AND (Shape_Area <> MAX_Shape_Area)")
+        arcpy.RemoveJoin_management(in_layer_or_view = polygonTempBLayer,
+                                    join_name = tableTempB.split("\\")[1])
+        sqlQueryErasePolygon = ""
+        with arcpy.da.SearchCursor(polygonTempBLayer, ["OID@"]) as cursor:
+            for row in cursor:
+                sqlQueryErasePolygon += "OBJECTID <> " + str(row[0]) + " AND "
+        sqlQueryErasePolygon = sqlQueryErasePolygon[slice(len(sqlQueryErasePolygon) - 5)]
+        arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonTempBLayer,
+                                                selection_type = "NEW_SELECTION",
+                                                where_clause = sqlQueryErasePolygon)
+        arcpy.CopyFeatures_management(in_features = polygonTempBLayer,
+                                      out_feature_class = os.path.join(self.pathDefaultGDB, "ResultPolygonContains"))
+        arcpy.Delete_management(polygonTempB)
 
     def CreatePolygonContains(self):
         # Create Buffer DoanTimDuongBo
@@ -218,3 +255,4 @@ if __name__ == '__main__':
     arcpy.env.overwriteOutput = True
     dichNhaP = DichNhaP()
     dichNhaP.Excute()
+    print "Success!!!"
