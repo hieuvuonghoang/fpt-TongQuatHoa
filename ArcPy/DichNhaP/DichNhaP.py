@@ -28,7 +28,7 @@ class DichNhaP:
         self.CreateBufferNhaPCanDich()
         self.CreatePolygonContains()
         self.CreatePointRandomInPolygonContains()
-        self.UpdateShapeNhaPCanDichInFinal()
+        #self.UpdateShapeNhaPCanDichInFinal()
 
     def CopyNhaPToMemory(self):
         print "CopyNhaPToMemory"
@@ -141,19 +141,9 @@ class DichNhaP:
                                  join_field = "FID_NhaP")
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonTempBLayer,
                                                 selection_type = "NEW_SELECTION",
-                                                where_clause = "(MAX_Shape_Area IS NOT NULL) AND (Shape_Area <> MAX_Shape_Area)")
+                                                where_clause = "(MAX_Shape_Area IS NULL) OR (MAX_Shape_Area IS NOT NULL AND Shape_Area = MAX_Shape_Area)")
         arcpy.RemoveJoin_management(in_layer_or_view = polygonTempBLayer,
                                     join_name = tableTempB.split("\\")[1])
-        sqlQueryErasePolygon = ""
-        with arcpy.da.SearchCursor(polygonTempBLayer, ["OID@"]) as cursor:
-            for row in cursor:
-                sqlQueryErasePolygon += "OBJECTID <> " + str(row[0]) + " AND "
-        print len(sqlQueryErasePolygon)
-        sqlQueryErasePolygon = sqlQueryErasePolygon[slice(len(sqlQueryErasePolygon) - 5)]
-        print len(sqlQueryErasePolygon)
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonTempBLayer,
-                                                selection_type = "NEW_SELECTION",
-                                                where_clause = sqlQueryErasePolygon)
         self.resultPolygonContains = os.path.join(self.pathDefaultGDB, "ResultPolygonContains")
         arcpy.CopyFeatures_management(in_features = polygonTempBLayer,
                                       out_feature_class = self.resultPolygonContains)
@@ -188,14 +178,18 @@ class DichNhaP:
         self.nhaPProcessLayer = "NhaPProcessLayer"
         arcpy.MakeFeatureLayer_management(in_features = os.path.join(os.path.join(self.pathFinalGDB, self.fDDanCuCoSoHaTang), self.fCNhaP),
                                           out_layer = self.nhaPProcessLayer)
-        sqlQueryNhaP = ""
-        with arcpy.da.SearchCursor(self.pointRandomJoin, ["FID_NhaP"]) as cursor:
-            for row in cursor:
-                sqlQueryNhaP += "OBJECTID = " + str(row[0]) + " OR "
-        sqlQueryNhaP = sqlQueryNhaP[slice(len(sqlQueryNhaP) - 4)]
+        tableATemp = "in_memory\\TableATemp"
+        arcpy.TableSelect_analysis(in_table = self.pointRandomJoin,
+                                   out_table = tableATemp)
+        arcpy.AddJoin_management(in_layer_or_view = self.nhaPProcessLayer,
+                                 in_field = "OBJECTID",
+                                 join_table = tableATemp,
+                                 join_field = "FID_NhaP")
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.nhaPProcessLayer,
                                                 selection_type = "NEW_SELECTION",
-                                                where_clause = sqlQueryNhaP)
+                                                where_clause = "FID_NhaP IS NOT NULL")
+        arcpy.RemoveJoin_management(in_layer_or_view = self.nhaPProcessLayer,
+                                    join_name = tableATemp.split("\\")[1])
         with arcpy.da.UpdateCursor(self.nhaPProcessLayer, ["OID@", "Shape@"]) as cursor:
             for row in cursor:
                 print "\tOID: " + str(row[0])
