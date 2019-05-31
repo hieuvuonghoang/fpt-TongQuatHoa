@@ -148,7 +148,9 @@ class DichNhaP:
         with arcpy.da.SearchCursor(polygonTempBLayer, ["OID@"]) as cursor:
             for row in cursor:
                 sqlQueryErasePolygon += "OBJECTID <> " + str(row[0]) + " AND "
+        print len(sqlQueryErasePolygon)
         sqlQueryErasePolygon = sqlQueryErasePolygon[slice(len(sqlQueryErasePolygon) - 5)]
+        print len(sqlQueryErasePolygon)
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonTempBLayer,
                                                 selection_type = "NEW_SELECTION",
                                                 where_clause = sqlQueryErasePolygon)
