@@ -12,7 +12,7 @@ class DichNhaP:
         self.fDGiaoThong = "GiaoThong"
         self.fCNhaP = "NhaP"
         self.fCDoanTimDuongBo = "DoanTimDuongBo"
-        self.distanceDoanTimDuongBoMeter = 20.0
+        self.distanceDoanTimDuongBoMeter = 10.0
         self.distanceDoanTimDuongBo = str(self.distanceDoanTimDuongBoMeter) + " Meters"
         self.radiusMoveNhaPMaxMeter = 50.0
         self.radiusMoveNhaPMax = str(self.radiusMoveNhaPMaxMeter) + " Meters"
@@ -240,6 +240,16 @@ class DichNhaP:
                             break
                 if found == False:
                     cursor.deleteRow()
+        arcpy.SelectLayerByLocation_management(in_layer = self.nhaPProcessLayer,
+                                               overlap_type = "WITHIN",
+                                               select_features = self.bufferDoanTimDuongBoLayer,
+                                               search_distance = self.distanceDoanTimDuongBo,
+                                               selection_type = "NEW_SELECTION")
+        with arcpy.da.UpdateCursor(self.nhaPProcessLayer) as cursor:
+            for row in cursor:
+                cursor.deleteRow()
+
+        
 
 if __name__ == '__main__':
     print "DichNhaP Tools"
