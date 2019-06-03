@@ -245,7 +245,7 @@ class DichNhaP:
                                                select_features = self.bufferDoanTimDuongBo,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION")
-        with arcpy.da.UpdateCursor(self.nhaPProcessLayer) as cursor:
+        with arcpy.da.UpdateCursor(self.nhaPProcessLayer, ['OID@']) as cursor:
             for row in cursor:
                 cursor.deleteRow()
 
