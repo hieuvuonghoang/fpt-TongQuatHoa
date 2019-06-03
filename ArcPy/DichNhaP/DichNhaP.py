@@ -242,14 +242,12 @@ class DichNhaP:
                     cursor.deleteRow()
         arcpy.SelectLayerByLocation_management(in_layer = self.nhaPProcessLayer,
                                                overlap_type = "WITHIN",
-                                               select_features = self.bufferDoanTimDuongBoLayer,
-                                               search_distance = self.distanceDoanTimDuongBo,
+                                               select_features = self.bufferDoanTimDuongBo,
+                                               search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION")
         with arcpy.da.UpdateCursor(self.nhaPProcessLayer) as cursor:
             for row in cursor:
                 cursor.deleteRow()
-
-        
 
 if __name__ == '__main__':
     print "DichNhaP Tools"
