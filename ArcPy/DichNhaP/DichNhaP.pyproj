@@ -25,6 +25,7 @@
     <Compile Include="DichNhaP.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigDichNhaPTools.json" />
     <Content Include="Run.bat" />
   </ItemGroup>
   <PropertyGroup>
