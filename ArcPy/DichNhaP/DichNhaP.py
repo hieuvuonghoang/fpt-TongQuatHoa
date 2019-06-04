@@ -7,7 +7,7 @@ class DichNhaP:
     def __init__(self):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
-        self.pathDefaultGDB = "C:\\Users\\vuong\\Documents\\ArcGIS\\Default.gdb"
+        self.pathDefaultGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.fDDanCuCoSoHaTang = "DanCuCoSoHaTang"
         self.fDGiaoThong = "GiaoThong"
         self.fCNhaP = "NhaP"
@@ -27,7 +27,8 @@ class DichNhaP:
         self.CreateFeatureNhaPCanDich()
         self.CreateBufferNhaPCanDich()
         self.CreatePolygonContains()
-        self.CreatePointRandomInPolygonContains()
+        self.RunFeatureToPoint()
+        #self.CreatePointRandomInPolygonContains()
         self.UpdateShapeNhaPCanDichInFinal()
 
     def CopyNhaPToMemory(self):
@@ -209,13 +210,21 @@ class DichNhaP:
         arcpy.CopyFeatures_management(in_features = self.pointRandom,
                                       out_feature_class = self.pointRandomJoin)
     
+    def RunFeatureToPoint(self):
+        print "RunFeatureToPoint"
+        self.featureToPoint = os.path.join(self.pathDefaultGDB, "FeatureToPoint")
+        arcpy.FeatureToPoint_management(in_features = self.resultPolygonContains,
+                                        out_feature_class = self.featureToPoint,
+                                        point_location = "INSIDE")
+        pass
+
     def UpdateShapeNhaPCanDichInFinal(self):
         print "UpdateShapeNhaPCanDichInFinal"
         self.nhaPProcessLayer = "NhaPProcessLayer"
         arcpy.MakeFeatureLayer_management(in_features = os.path.join(os.path.join(self.pathFinalGDB, self.fDDanCuCoSoHaTang), self.fCNhaP),
                                           out_layer = self.nhaPProcessLayer)
         tableATemp = "in_memory\\TableATemp"
-        arcpy.TableSelect_analysis(in_table = self.pointRandomJoin,
+        arcpy.TableSelect_analysis(in_table = self.featureToPoint,
                                    out_table = tableATemp)
         arcpy.AddJoin_management(in_layer_or_view = self.nhaPProcessLayer,
                                  in_field = "OBJECTID",
@@ -230,7 +239,7 @@ class DichNhaP:
             for row in cursor:
                 #print "\tOID: " + str(row[0])
                 found = False;
-                with arcpy.da.UpdateCursor(self.pointRandomJoin, ["FID_NhaP", "Shape@"]) as cursorSub:
+                with arcpy.da.UpdateCursor(self.featureToPoint, ["FID_NhaP", "Shape@"]) as cursorSub:
                     for rowSub in cursorSub:
                         if row[0] == rowSub[0]:
                             found = True;
