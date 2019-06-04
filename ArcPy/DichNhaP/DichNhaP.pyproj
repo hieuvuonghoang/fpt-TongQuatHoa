@@ -23,9 +23,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DichNhaP.py" />
-    <Compile Include="TryDemo.py">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />
