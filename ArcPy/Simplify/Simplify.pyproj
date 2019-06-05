@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b04da927-0680-4537-b2a9-8c5cd71b7ea7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Simplify.py</StartupFile>
+    <StartupFile>DuongBoNuocDemo.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DuongBoNuocDemo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Simplify.py" />
   </ItemGroup>
   <ItemGroup>
