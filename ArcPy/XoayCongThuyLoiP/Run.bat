@@ -7,7 +7,7 @@ echo.Running...
 echo.
 
 :: Runs your command
-python XoayCongThuyLoiP.py
+python XoayCongThuyLoiPCauGiaoThongP.py
 
 set end=%time%
 set options="tokens=1-4 delims=:.,"

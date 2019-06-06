@@ -4,7 +4,7 @@
   "listPolygon": [
    {
     "featureClass": "PhuBeMat",
-    "runSimplify": false
+    "runSimplify": true
    }
   ]
  }, 
@@ -116,11 +116,11 @@
   "listPolygon": [
    {
     "featureClass": "VungBien", 
-    "runSimplify": false
+    "runSimplify": true
    }, 
    {
     "featureClass": "DiaPhan", 
-    "runSimplify": false
+    "runSimplify": true
    }
   ]
  }, 

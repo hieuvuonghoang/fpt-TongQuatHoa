@@ -1,0 +1,1308 @@
+################### GiaoThong/DoanVuotSongSuoiP ###################
+Name: DoanVuotSongSuoiP_Rep_Rules, CodeCount: 5, Field: DoanVuotSongSuoiP_Rep_ID
+	Value: 1, Name: 63-b-Bến đò PTL
+	Value: 2, Name: 62-b-Bến phà PTL
+	Value: 3, Name: 64-b-Bến lội phi TL
+	Value: 4, Name: 61-b-Ngầm ô tô qua được PTL
+	Value: -1, Name: Free Representation
+################### GiaoThong/CauDiBoP ###################
+Name: CauDiBoP_Rep_Rules, CodeCount: 2, Field: CauDiBoP_Rep_ID
+	Value: 1, Name: 58-1-b-Cầu vượt không theo tỷ lệ
+	Value: -1, Name: Free Representation
+################### GiaoThong/HamDiBoL ###################
+################### GiaoThong/CongGiaoThongP ###################
+Name: LoaiCongGiaoThong, CodeCount: 2, Field: loaiCongGiaoThong
+	Value: 1, Name: Cong duong bo
+	Value: 2, Name: Cong duong sat
+Name: phanLoaiCauCong, CodeCount: 8, Field: phanLoaiCauCong
+	Value: 1, Name: TrenDuongCaoToc
+	Value: 2, Name: TrenQuocLo
+	Value: 3, Name: TrenTInhLo
+	Value: 4, Name: TrenDuongOTo
+	Value: 7, Name: TrenPhoChinh
+	Value: 8, Name: TrenPhoPhu
+	Value: 5, Name: TrenDuongNho_DuongMon
+	Value: 6, Name: TrenDuongChiaLo
+Name: CongGiaoThongP_RepPhai_Rules, CodeCount: 8, Field: CongGiaoThongP_RepPhai_ID
+	Value: 1, Name: Cống trên đường cao tốc_phải
+	Value: 2, Name: Cống trên đường quốc lộ_phải
+	Value: 3, Name: Cống trên đường tỉnh lộ_phải
+	Value: 4, Name: Cống trên đường ô tô khác_phải
+	Value: 5, Name: Cống trên đường mòn_phải
+	Value: 6, Name: Cống trên đường chia lô_phải
+	Value: 7, Name: Cống trên phố phụ_phải
+	Value: -1, Name: Free Representation
+Name: CongGiaoThongP_RepTrai_Rules, CodeCount: 8, Field: CongGiaoThongP_RepTrai_ID
+	Value: 1, Name: Cống trên đường cao tốc_trái
+	Value: 2, Name: Cống trên đường quốc lộ_trái
+	Value: 3, Name: Cống trên đường tỉnh lộ_trái
+	Value: 4, Name: Cống trên đường ô tô khác_trái
+	Value: 5, Name: Cống trên đường mòn_trái
+	Value: 6, Name: Cống trên đường chia lô_trái
+	Value: 7, Name: Cống trên phố phụ_trái
+	Value: -1, Name: Free Representation
+################### GiaoThong/CongGiaoThongA ###################
+Name: LoaiCongGiaoThong, CodeCount: 2, Field: loaiCongGiaoThong
+	Value: 1, Name: Cong duong bo
+	Value: 2, Name: Cong duong sat
+Name: phanLoaiCauCong, CodeCount: 8, Field: phanLoaiCauCong
+	Value: 1, Name: TrenDuongCaoToc
+	Value: 2, Name: TrenQuocLo
+	Value: 3, Name: TrenTInhLo
+	Value: 4, Name: TrenDuongOTo
+	Value: 7, Name: TrenPhoChinh
+	Value: 8, Name: TrenPhoPhu
+	Value: 5, Name: TrenDuongNho_DuongMon
+	Value: 6, Name: TrenDuongChiaLo
+################### GiaoThong/DuongCapTreo ###################
+################### GiaoThong/BaoHieuGiaoThong ###################
+Name: LoaiBaoHieuGiaoThong, CodeCount: 2, Field: loaiBaoHieuGiaoThong
+	Value: 3, Name: Duong thuy noi dia
+	Value: 4, Name: Duong bien
+Name: BaoHieuGiaoThong_Rep_Rules, CodeCount: 2, Field: BaoHieuGiaoThong_Rep_ID
+	Value: 1, Name: 93-Đèn biển
+	Value: -1, Name: Free Representation
+################### GiaoThong/BenBaiA ###################
+Name: BenBaiA_Rep_Rules, CodeCount: 4, Field: BenBaiA_Rep_ID
+	Value: 1, Name: 46-a-Ga vẽ theo tỷ lệ
+	Value: 2, Name: 91-2-Bến tàu, chỗ bỏ neo dạng vùng
+	Value: 3, Name: 43-a-2-Sân bay đang hoạt động dạng vùng
+	Value: -1, Name: Free Representation
+################### GiaoThong/BenBaiL ###################
+Name: BenBaiL_Rep_Rules, CodeCount: 3, Field: BenBaiL_Rep_ID
+	Value: 1, Name: 87-3-a-Âu thuyền ô tô qua được
+	Value: 2, Name: 92-1-a-Cầu tàu kiểu đê theo tỷ lệ
+	Value: -1, Name: Free Representation
+################### GiaoThong/BenBaiP ###################
+Name: BenBaiP_Rep_Rules, CodeCount: 6, Field: BenBaiP_Rep_ID
+	Value: 1, Name: 46-c-Ga không theo tỷ lệ
+	Value: 2, Name: 87-3-b-Âu thuyền ô tô qua đc (point)
+	Value: 3, Name: 91-Bến tàu, chỗ bỏ neo
+	Value: 4, Name: 43-a-Sân bay hoạt động
+	Value: 5, Name: 92-1-b-Cầu tàu kiểu đê PTL
+	Value: -1, Name: Free Representation
+################### GiaoThong/CauDiBoL ###################
+Name: CauDiBoL_Rep_Rules, CodeCount: 3, Field: CauDiBoL_Rep_ID
+	Value: 1, Name: 58-1-a-Cầu vượt theo tỷ lệ
+	Value: 2, Name: 58-1-a-Cầu vượt <75m
+	Value: -1, Name: Free Representation
+################### GiaoThong/CauGiaoThongA ###################
+Name: LoaiCauGiaoThong, CodeCount: 6, Field: loaiCauGiaoThong
+	Value: 1, Name: Cau thuong
+	Value: 2, Name: Phao
+	Value: 3, Name: Treo
+	Value: 4, Name: Tang
+	Value: 5, Name: Quay
+	Value: 6, Name: Khac
+Name: LoaiChucNangCau, CodeCount: 4, Field: loaiChucNangCau
+	Value: 1, Name: Chung
+	Value: 2, Name: Duong bo
+	Value: 3, Name: Duong sat
+	Value: 4, Name: Vuot
+Name: loaiTinhChatCau, CodeCount: 7, Field: tinhChatCau
+	Value: 1, Name: BeTong
+	Value: 2, Name: Sat
+	Value: 3, Name: Treo
+	Value: 4, Name: CauDonGian
+	Value: 5, Name: Tang
+	Value: 6, Name: Chui
+	Value: 7, Name: Khac
+Name: phanLoaiCauCong, CodeCount: 8, Field: phanLoaiCauCong
+	Value: 1, Name: TrenDuongCaoToc
+	Value: 2, Name: TrenQuocLo
+	Value: 3, Name: TrenTInhLo
+	Value: 4, Name: TrenDuongOTo
+	Value: 7, Name: TrenPhoChinh
+	Value: 8, Name: TrenPhoPhu
+	Value: 5, Name: TrenDuongNho_DuongMon
+	Value: 6, Name: TrenDuongChiaLo
+################### GiaoThong/CauGiaoThongL ###################
+Name: LoaiCauGiaoThong, CodeCount: 6, Field: loaiCauGiaoThong
+	Value: 1, Name: Cau thuong
+	Value: 2, Name: Phao
+	Value: 3, Name: Treo
+	Value: 4, Name: Tang
+	Value: 5, Name: Quay
+	Value: 6, Name: Khac
+Name: LoaiChucNangCau, CodeCount: 4, Field: loaiChucNangCau
+	Value: 1, Name: Chung
+	Value: 2, Name: Duong bo
+	Value: 3, Name: Duong sat
+	Value: 4, Name: Vuot
+Name: loaiTinhChatCau, CodeCount: 7, Field: tinhChatCau
+	Value: 1, Name: BeTong
+	Value: 2, Name: Sat
+	Value: 3, Name: Treo
+	Value: 4, Name: CauDonGian
+	Value: 5, Name: Tang
+	Value: 6, Name: Chui
+	Value: 7, Name: Khac
+Name: phanLoaiCauCong, CodeCount: 8, Field: phanLoaiCauCong
+	Value: 1, Name: TrenDuongCaoToc
+	Value: 2, Name: TrenQuocLo
+	Value: 3, Name: TrenTInhLo
+	Value: 4, Name: TrenDuongOTo
+	Value: 7, Name: TrenPhoChinh
+	Value: 8, Name: TrenPhoPhu
+	Value: 5, Name: TrenDuongNho_DuongMon
+	Value: 6, Name: TrenDuongChiaLo
+Name: CauGiaoThongL_Rep_Rules, CodeCount: 19, Field: CauGiaoThongL_Rep_ID
+	Value: 1, Name: 58-1-a-Cầu vượt theo tỷ lệ
+	Value: 2, Name: 58-1-a-Cầu vượt <75m
+	Value: 3, Name: 60-3-a-Cầu tầng ô tô đi trên
+	Value: 4, Name: 58-2-a-Cầu chui theo TL
+	Value: 5, Name: 58-2-a-Cầu chui <55m
+	Value: 6, Name: 60-1-a-Cầu trên đg sắt hoặc đg ô tô
+	Value: 7, Name: 60-2-a-Cầu đg sắt và ô tô đi chung
+	Value: 8, Name: 60-4-a-Cầu ô tô không qua được
+	Value: 9, Name: 60-1-a-1-Cầu trên đg sắt hoặc đg ô tô <32,5m
+	Value: 10, Name: 60-2-a-1-Cầu đg sắt và ô tô đi chung < 30m
+	Value: 11, Name: 60-3-a-1-Cầu tầng ô tô đi trên <30m
+	Value: 12, Name: 60-4-a-1-Cầu ô tô ko qua được <35m
+	Value: 13, Name: 60-1-a-2-Cầu trên đường cao tốc
+	Value: 14, Name: 60-1-a-2-Cầu trên đg cao tốc <32,5m
+	Value: 15, Name: 60-1-a-3-Cầu trên đường quốc lộ
+	Value: 16, Name: 60-1-a-3-Cầu trên đg quốc lộ <32,5m
+	Value: 17, Name: 60-1-a-4-Cầu trên đường tỉnh lộ
+	Value: 18, Name: 60-1-a-4-Cầu trên đg tỉnh lộ <32,5m
+	Value: -1, Name: Free Representation
+################### GiaoThong/CauGiaoThongP ###################
+Name: LoaiCauGiaoThong, CodeCount: 6, Field: loaiCauGiaoThong
+	Value: 1, Name: Cau thuong
+	Value: 2, Name: Phao
+	Value: 3, Name: Treo
+	Value: 4, Name: Tang
+	Value: 5, Name: Quay
+	Value: 6, Name: Khac
+Name: LoaiChucNangCau, CodeCount: 4, Field: loaiChucNangCau
+	Value: 1, Name: Chung
+	Value: 2, Name: Duong bo
+	Value: 3, Name: Duong sat
+	Value: 4, Name: Vuot
+Name: loaiTinhChatCau, CodeCount: 7, Field: tinhChatCau
+	Value: 1, Name: BeTong
+	Value: 2, Name: Sat
+	Value: 3, Name: Treo
+	Value: 4, Name: CauDonGian
+	Value: 5, Name: Tang
+	Value: 6, Name: Chui
+	Value: 7, Name: Khac
+Name: phanLoaiCauCong, CodeCount: 8, Field: phanLoaiCauCong
+	Value: 1, Name: TrenDuongCaoToc
+	Value: 2, Name: TrenQuocLo
+	Value: 3, Name: TrenTInhLo
+	Value: 4, Name: TrenDuongOTo
+	Value: 7, Name: TrenPhoChinh
+	Value: 8, Name: TrenPhoPhu
+	Value: 5, Name: TrenDuongNho_DuongMon
+	Value: 6, Name: TrenDuongChiaLo
+Name: CauGiaoThongP_Rep_Rules, CodeCount: 10, Field: CauGiaoThongP_Rep_ID
+	Value: 1, Name: 60-1-b-Cầu trên đường sắt hoặc đg ô tô PTL
+	Value: 2, Name: 60-2-b-Cầu đường sắt và ô tô đi chung PTL
+	Value: 3, Name: 58-1-b-Cầu vượt không theo tỷ lệ
+	Value: 4, Name: 60-3-b-Cầu tầng ô tô đi trên PTL
+	Value: 5, Name: 60-4-b-Cầu ô tô không qua được PTL
+	Value: 6, Name: 58-2-b-Cầu chui không theo tỷ lệ
+	Value: 7, Name: 60-1-a-2-Cầu trên đường cao tốc PTL
+	Value: 8, Name: 60-1-a-3-Cầu trên đg quốc lộ PTL
+	Value: 9, Name: 60-1-a-4-Cầu trên đg tỉnh lộ PTL
+	Value: -1, Name: Free Representation
+################### GiaoThong/CongGiaoThongL ###################
+Name: LoaiCongGiaoThong, CodeCount: 2, Field: loaiCongGiaoThong
+	Value: 1, Name: Cong duong bo
+	Value: 2, Name: Cong duong sat
+Name: CongGiaoThongL_Rep_Rules, CodeCount: 6, Field: CongGiaoThongL_Rep_ID
+	Value: 1, Name: Cống giao thông dạng line_trên đường quốc lộ
+	Value: 2, Name: Cống giao thông dạng line_trên đường tỉnh lộ, đường ô tô, phố chính
+	Value: 3, Name: Cống giao thông dạng line_trên phố phụ
+	Value: 4, Name: Cống giao thông dạng line_trên đường nhỏ, đường mòn
+	Value: 5, Name: Cống giao thông dạng line_trên đường cao tốc
+	Value: -1, Name: Free Representation
+################### GiaoThong/Deo ###################
+Name: Deo_Rep_Rules, CodeCount: 2, Field: Deo_Rep_ID
+	Value: 1, Name: 105-Đèo
+	Value: -1, Name: Free Representation
+################### GiaoThong/DoanDuongSat ###################
+Name: LoaiDuongSat, CodeCount: 2, Field: loaiDuongSat
+	Value: 1, Name: Don
+	Value: 2, Name: Long
+Name: LoaiChucNangDuongSat, CodeCount: 3, Field: loaiChucNangDuongSat
+	Value: 1, Name: ChuyenDung
+	Value: 2, Name: DoThi
+	Value: 3, Name: QuocGia
+Name: LoaiHienTrangSuDung, CodeCount: 3, Field: loaiHienTrangSuDung
+	Value: 1, Name: DangSuDung
+	Value: 2, Name: DangXayDung
+	Value: 3, Name: KhongSuDung
+Name: LoaiKhoDuongSat, CodeCount: 3, Field: loaiKhoDuongSat
+	Value: 1, Name: Hep
+	Value: 2, Name: Chuan
+	Value: 3, Name: DacBiet
+Name: LoaiKetCauDuongSat, CodeCount: 4, Field: loaiKetCauDuongSat
+	Value: 2, Name: TrenCao
+	Value: 3, Name: QuaHam
+	Value: 4, Name: CoKetCauKhac
+	Value: 1, Name: QuaCau
+Name: DoanDuongSat_Rep_Rules, CodeCount: 4, Field: DoanDuongSat_Rep_ID
+	Value: 1, Name: 44-a-Đường sắt hiện có
+	Value: 2, Name: 44-b-Đường sắt đang làm
+	Value: 3, Name: 45-Đường goòng, đường xe điện
+	Value: -1, Name: Free Representation
+################### GiaoThong/DoanTimDuongBo ###################
+Name: LoaiDuongBo, CodeCount: 7, Field: loaiDuongBo
+	Value: 1, Name: CaoToc
+	Value: 3, Name: Dan
+	Value: 4, Name: GiaoThongNongThon
+	Value: 5, Name: Pho
+	Value: 6, Name: Lang,NgoPho
+	Value: 9, Name: Gom
+	Value: 2, Name: Chinh
+Name: LoaiChatLieuTraiMat, CodeCount: 7, Field: loaiChatLieuTraiMat
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: Bê tông
+	Value: 2, Name: Gạch
+	Value: 3, Name: Đá sỏi
+	Value: 4, Name: Đất
+	Value: 5, Name: Nhựa
+	Value: 6, Name: Khác
+Name: LoaiHienTrangSuDung, CodeCount: 3, Field: loaiHienTrangSuDung
+	Value: 1, Name: DangSuDung
+	Value: 2, Name: DangXayDung
+	Value: 3, Name: KhongSuDung
+Name: LoaiKetCau, CodeCount: 11, Field: loaiKetCau
+	Value: 1, Name: QuaCauKienCo
+	Value: 2, Name: QuaCauTam
+	Value: 3, Name: QuaHam
+	Value: 4, Name: QuaDap
+	Value: 5, Name: TrenDe
+	Value: 6, Name: QuaNgam
+	Value: 8, Name: CoKetCauKhac
+	Value: 9, Name: DapCao
+	Value: 10, Name: XeSau
+	Value: 11, Name: QuaCong
+	Value: 7, Name: VuotSongSuoi
+Name: phanLoaiDuong, CodeCount: 11, Field: phanLoaiDuong
+	Value: 1, Name: Cao tốc
+	Value: 2, Name: Quốc lộ
+	Value: 4, Name: Ô tô khác
+	Value: 5, Name: Đường đang làm
+	Value: 6, Name: Đường nhỏ
+	Value: 7, Name: Đường mòn
+	Value: 8, Name: Đường chia lô
+	Value: 9, Name: Phố chính
+	Value: 10, Name: Phố phụ
+	Value: 11, Name: TIm cao tốc
+	Value: 3, Name: Tỉnh lộ
+Name: DoanTimDuongBo_Rep_Rules, CodeCount: 15, Field: DoanTimDuongBo_Rep_ID
+	Value: 1, Name: 47-a-3-Tim đường cao tốc TL
+	Value: 2, Name: 47-b-Đường cao tốc nửaTL
+	Value: 3, Name: 48-2-Đường QL lát nhựa nửa TL
+	Value: 4, Name: 49-Tỉnh lộ lát nhựa nửa TL
+	Value: 5, Name: 50-b-Đường ô tô khác
+	Value: 6, Name: 51-Đường ô tô đang làm nửa TL
+	Value: 7, Name: 52-Đường nhỏ
+	Value: 8, Name: 53-Đường mòn
+	Value: 9, Name: 54-Đường chia lô
+	Value: 10, Name: 55-a-Đường phố chính
+	Value: 11, Name: 55-b-Đường phố phụ, ngõ phố
+	Value: 12, Name: 65-2-b-Đường ô tô khác đắp cao
+	Value: 13, Name: 8-2-Đường QL lát nhựa nửa TL đắp cao 2 bên
+	Value: 14, Name: 49-Tỉnh lộ lát nhựa nửa TL đắp cao 2 bên
+	Value: -1, Name: Free Representation
+Name: DoanTimDuongBo_Nen_Rules, CodeCount: 9, Field: DoanTimDuongBo_Nen_ID
+	Value: 1, Name: 47-b-Đường cao tốc nửaTL_Nền
+	Value: 2, Name: 48-2-Đường QL lát nhựa nửa TL_Nền
+	Value: 3, Name: 49-Tỉnh lộ lát nhựa nửa TL_Nền
+	Value: 4, Name: 50-b-Đường ô tô khác_Nền
+	Value: 5, Name: 51-Đường ô tô đang làm nửa TL_Nền
+	Value: 6, Name: 54-Đường chia lô_Nền
+	Value: 7, Name: 55-a-Đường phố chính_Nền
+	Value: 8, Name: 55-b-Đường phố phụ, ngõ phố_Nền
+	Value: -1, Name: Free Representation
+################### GiaoThong/DoanVuotSongSuoiL ###################
+Name: DoanVuotSongSuoiL_Rep_Rules, CodeCount: 7, Field: DoanVuotSongSuoiL_Rep_ID
+	Value: 1, Name: 63-a-Bến đò theo TL
+	Value: 2, Name: 62-a-Bến phà theo TL
+	Value: 3, Name: 64-a-Bến lội theo tỷ lệ
+	Value: 4, Name: 64-a-1-Bến lội theo tỷ lệ <37,5m
+	Value: 5, Name: 61-a-Ngầm ô tô qua được theo TL
+	Value: 6, Name: 61-a-1-Ngầm ô tô qua được < 32,5m
+	Value: -1, Name: Free Representation
+################### GiaoThong/DuongNoiBoA ###################
+Name: LoaiChatLieuTraiMat, CodeCount: 7, Field: loaiChatLieuTraiMat
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: Bê tông
+	Value: 2, Name: Gạch
+	Value: 3, Name: Đá sỏi
+	Value: 4, Name: Đất
+	Value: 5, Name: Nhựa
+	Value: 6, Name: Khác
+################### GiaoThong/DuongNoiBoL ###################
+Name: LoaiChatLieuTraiMat, CodeCount: 7, Field: loaiChatLieuTraiMat
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: Bê tông
+	Value: 2, Name: Gạch
+	Value: 3, Name: Đá sỏi
+	Value: 4, Name: Đất
+	Value: 5, Name: Nhựa
+	Value: 6, Name: Khác
+Name: DuongNoiBoL_Rep_Rules, CodeCount: 4, Field: DuongNoiBoL_Rep_ID
+	Value: 1, Name: 55-a-Đường phố chính
+	Value: 2, Name: 55-b-Đường phố phụ, ngõ phố
+	Value: 3, Name: 52-Đường nhỏ
+	Value: -1, Name: Free Representation
+Name: DuongNoiBoL_Nen_Rules, CodeCount: 3, Field: DuongNoiBoL_Nen_ID
+	Value: 1, Name: 55-a-Đường phố chính_Nền
+	Value: 2, Name: 55-b-Đường phố phụ, ngõ phố_Nền
+	Value: -1, Name: Free Representation
+################### GiaoThong/HamDiBoP ###################
+################### GiaoThong/HamGiaoThongA ###################
+Name: LoaiHamGiaoThong, CodeCount: 2, Field: loaiHamGiaoThong
+	Value: 1, Name: DuongBo
+	Value: 3, Name: DuongSat
+################### GiaoThong/HamGiaoThongL ###################
+Name: LoaiHamGiaoThong, CodeCount: 2, Field: loaiHamGiaoThong
+	Value: 1, Name: DuongBo
+	Value: 3, Name: DuongSat
+Name: LoaiHamGiaoThong, CodeCount: 2, Field: ten
+	Value: 1, Name: DuongBo
+	Value: 3, Name: DuongSat
+Name: HamGiaoThongL_Rep_Rules, CodeCount: 3, Field: HamGiaoThongL_Rep_ID
+	Value: 1, Name: 65-1-a-2-Hầm đường bộ theo TL
+	Value: 2, Name: 65-1-a-1-Hầm đường sắt theo TL
+	Value: -1, Name: Free Representation
+################### GiaoThong/HamGiaoThongP ###################
+Name: LoaiHamGiaoThong, CodeCount: 2, Field: loaiHamGiaoThong
+	Value: 1, Name: DuongBo
+	Value: 3, Name: DuongSat
+Name: LoaiHamGiaoThong, CodeCount: 2, Field: ten
+	Value: 1, Name: DuongBo
+	Value: 3, Name: DuongSat
+Name: HamGiaoThongP_Rep_Rules, CodeCount: 3, Field: HamGiaoThongP_Rep_ID
+	Value: 1, Name: 65-1-b-2-Hầm đường bộ PTL
+	Value: 2, Name: 65-1-b-1-Hầm đường sắt PTL
+	Value: -1, Name: Free Representation
+################### GiaoThong/MatDuongBo ###################
+Name: MatDuongBo_Rep_Rules, CodeCount: 2, Field: MatDuongBo_Rep_ID
+	Value: 1, Name: 47-a-1-Nền đường cao tốc, quốc lộ, tỉnh lộ theo TL
+	Value: -1, Name: Free Representation
+################### GiaoThong/NutDuongSat ###################
+################### GiaoThong/NutMangDuongBo ###################
+################### GiaoThong/RanhGioiDuongBo ###################
+Name: LoaiRanhGioiDuongBo, CodeCount: 3, Field: loaiRanhGioiDuongBo
+	Value: 1, Name: LaThanhCau
+	Value: 2, Name: LaThanhHam
+	Value: 3, Name: LoaiKhac
+Name: RanhGioiDuongBo_Rep_Rules, CodeCount: 4, Field: RanhGioiDuongBo_Rep_ID
+	Value: 1, Name: Cầu dạng vùng (bên phải)
+	Value: 2, Name: Cầu dạng vùng (bên trái)
+	Value: 3, Name: 47-a-2-Viền đường cao tốc, quốc lộ, tỉnh lộ, ô tô theo TL
+	Value: -1, Name: Free Representation
+################### GiaoThong/TaluyGiaoThong ###################
+Name: LoaiTaluyGiaoThong, CodeCount: 2, Field: loaiTaluyGiaoThong
+	Value: 1, Name: DuongBo
+	Value: 2, Name: DuongSat
+Name: LoaiHinhThaiTaluy, CodeCount: 2, Field: loaiHinhThaiTaluy
+	Value: 1, Name: DapCao
+	Value: 2, Name: XeSau
+Name: LoaiThanhPhanTaluy, CodeCount: 2, Field: loaiThanhPhanTaLuy
+	Value: 1, Name: ChanTaluy
+	Value: 2, Name: DinhTaluy
+Name: TaluyGiaoThong_Rep_Rules, CodeCount: 3, Field: TaluyGiaoThong_Rep_ID
+	Value: 1, Name: 65-3-Đường đắp cao, xẻ sâu
+	Value: 2, Name: 41-Các loại ranh giới khác
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/NhaL ###################
+Name: NhaL_Rep_Rules, CodeCount: 3, Field: NhaL_Rep_ID
+	Value: 1, Name: 4-b-Nhà độc lập nửa tỷ lệ
+	Value: 2, Name: 6-2-a-Khu phố nửa TL chịu lửa
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/DuongDayTaiDien ###################
+Name: LoaiDuongDay, CodeCount: 2, Field: loaiDuongDay
+	Value: 1, Name: TrongKhuDanCu
+	Value: 2, Name: NgoaiKhuDanCu
+Name: DuongDayTaiDien_Rep_Rules, CodeCount: 3, Field: DuongDayTaiDien_Rep_ID
+	Value: 1, Name: 35-b-Dây điện trong khu dân cư
+	Value: 2, Name: 35-a-Dây điện ngoài khu dân cư
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/DiemDanCuA ###################
+Name: LoaiDiemDanCu, CodeCount: 2, Field: loaiDiemDanCu
+	Value: 1, Name: DoThi
+	Value: 2, Name: NongThon
+################### DanCuCoSoHaTang/DiaDanhDanCu ###################
+Name: LoaiDanhTuChung, CodeCount: 52, Field: loaiDanhTuChung
+	Value: 1, Name: Ap
+	Value: 3, Name: Ban
+	Value: 10, Name: Buon
+	Value: 55, Name: Lang
+	Value: 90, Name: ToDanPho
+	Value: 115, Name: Phum
+	Value: 116, Name: Soc
+	Value: 109, Name: Xom
+	Value: 113, Name: KhuPho
+	Value: 114, Name: KhoiPho
+	Value: 50, Name: KhuChungCu
+	Value: 56, Name: Lung
+	Value: 71, Name: Plei
+	Value: 87, Name: Thon
+	Value: 91, Name: Trai
+	Value: 18, Name: Chom
+	Value: 112, Name: Cum
+	Value: 15, Name: CanhDong
+	Value: 29, Name: DayNui
+	Value: 35, Name: Doi
+	Value: 59, Name: MuiDat
+	Value: 70, Name: Nui
+	Value: 110, Name: CaoNguyen
+	Value: 111, Name: DongBang
+	Value: 89, Name: ThungLung
+	Value: 31, Name: Deo
+	Value: 37, Name: Dong
+	Value: 40, Name: Hang
+	Value: 4, Name: BanDao
+	Value: 48, Name: KhuDanCu
+	Value: 122, Name: ngok
+	Value: 123, Name: bon
+	Value: 128, Name: chi
+	Value: 129, Name: lok
+	Value: 130, Name: yok
+	Value: 131, Name: yook
+	Value: 132, Name: youk
+	Value: 133, Name: phu
+	Value: 135, Name: bnom
+	Value: 136, Name: bonom
+	Value: 137, Name: lung
+	Value: 138, Name: khom
+	Value: 139, Name: ru
+	Value: 140, Name: dun
+	Value: 141, Name: ke
+	Value: 142, Name: khau
+	Value: 143, Name: phia
+	Value: 144, Name: pu
+	Value: 145, Name: len
+	Value: 146, Name: dong
+	Value: 125, Name: chw
+	Value: 127, Name: cw
+################### DanCuCoSoHaTang/CongTrinhKienTrucDacBietP ###################
+Name: CongTrinhKienTrucP_Rep_Rules, CodeCount: 3, Field: CongTrinhKienTrucP_Rep_ID
+	Value: 1, Name: Tượng đài, bia tưởng niệm
+	Value: 2, Name: Kiến trúc tháp cổ
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/DuongOngDan ###################
+Name: LoaiDuongOngDan, CodeCount: 4, Field: loaiDuongOngDan
+	Value: 1, Name: Nuoc
+	Value: 2, Name: Khi
+	Value: 4, Name: Khac
+	Value: 3, Name: Xang,Dau
+Name: LoaiViTriDuongOng, CodeCount: 3, Field: loaiViTriDuongOng
+	Value: 1, Name: Ngam
+	Value: 2, Name: Noi
+	Value: 3, Name: TrenTru
+Name: DuongOngDan_Rep_Rules, CodeCount: 2, Field: DuongOngDan_Rep_ID
+	Value: 1, Name: 36-Đường ống dẫn khí, dầu
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/NhaP ###################
+Name: NhaP_Rep1_Rules, CodeCount: 2, Field: NhaP_Rep1_ID
+	Value: 1, Name: 4-c-Nhà phi tỷ lệ
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/KhuChucNangA ###################
+Name: KhuChucNangA_Rep_Rules, CodeCount: 19, Field: KhuChucNangA_Rep_ID
+	Value: 1, Name: Khu chức năng_Nhà máy không có ống khói (dạng vùng)
+	Value: 2, Name: Khu chức năng_Lò nung (dạng vùng)
+	Value: 3, Name: 23-a-Ruộng muối theo TL 
+	Value: 4, Name: Khu chức năng_Kho nhiên liệu (dạng vùng)
+	Value: 5, Name: Khu chức năng_Giàn khoan, tháp khai thác (dạng vùng)
+	Value: 6, Name: Khu chức năng_Hầm mỏ đang khai thác (dạng vùng)
+	Value: 7, Name: Khu chức năng_Ủy ban tỉnh (dạng vùng)
+	Value: 8, Name: Khu chức năng_Ủy ban huyện (dạng vùng)
+	Value: 9, Name: Khu chức năng_Ủy ban xã (dạng vùng)
+	Value: 10, Name: Khu chức năng_Trường học (dạng vùng)
+	Value: 11, Name: Khu chức năng_Bưu điện (dạng vùng)
+	Value: 12, Name: Khu chức năng_Chợ (dạng vùng)
+	Value: 13, Name: Khu chức năng_Trạm xăng dầu (dạng vùng)
+	Value: 14, Name: Khu chức năng_Chùa (dạng vùng)
+	Value: 15, Name: Khu chức năng_Nhà thờ (dạng vùng)
+	Value: 16, Name: Khu chức năng_Cơ sở y tế (dạng vùng)
+	Value: 17, Name: Khu chức năng_Tượng đài (dạng vùng)
+	Value: 18, Name: 28-b-Nghĩa trang, nghĩa địa_vùng
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/KhuChucNangP ###################
+Name: KhuChucNangP_Rep_Rules, CodeCount: 22, Field: KhuChucNangP_Rep_ID
+	Value: 1, Name: 9-b-Nhà máy không ống khói
+	Value: 2, Name: 19-Lò nung
+	Value: 3, Name: 23-b-Ruộng muối không tỷ lệ
+	Value: 4, Name: 18-b-Kho nhiên liệu không tỷ lệ
+	Value: 5, Name: 20-Giàn khoan, tháp khai thác
+	Value: 6, Name: 21-a-Hầm mỏ đang khai thác
+	Value: 7, Name: 33-c-UBND tỉnh,thành phố
+	Value: 8, Name: 33-b-Ủy ban nhân dân huyện
+	Value: 9, Name: 33-a-Ủy ban nhân dân xã
+	Value: 10, Name: 31-Trường học
+	Value: 11, Name: 24-Sân vận động
+	Value: 12, Name: 14-Trạm bưu điện
+	Value: 13, Name: 32-Chợ
+	Value: 14, Name: 17-Trạm tiếp xăng dầu
+	Value: 15, Name: 30-Đền, đình, chùa, miếu
+	Value: 16, Name: 29-Nhà thờ
+	Value: 17, Name: 34-Trạm y tế
+	Value: 18, Name: 26-Tượng đài, bia tưởng niệm
+	Value: 19, Name: 27-Lăng tẩm, nhà mồ
+	Value: 20, Name: 28-a-Nghĩa trang, nghĩa địa
+	Value: 21, Name: 25-Lô cốt
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/NhaA ###################
+Name: NhaA_Nen1_Rules, CodeCount: 3, Field: NhaA_Nen1_ID
+	Value: 1, Name: 4-a-Nhà độc lập theo tỷ lệ
+	Value: 2, Name: 6-1-a-Nền khối nhà chịu lửa theoTL
+	Value: -1, Name: Free Representation
+Name: NhaA_Rep_Rules, CodeCount: 2, Field: NhaA_Rep_ID
+	Value: 1, Name: 6-1-a-Viền khối nhà chịu lửa theoTL
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/RanhGioiTuongRao ###################
+Name: LoaiDoiTuongNhanDang, CodeCount: 4, Field: loaiDoiTuongNhanDang
+	Value: 1, Name: ThanhLuy
+	Value: 2, Name: TuongRao
+	Value: 3, Name: RanhGioiSuDungDat
+	Value: 4, Name: Khac
+Name: RanhGioiTuongRao_Rep_Rules, CodeCount: 2, Field: RanhGioiTuongRao_Rep_ID
+	Value: 1, Name: 42-Các loại tường vây
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/ThapNuoc ###################
+Name: ThapNuoc_Rep_Rules, CodeCount: 2, Field: ThapNuoc_Rep_ID
+	Value: 1, Name: 10-Cột cao
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/TramDienA ###################
+Name: LoaiViTriTramDien, CodeCount: 2, Field: loaiViTriTramDien
+	Value: 1, Name: DuoiDat
+	Value: 2, Name: TrenCot
+Name: TramDienA_Rep_Rules, CodeCount: 2, Field: TramDienA_Rep_ID
+	Value: 1, Name: Trạm điện (dạng vùng)
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/TramDienP ###################
+Name: LoaiViTriTramDien, CodeCount: 2, Field: loaiViTriTramDien
+	Value: 1, Name: DuoiDat
+	Value: 2, Name: TrenCot
+Name: TramDienP_Rep_Rules, CodeCount: 2, Field: TramDienP_Rep_ID
+	Value: 1, Name: 13-Trạm biến thế điện
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/TramQuanTracP ###################
+Name: LoaiTramQuanTrac, CodeCount: 4, Field: loaiTramQuanTrac
+	Value: 1, Name: HaiVan
+	Value: 2, Name: KhiTuong
+	Value: 3, Name: MoiTruong
+	Value: 4, Name: ThuyVan
+################### DanCuCoSoHaTang/TramThuPhatSongP ###################
+Name: TramThuPhatSongP_Rep_Rules, CodeCount: 2, Field: TramThuPhatSongP_Rep_ID
+	Value: 1, Name: Trạm thu phát sóng
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/DiemChuyenTiep ###################
+################### DanCuCoSoHaTang/DiemDanCuP ###################
+Name: LoaiDiemDanCu, CodeCount: 2, Field: loaiDiemDanCu
+	Value: 1, Name: DoThi
+	Value: 2, Name: NongThon
+################### DanCuCoSoHaTang/TramQuanTracA ###################
+Name: LoaiTramQuanTrac, CodeCount: 4, Field: loaiTramQuanTrac
+	Value: 1, Name: HaiVan
+	Value: 2, Name: KhiTuong
+	Value: 3, Name: MoiTruong
+	Value: 4, Name: ThuyVan
+################### DanCuCoSoHaTang/CongTrinhKienTrucDacBietA ###################
+Name: CongTrinhKienTrucDacBietA_Rep_Rules, CodeCount: 3, Field: CongTrinhKienTrucA_Rep_ID
+	Value: 1, Name: Khu chức năng_Tượng đài (dạng vùng)
+	Value: 2, Name: Khu chức năng_Kiến trúc dạng tháp cổ (dạng vùng)
+	Value: -1, Name: Free Representation
+################### DanCuCoSoHaTang/TramThuPhatSongA ###################
+Name: TramThuPhatSongA_Rep_Rules, CodeCount: 2, Field: TramThuPhatSongA_Rep_ID
+	Value: 1, Name: Rule_1
+	Value: -1, Name: Free Representation
+################### DiaHinh/NetChiDoc ###################
+Name: NetChiDoc_Rep_Rules, CodeCount: 3, Field: NetChiDoc_Rep_ID
+	Value: 1, Name: 99-f-1-Nét chỉ dốc (Bđộ cái)
+	Value: 2, Name: 99-f-2-Nét chỉ dốc (Bđộ con)
+	Value: -1, Name: Free Representation
+################### DiaHinh/DiaDanhSonVan ###################
+Name: LoaiDoiTuongSonVan, CodeCount: 9, Field: loaiDoiTuongSonVan
+	Value: 4, Name: Ban dao
+	Value: 15, Name: Canh dong
+	Value: 29, Name: Day nui
+	Value: 35, Name: Doi
+	Value: 59, Name: Mui dat
+	Value: 70, Name: Nui
+	Value: 89, Name: Thung lung
+	Value: 110, Name: Cao nguyen
+	Value: 111, Name: Dong bang
+################### DiaHinh/DiaHinhDacBietA ###################
+Name: loaiThanhPhanDiaHinh, CodeCount: 2, Field: loaiThanhPhanDiaHinh
+	Value: 1, Name: Chan
+	Value: 2, Name: Dinh
+Name: DiaHinhDacBietA_Rep_Rules, CodeCount: 6, Field: DiaHinhDacBietA_Rep_ID
+	Value: 1, Name: 111-Bãi đá tảng
+	Value: 2, Name: 110-Bãi cát, sỏi trên cạn
+	Value: 3, Name: 109- Núi đá (ký hiệu mới 15-10-2014)
+	Value: 4, Name: 101-c-Gò đống dạng vùng
+	Value: 5, Name: 102-c-Hố Casto dạng vùng
+	Value: -1, Name: Free Representation
+################### DiaHinh/DiaHinhDacBietL ###################
+Name: loaiThanhPhanDiaHinh, CodeCount: 2, Field: loaiThanhPhanDiaHinh
+	Value: 1, Name: Chan
+	Value: 2, Name: Dinh
+Name: DiaHinhDacBietL_Rep_Rules, CodeCount: 5, Field: DiaHinhDacBietL_Rep_ID
+	Value: 1, Name: 101-a-Gò đất cao theo TL
+	Value: 2, Name: 102-a-Hố phễu casto theo TL
+	Value: 3, Name: 108-b-Ruộng bậc thang
+	Value: 4, Name: 106-1-Rãnh xói_1
+	Value: -1, Name: Free Representation
+################### DiaHinh/DiaHinhDacBietP ###################
+Name: loaiThanhPhanDiaHinh, CodeCount: 2, Field: loaiThanhPhanDiaHinh
+	Value: 1, Name: Chan
+	Value: 2, Name: Dinh
+Name: DiaHinhDacBietP_Rep_Rules, CodeCount: 7, Field: DiaHinhDacBietP_Rep_ID
+	Value: 1, Name: 103-Hang động
+	Value: 2, Name: 100-Đá độc lập
+	Value: 3, Name: 101-b-Gò đất cao PTL
+	Value: 4, Name: 102-b-Hố, phễu, casto PTL
+	Value: 5, Name: 101-b-2-Gò đất cao PTL (nhân tạo)
+	Value: 6, Name: 102-b-2-Hố, phễu, casto PTL (nhân tạo)
+	Value: -1, Name: Free Representation
+################### DiaHinh/DiemDoCao ###################
+Name: LoaiDiemDoCao, CodeCount: 2, Field: loaiDiemDoCao
+	Value: 1, Name: DacTrung
+	Value: 2, Name: Thuong
+Name: DiemDoCao_Rep_Rules, CodeCount: 3, Field: DiemDoCao_Rep_ID
+	Value: 1, Name: 104-a-Điểm khống chế
+	Value: 2, Name: 104-b-Điểm độ cao thường
+	Value: -1, Name: Free Representation
+Name: DiemDoCao_SoDo_Rules, CodeCount: 2, Field: RuleID
+	Value: 2, Name: Rule_2
+	Value: -1, Name: Free Representation
+################### DiaHinh/DiemDoSau ###################
+################### DiaHinh/DuongBinhDo ###################
+Name: LoaiDuongBinhDo, CodeCount: 4, Field: loaiDuongBinhDo
+	Value: 1, Name: CoBan
+	Value: 2, Name: NuaKhoangCaoDeu
+	Value: 3, Name: Phu
+	Value: 4, Name: Nhap
+Name: LoaiKhoangCaoDeu, CodeCount: 5, Field: loaiKhoangCaoDeu
+	Value: 1, Name: 1.0m
+	Value: 2, Name: 2.5m
+	Value: 3, Name: 5.0m
+	Value: 4, Name: 10.0m
+	Value: 5, Name: 20.0m
+Name: LoaiKieuDuongBinhDo, CodeCount: 2, Field: loaiKieuDuongBinhDo
+	Value: 1, Name: BinhDoCai
+	Value: 2, Name: BinhDoCon
+Name: DuongBinhDo_Rep_Rules, CodeCount: 8, Field: DuongBinhDo_Rep_ID
+	Value: 1, Name: 99-a-Bình độ cơ bản
+	Value: 2, Name: 99-b-Bình độ cái
+	Value: 3, Name: 99-c-Bình độ nửa khoảng
+	Value: 4, Name: 99-d-Bình độ phụ
+	Value: 5, Name: 99-e-b-Bình độ cái vẽ nháp
+	Value: 6, Name: 99-e-a-Bình độ con vẽ nháp
+	Value: 7, Name: 95-Đường bình độ sâu
+	Value: -1, Name: Free Representation
+################### CoSoDoDac/DiemCoSoQuocGia ###################
+Name: LoaiCapHang, CodeCount: 5, Field: loaiCapHang
+	Value: 1, Name: Cap 0
+	Value: 2, Name: Hang I
+	Value: 3, Name: Hang II
+	Value: 4, Name: Hang III
+	Value: 5, Name: Hang IV
+Name: LoaiMoc, CodeCount: 3, Field: loaiMoc
+	Value: 1, Name: Chon
+	Value: 2, Name: Gan
+	Value: 3, Name: Khac
+Name: DiemCoSoQuocGia_Rep_Rules, CodeCount: 4, Field: DiemCoSoQuocGia_Rep_ID
+	Value: 1, Name: 2-Điểm tọa độ Nhà nước
+	Value: 2, Name: 3-Điểm độ cao Nhà nước
+	Value: 3, Name: 1-Điểm thiên văn
+	Value: -1, Name: Free Representation
+################### CoSoDoDac/DiemGocQuocGia ###################
+################### CoSoDoDac/DiemCoSoChuyenDung ###################
+Name: LoaiMoc, CodeCount: 3, Field: loaiMoc
+	Value: 1, Name: Chon
+	Value: 2, Name: Gan
+	Value: 3, Name: Khac
+################### BienGioiDiaGioi/DiaPhan ###################
+################### BienGioiDiaGioi/DuongBienGioi ###################
+Name: LoaiHienTrangPhapLy, CodeCount: 2, Field: loaiHienTrangPhapLy
+	Value: 1, Name: XacDinh
+	Value: 2, Name: ChuaXacDinh
+Name: DuongBienGioi_Rep_Rules, CodeCount: 3, Field: DuongBienGioi_Rep_ID
+	Value: 1, Name: 37-a-Biên giới quốc gia xác định
+	Value: 2, Name: 37-b-Biên giới quốc gia chưa xác định
+	Value: -1, Name: Free Representation
+################### BienGioiDiaGioi/DuongDiaGioi ###################
+Name: LoaiHienTrangPhapLy, CodeCount: 2, Field: loaiHienTrangPhapLy
+	Value: 1, Name: XacDinh
+	Value: 2, Name: ChuaXacDinh
+Name: DuongDiaGioi_Rep_Rules, CodeCount: 7, Field: DuongDiaGioi_Rep_ID
+	Value: 1, Name: 38-a-Địa giới tỉnh xác định
+	Value: 2, Name: 38-b-Địa giới tỉnh chưa xác định
+	Value: 3, Name: 39-a-Địa giới huyện xác định
+	Value: 4, Name: 39-b-Địa giới huyện chưa xác định
+	Value: 5, Name: 40-a-Địa giới xã xác định
+	Value: 6, Name: 40-b-Địa giới xã chưa xác định
+	Value: -1, Name: Free Representation
+Name: DuongDiaGioi_SoDo_Rules, CodeCount: 4, Field: RuleID
+	Value: 1, Name: Rule_1
+	Value: 2, Name: Địa giới tỉnh_SoDo
+	Value: 3, Name: Địa giới huyện_SoDo
+	Value: -1, Name: Free Representation
+################### BienGioiDiaGioi/MocQuocGioi ###################
+Name: LoaiMocQuocGioi, CodeCount: 3, Field: loaiMocQuocGioi
+	Value: 1, Name: Don
+	Value: 2, Name: Doi
+	Value: 3, Name: Ba
+Name: MocQuocGioi_Rep_Rules, CodeCount: 2, Field: MocQuocGioi_Rep_ID
+	Value: 1, Name: 37-c-Mốc quốc giới
+	Value: -1, Name: Free Representation
+################### BienGioiDiaGioi/MocDiaGioi ###################
+Name: LoaiMocDiaGioi, CodeCount: 3, Field: loaiMocDiaGioi
+	Value: 1, Name: Don
+	Value: 2, Name: Doi
+	Value: 3, Name: Ba
+################### BienGioiDiaGioi/DuongCoSoLanhHai ###################
+################### BienGioiDiaGioi/DiemCoSoLanhHai ###################
+################### BienGioiDiaGioi/VungBien ###################
+################### QuanSu/QuanSuA ###################
+################### QuanSu/QuanSuP ###################
+################### GhiChu/DiemDoCao_SoDo ###################
+Name: AnnotationStatus, CodeCount: 2, Field: Status
+	Value: 0, Name: Placed
+	Value: 1, Name: Unplaced
+Name: BooleanSymbolValue, CodeCount: 2, Field: Bold
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Italic
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Underline
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: VerticalAlignment, CodeCount: 4, Field: VerticalAlignment
+	Value: 0, Name: Top
+	Value: 1, Name: Center
+	Value: 2, Name: Baseline
+	Value: 3, Name: Bottom
+Name: HorizontalAlignment, CodeCount: 4, Field: HorizontalAlignment
+	Value: 0, Name: Left
+	Value: 1, Name: Center
+	Value: 2, Name: Right
+	Value: 3, Name: Full
+################### GhiChu/DiaPhanSoDoDiaGioiAnno ###################
+Name: AnnotationStatus, CodeCount: 2, Field: Status
+	Value: 0, Name: Placed
+	Value: 1, Name: Unplaced
+Name: BooleanSymbolValue, CodeCount: 2, Field: Bold
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Italic
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Underline
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: VerticalAlignment, CodeCount: 4, Field: VerticalAlignment
+	Value: 0, Name: Top
+	Value: 1, Name: Center
+	Value: 2, Name: Baseline
+	Value: 3, Name: Bottom
+Name: HorizontalAlignment, CodeCount: 4, Field: HorizontalAlignment
+	Value: 0, Name: Left
+	Value: 1, Name: Center
+	Value: 2, Name: Right
+	Value: 3, Name: Full
+################### GhiChu/GhiChuDuongXuatAnno ###################
+Name: AnnotationStatus, CodeCount: 2, Field: Status
+	Value: 0, Name: Placed
+	Value: 1, Name: Unplaced
+Name: BooleanSymbolValue, CodeCount: 2, Field: Bold
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Italic
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: BooleanSymbolValue, CodeCount: 2, Field: Underline
+	Value: 1, Name: Yes
+	Value: 0, Name: No
+Name: VerticalAlignment, CodeCount: 4, Field: VerticalAlignment
+	Value: 0, Name: Top
+	Value: 1, Name: Center
+	Value: 2, Name: Baseline
+	Value: 3, Name: Bottom
+Name: HorizontalAlignment, CodeCount: 4, Field: HorizontalAlignment
+	Value: 0, Name: Left
+	Value: 1, Name: Center
+	Value: 2, Name: Right
+	Value: 3, Name: Full
+################### MatNa/MatNaDen ###################
+################### MatNa/MatNaLo ###################
+################### MatNa/MatNaNau ###################
+################### MatNa/MatNaCay ###################
+################### MatNa/MatNaDiaGioi ###################
+################### MatNa/MatNaKhung ###################
+################### MatNa/MatNaDayDien ###################
+################### MatNa/MatNa_DiemDoCao ###################
+################### MatNa/gachtinhchatcau ###################
+Name: LoaiHienTrangPhapLy, CodeCount: 2, Field: loaiHienTrangPhapLy
+	Value: 1, Name: XacDinh
+	Value: 2, Name: ChuaXacDinh
+Name: DuongBienGioi_Rep_1_1_Rules, CodeCount: 2, Field: DuongBienGioi_Rep_ID
+	Value: 3, Name: Viền đường
+	Value: -1, Name: Free Representation
+################### ThuyHe/RanhGioiBai ###################
+Name: RanhGioiBai_Rep_Rules, CodeCount: 2, Field: RanhGioiBai_Rep_ID
+	Value: 1, Name: 41-Các loại ranh giới khác
+	Value: -1, Name: Free Representation
+################### ThuyHe/DapP ###################
+Name: LoaiDap, CodeCount: 3, Field: loaiDap
+	Value: 1, Name: ChanSong
+	Value: 2, Name: Dang
+	Value: 3, Name: Tran
+Name: LoaiChatLieu, CodeCount: 5, Field: loaiChatLieu
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: BeTong
+	Value: 2, Name: DaHoc
+	Value: 3, Name: TreNua
+	Value: 4, Name: Khac
+Name: LoaiKhaNangLuuThong, CodeCount: 3, Field: khaNangLuuThong
+	Value: 1, Name: Oto di duoc
+	Value: 2, Name: Oto khong di duoc
+	Value: -1, Name: Khong co kha nang luu thong
+Name: DapP_Rep_Rules, CodeCount: 4, Field: DapP_Rep_ID
+	Value: 1, Name: 86-1-Đập ô tô qua được dạng điểm
+	Value: 2, Name: 86-2-Đập ô tô không qua được dạng điểm
+	Value: 3, Name: 86-3-Đập tràn dạng điểm
+	Value: -1, Name: Free Representation
+################### ThuyHe/BaiCanBaiNgamP ###################
+Name: LoaiBai, CodeCount: 4, Field: loaiBai
+	Value: 1, Name: Cat
+	Value: 2, Name: SanHo
+	Value: 3, Name: DaSoi
+	Value: 4, Name: Khac
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+################### ThuyHe/BaiCanBaiNgamA ###################
+Name: LoaiBai, CodeCount: 4, Field: loaiBai
+	Value: 1, Name: Cat
+	Value: 2, Name: SanHo
+	Value: 3, Name: DaSoi
+	Value: 4, Name: Khac
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+Name: BaiCanBaiNgamA_Rep_Rules, CodeCount: 5, Field: BaiCanBaiNgamA_Rep_ID
+	Value: 1, Name: 68-3-b-Bãi cát ven bờ (dưới đường mép nước)
+	Value: 2, Name: 69-b-Bãi san hô chìm
+	Value: 3, Name: 69-a-Bãi san hô nổi
+	Value: 4, Name: 68-4-b-Bãi đá, sỏi ven bờ (dưới đường mép nước)
+	Value: -1, Name: Free Representation
+################### ThuyHe/TramBom ###################
+Name: TramBom_Rep_Rules, CodeCount: 2, Field: TramBom_Rep_ID
+	Value: 1, Name: 98-Trạm bơm
+	Value: -1, Name: Free Representation
+################### ThuyHe/BaiBoiA ###################
+Name: LoaiBaiBoi, CodeCount: 6, Field: loaiBaiBoi
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: Cat
+	Value: 2, Name: Bun
+	Value: 3, Name: DaSoi
+	Value: 4, Name: BunLanCat
+	Value: 5, Name: LoaiKhac
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+Name: BaiBoiA_Rep_Rules, CodeCount: 9, Field: BaiBoiA_Rep_ID
+	Value: 1, Name: 68-3-a-Bãi cát ven bờ (trên đường mép nước)
+	Value: 2, Name: 68-3-b-Bãi cát ven bờ (dưới đường mép nước)
+	Value: 3, Name: 68-1-a-Bãi bùn ven bờ (trên đường mép nước)
+	Value: 4, Name: 68-1-b-Bãi bùn ven bờ (dưới đường mép nước)
+	Value: 5, Name: 68-4-a-Bãi đá, sỏi ven bờ (trên đường mép nước)
+	Value: 6, Name: 68-4-b-Bãi đá, sỏi ven bờ (dưới đường mép nước)
+	Value: 7, Name: 68-2-a-Bãi bùn lẫn cát ven bờ (trên đường mép nước)
+	Value: 8, Name: 68-2-b-Bãi bùn lẫn cát ven bờ (dưới đường mép nước)
+	Value: -1, Name: Free Representation
+################### ThuyHe/BaiBoiP ###################
+Name: LoaiBaiBoi, CodeCount: 6, Field: loaiBaiBoi
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: Cat
+	Value: 2, Name: Bun
+	Value: 3, Name: DaSoi
+	Value: 4, Name: BunLanCat
+	Value: 5, Name: LoaiKhac
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+################### ThuyHe/BienA ###################
+Name: BienA_Rep_Rules, CodeCount: 2, Field: BienA_Rep_ID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: -1, Name: Free Representation
+################### ThuyHe/BienDoiDongChayA ###################
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+Name: BienDoiDongChayA_Rep_Rules, CodeCount: 4, Field: BienDoiDongChayA_Rep_ID
+	Value: 1, Name: 70-1-b1-Đá cụm nhô trên mặt nước
+	Value: 2, Name: 70-3-b1-Đá cụm lúc nhô, lúc ngầm
+	Value: 3, Name: 70-2-b1- Đá cụm ngầm
+	Value: -1, Name: Free Representation
+################### ThuyHe/BienDoiDongChayL ###################
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+Name: BienDoiDongChayL_Rep_Rules, CodeCount: 3, Field: BienDoiDongChayL_Rep_ID
+	Value: 1, Name: 84-Thác
+	Value: 2, Name: 85-Ghềnh
+	Value: -1, Name: Free Representation
+################### ThuyHe/BienDoiDongChayP ###################
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+Name: BienDoiDongChayP_Rep_Rules, CodeCount: 6, Field: BienDoiDongChayP_Rep_ID
+	Value: 1, Name: 70-1-a-Đá nhô lên mặt nước độc lập
+	Value: 2, Name: 70-3-a-Đá lúc nhô, lúc ngầm độc lập
+	Value: 3, Name: 70-2-a-Đá ngầm độc lập
+	Value: 4, Name: 84-1-Thác phi TL
+	Value: 5, Name: 85-1-Ghềnh phi TL
+	Value: -1, Name: Free Representation
+################### ThuyHe/BoKeBoCap ###################
+Name: BoKeBoCap_Rep_Rules, CodeCount: 2, Field: BoKeBoCap_Rep_ID
+	Value: 1, Name: 90-Bờ có gia cố
+	Value: -1, Name: Free Representation
+################### ThuyHe/CongThuyLoiL ###################
+Name: LoaiCongThuyLoi, CodeCount: 2, Field: loaiCongThuyLoi
+	Value: 1, Name: CoThietBi
+	Value: 2, Name: KhongCoThietBi
+Name: CongThuyLoiL_Rep_Rules, CodeCount: 2, Field: CongThuyLoiL_Rep_ID
+	Value: 1, Name: 81-Cống điều tiết kênh mương dạng đường
+	Value: -1, Name: Free Representation
+################### ThuyHe/CongThuyLoiP ###################
+Name: LoaiCongThuyLoi, CodeCount: 2, Field: loaiCongThuyLoi
+	Value: 1, Name: CoThietBi
+	Value: 2, Name: KhongCoThietBi
+Name: CongThuyLoiP_Rep_Rules, CodeCount: 2, Field: CongThuyLoiP_Rep_ID
+	Value: 1, Name: 81-Cống điều tiết kênh mương dạng điểm
+	Value: -1, Name: Free Representation
+################### ThuyHe/DaoA ###################
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+################### ThuyHe/DaoP ###################
+Name: LoaiTrangThaiXuatLo, CodeCount: 3, Field: loaiTrangThaiXuatLo
+	Value: 1, Name: Chim
+	Value: 2, Name: Noi
+	Value: 3, Name: NuaChimNuaNoi
+################### ThuyHe/DapA ###################
+Name: LoaiDap, CodeCount: 3, Field: loaiDap
+	Value: 1, Name: ChanSong
+	Value: 2, Name: Dang
+	Value: 3, Name: Tran
+Name: LoaiChatLieu, CodeCount: 5, Field: loaiChatLieu
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: BeTong
+	Value: 2, Name: DaHoc
+	Value: 3, Name: TreNua
+	Value: 4, Name: Khac
+Name: LoaiKhaNangLuuThong, CodeCount: 3, Field: khaNangLuuThong
+	Value: 1, Name: Oto di duoc
+	Value: 2, Name: Oto khong di duoc
+	Value: -1, Name: Khong co kha nang luu thong
+################### ThuyHe/DapL ###################
+Name: LoaiDap, CodeCount: 3, Field: loaiDap
+	Value: 1, Name: ChanSong
+	Value: 2, Name: Dang
+	Value: 3, Name: Tran
+Name: LoaiChatLieu, CodeCount: 5, Field: loaiChatLieu
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: BeTong
+	Value: 2, Name: DaHoc
+	Value: 3, Name: TreNua
+	Value: 4, Name: Khac
+Name: LoaiKhaNangLuuThong, CodeCount: 3, Field: khaNangLuuThong
+	Value: 1, Name: Oto di duoc
+	Value: 2, Name: Oto khong di duoc
+	Value: -1, Name: Khong co kha nang luu thong
+Name: DapL_Rep_Rules, CodeCount: 7, Field: DapL_Rep_ID
+	Value: 1, Name: 86-1-Đập ô tô qua được dạng đường
+	Value: 2, Name: 86-2-Đập ô tô không qua được dạng đường
+	Value: 3, Name: 86-3-Đập tràn dạng đường
+	Value: 4, Name: 86-1-Đập ô tô qua được ngắn hơn 57,5m (dạng đường)
+	Value: 5, Name: 86-2-Đập ô tô không qua được ngắn hơn 57,5m (dạng đường)
+	Value: 6, Name: 86-3-Đập tràn ngắn hơn 57,5m (dạng đường)
+	Value: -1, Name: Free Representation
+################### ThuyHe/DeA ###################
+Name: LoaiDe, CodeCount: 5, Field: loaiDe
+	Value: 1, Name: Bao
+	Value: 2, Name: Bien
+	Value: 3, Name: Boi
+	Value: 4, Name: ChuyenDung
+	Value: 5, Name: Song
+Name: LoaiChatLieu, CodeCount: 5, Field: loaiChatLieu
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: BeTong
+	Value: 2, Name: DaHoc
+	Value: 3, Name: TreNua
+	Value: 4, Name: Khac
+Name: LoaiKhaNangLuuThong, CodeCount: 3, Field: khaNangLuuThong
+	Value: 1, Name: Oto di duoc
+	Value: 2, Name: Oto khong di duoc
+	Value: -1, Name: Khong co kha nang luu thong
+Name: DeA_Rep_Rules, CodeCount: 2, Field: DeA_Rep_ID
+	Value: 1, Name: 47-a-1-Nền đường cao tốc, quốc lộ, tỉnh lộ, ô tô theo TL
+	Value: -1, Name: Free Representation
+################### ThuyHe/DeL ###################
+Name: LoaiDe, CodeCount: 5, Field: loaiDe
+	Value: 1, Name: Bao
+	Value: 2, Name: Bien
+	Value: 3, Name: Boi
+	Value: 4, Name: ChuyenDung
+	Value: 5, Name: Song
+Name: LoaiChatLieu, CodeCount: 5, Field: loaiChatLieu
+	Value: -1, Name: KhongXacDinh
+	Value: 1, Name: BeTong
+	Value: 2, Name: DaHoc
+	Value: 3, Name: TreNua
+	Value: 4, Name: Khac
+Name: LoaiKhaNangLuuThong, CodeCount: 3, Field: khaNangLuuThong
+	Value: 1, Name: Oto di duoc
+	Value: 2, Name: Oto khong di duoc
+	Value: -1, Name: Khong co kha nang luu thong
+Name: DeL_Rep_Rules, CodeCount: 3, Field: DeL_Rep_ID
+	Value: 1, Name: 56-Đê có ô tô đi trên
+	Value: 2, Name: 57-Đê ô tô k đi được
+	Value: -1, Name: Free Representation
+################### ThuyHe/DuongBoNuoc ###################
+Name: LoaiTrangThaiDuongBoNuoc, CodeCount: 2, Field: loaiTrangThaiDuongBoNuoc
+	Value: 1, Name: RoRang
+	Value: 2, Name: KhongRoRang
+Name: LoaiRanhGioiNuocMat, CodeCount: 6, Field: loaiRanhGioiNuocMat
+	Value: 1, Name: AoHo
+	Value: 2, Name: Bien
+	Value: 3, Name: DamPha
+	Value: 4, Name: KenhMuong
+	Value: 5, Name: HoChua
+	Value: 6, Name: SongSuoi
+Name: DuongBoNuoc_Rep_Rules, CodeCount: 3, Field: DuongBoNuoc_Rep_ID
+	Value: 1, Name: 67-a-Đường bờ nước
+	Value: 2, Name: 73-a-Sông suối có nước theo mùa W=0,1
+	Value: -1, Name: Free Representation
+################### ThuyHe/DuongMepNuoc ###################
+Name: LoaiRanhGioiNuocMat, CodeCount: 6, Field: loaiRanhGioiNuocMat
+	Value: 1, Name: AoHo
+	Value: 2, Name: Bien
+	Value: 3, Name: DamPha
+	Value: 4, Name: KenhMuong
+	Value: 5, Name: HoChua
+	Value: 6, Name: SongSuoi
+Name: DuongMepNuoc_Rep_Rules, CodeCount: 2, Field: DuongMepNuoc_Rep_ID
+	Value: 1, Name: 67-b-Đường mép nước
+	Value: -1, Name: Free Representation
+################### ThuyHe/KenhMuongA ###################
+Name: LoaiHienTrangSuDung, CodeCount: 3, Field: loaiHienTrangSuDung
+	Value: 1, Name: DangSuDung
+	Value: 2, Name: DangXayDung
+	Value: 3, Name: KhongSuDung
+Name: LoaiDoRongKenhMuong, CodeCount: 3, Field: loaiDoRongKenhMuong
+	Value: 1, Name: <8m
+	Value: 2, Name: 8m - 12.5m
+	Value: 3, Name: >12.5m
+Name: KenhMuongA_Rep_Rules, CodeCount: 3, Field: KenhMuongA_Rep_ID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: 2, Name: 77-3-a-Sông, kênh, mương đang đào(dạng vùng)
+	Value: -1, Name: Free Representation
+################### ThuyHe/KenhMuongL ###################
+Name: LoaiHienTrangSuDung, CodeCount: 3, Field: loaiHienTrangSuDung
+	Value: 1, Name: DangSuDung
+	Value: 2, Name: DangXayDung
+	Value: 3, Name: KhongSuDung
+Name: LoaiDoRongKenhMuong, CodeCount: 3, Field: loaiDoRongKenhMuong
+	Value: 1, Name: <8m
+	Value: 2, Name: 8m - 12.5m
+	Value: 3, Name: >12.5m
+Name: KenhMuongL_Rep_Rules, CodeCount: 5, Field: KenhMuongL_Rep_ID
+	Value: 1, Name: 76-1-Kênh mương (0,2mm)
+	Value: 2, Name: 76-2-Kênh mương (0,4mm)
+	Value: 3, Name: 77-1-Sông, kênh đang đào(0.2mm)
+	Value: 4, Name: 77-2-Sông, kênh đang đào(0.4mm)
+	Value: -1, Name: Free Representation
+################### ThuyHe/MangDanNuocA ###################
+Name: LoaiMangDanNuoc, CodeCount: 2, Field: loaiMangDanNuoc
+	Value: 1, Name: MatDat
+	Value: 2, Name: Noi
+################### ThuyHe/MangDanNuocL ###################
+Name: LoaiMangDanNuoc, CodeCount: 2, Field: loaiMangDanNuoc
+	Value: 1, Name: MatDat
+	Value: 2, Name: Noi
+Name: MangDanNuocL_Rep_Rules, CodeCount: 2, Field: MangDanNuocL_Rep_ID
+	Value: 1, Name: 80-Máng dẫn nước
+	Value: -1, Name: Free Representation
+################### ThuyHe/MatBoKenhMuongA ###################
+Name: Boolean, CodeCount: 2, Field: dungLamGiaoThong
+	Value: 1, Name: True
+	Value: 0, Name: False
+################### ThuyHe/MatNuocTinh ###################
+Name: LoaiTrangThaiNuocMat, CodeCount: 3, Field: loaiTrangThaiNuocMat
+	Value: 1, Name: OnDinh
+	Value: 2, Name: KhongOnDinh
+	Value: 3, Name: KhoXacDinh
+Name: MatNuocTinh_Rep_Rules, CodeCount: 2, Field: MatNuocTinh_Rep_ID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: -1, Name: Free Representation
+Name: MatNuocTinh_SoDo_Rules, CodeCount: 2, Field: RuleID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: -1, Name: Free Representation
+################### ThuyHe/NguonNuoc ###################
+Name: LoaiNguonNuoc, CodeCount: 3, Field: loaiNguonNuoc
+	Value: 1, Name: Khoang
+	Value: 2, Name: Nong
+	Value: 3, Name: Thuong
+Name: NguonNuoc_Rep_Rules, CodeCount: 3, Field: NguonNuoc_Rep_ID
+	Value: 1, Name: 97-Nguồn nước nóng
+	Value: 2, Name: 96-Giếng nước
+	Value: -1, Name: Free Representation
+################### ThuyHe/SongSuoiA ###################
+Name: LoaiTrangThaiNuocMat, CodeCount: 3, Field: loaiTrangThaiNuocMat
+	Value: 1, Name: OnDinh
+	Value: 2, Name: KhongOnDinh
+	Value: 3, Name: KhoXacDinh
+Name: SongSuoiA_Rep_Rules, CodeCount: 2, Field: SongSuoiA_Rep_ID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: -1, Name: Free Representation
+Name: SongSuoiA_SoDo_Rules, CodeCount: 2, Field: RuleID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: -1, Name: Free Representation
+################### ThuyHe/SongSuoiL ###################
+Name: LoaiTrangThaiNuocMat, CodeCount: 3, Field: loaiTrangThaiNuocMat
+	Value: 1, Name: OnDinh
+	Value: 2, Name: KhongOnDinh
+	Value: 3, Name: KhoXacDinh
+Name: SongSuoiL_Rep_Rules, CodeCount: 23, Field: SongSuoiL_Rep_ID
+	Value: 1, Name: Sông suối W= 0,1 - 0,12
+	Value: 2, Name: Sông suối W= 0,12 - 0,15
+	Value: 3, Name: Sông suối W= 0,15 - 0,18
+	Value: 4, Name: Sông suối W= 0,18 - 0,2
+	Value: 5, Name: Sông suối W= 0,2 - 0,22
+	Value: 6, Name: Sông suối W= 0,22 - 0,24
+	Value: 7, Name: Sông suối W= 0,24 - 0,26
+	Value: 8, Name: Sông suối W= 0,26 - 0,28
+	Value: 9, Name: Sông suối W= 0,28 - 0,3
+	Value: 10, Name: Sông suối W= 0,3 - 0,32
+	Value: 11, Name: Sông suối W= 0,32 - 0,34
+	Value: 12, Name: Sông suối W= 0,34 - 0,36
+	Value: 13, Name: Sông suối W= 0,36 - 0,38
+	Value: 14, Name: Sông suối W= 0,38 - 0,4
+	Value: 15, Name: Sông suối W= 0,4 - 0,42
+	Value: 16, Name: Sông suối W= 0,42 - 0,44
+	Value: 17, Name: Sông suối W= 0,44 - 0,46
+	Value: 18, Name: Sông suối W= 0,46 - 0,48
+	Value: 19, Name: Sông suối W= 0,48 - 0,5
+	Value: 20, Name: Sông suối W= 0,5
+	Value: 21, Name: 73-a-Sông suối có nước theo mùa W=0,1
+	Value: 22, Name: 75-a1-Sông suối mất tích XĐ đc dòng chảy (nét đơn)
+	Value: -1, Name: Free Representation
+Name: SongSuoiL_SoDo_Rules, CodeCount: 2, Field: RuleID
+	Value: 1, Name: Rule_1
+	Value: -1, Name: Free Representation
+################### ThuyHe/TaluyCongTrinhThuyLoi ###################
+Name: LoaiTaLuyThuyLoi, CodeCount: 4, Field: loaiTaluyThuyLoi
+	Value: 1, Name: De
+	Value: 2, Name: Dap
+	Value: 3, Name: KenhMuong
+	Value: 4, Name: Khac
+Name: LoaiHinhThaiTaluy, CodeCount: 2, Field: loaiHinhThaiTaLuy
+	Value: 1, Name: DapCao
+	Value: 2, Name: XeSau
+Name: LoaiThanhPhanTaluy, CodeCount: 2, Field: loaiThanhPhanTaLuy
+	Value: 1, Name: ChanTaluy
+	Value: 2, Name: DinhTaluy
+Name: TaluyThuyLoi_Rep_Rules, CodeCount: 3, Field: TaluyThuyLoi_Rep_ID
+	Value: 1, Name: Địa hình cắt xẻ nhân tạo
+	Value: 2, Name: 41-Các loại ranh giới khác
+	Value: -1, Name: Free Representation
+################### ThuyHe/RanhGioiNuocMatQuyUoc ###################
+Name: LoaiRanhGioiNuocMatQuyUoc, CodeCount: 2, Field: loaiRanhGioiNuocMatQuyUoc
+	Value: 1, Name: PhanChiaLoaiNuocMat
+	Value: 2, Name: KhepVungNuocMat
+################### ThuyHe/DamLay ###################
+Name: DamLay_Rep_Rules, CodeCount: 2, Field: DamLay_Rep_ID
+	Value: 1, Name: 112- Đầm lầy
+	Value: -1, Name: Free Representation
+################### PhuBeMat/RanhGioiPhuBeMat ###################
+Name: LoaiRanhGioiPhuBeMat, CodeCount: 2, Field: loaiRanhGioiPhuBeMat
+	Value: 1, Name: ThucVat
+	Value: 2, Name: Khac
+Name: RanhGioiPhuBeMat_Rep_Rules, CodeCount: 2, Field: RanhGioiPhuBeMat_Rep_ID
+	Value: 1, Name: 41-Các loại ranh giới khác
+	Value: -1, Name: Free Representation
+################### PhuBeMat/PhuBeMat ###################
+Name: LoaiPhuBeMat, CodeCount: 18, Field: loaiPhuBeMat
+	Value: 1, Name: CayLua
+	Value: 2, Name: RauMauVaCayCongNghiepNganNgay
+	Value: 3, Name: CayCongNghiepDaiNgayVaCayAnQua
+	Value: 4, Name: CayDuaCo
+	Value: 7, Name: CayLaKim
+	Value: 8, Name: CayLaRong
+	Value: 9, Name: CayUaManChuaPhen
+	Value: 10, Name: CayTreNua
+	Value: 11, Name: CongTrinhCongNghiep
+	Value: 12, Name: CongTrinhGiaoThong
+	Value: 14, Name: CongTrinhDangXayDung
+	Value: 15, Name: DoiTroc
+	Value: 16, Name: NuiDa
+	Value: 17, Name: Cat
+	Value: -1, Name: KhongXacDinh
+	Value: 5, Name: CayBui
+	Value: 6, Name: CayHonHop
+	Value: 13, Name: CongTrinhThuyLoi
+Name: phanLoaiVung, CodeCount: 20, Field: phanLoaiVung
+	Value: 1, Name: RungPhatTrien_LaRong
+	Value: 2, Name: RungPhatTrien_LaKim
+	Value: 3, Name: RungPhatTrien_HonHop
+	Value: 4, Name: RungPhatTrien_TreNua
+	Value: 5, Name: RungPhatTrien_DuaCo
+	Value: 6, Name: RungPhatTrien_UaManTrenCan
+	Value: 8, Name: RungNon_LaRong
+	Value: 9, Name: RungNon_LaKim
+	Value: 11, Name: RungNon_TreNua
+	Value: 12, Name: RungNon_DuaCo
+	Value: 13, Name: RungNon_UaManTrenCan
+	Value: 7, Name: RungUaManDuoiNuoc
+	Value: 14, Name: CayCongNghiep_LauNam
+	Value: 15, Name: CayAnQua_LauNam
+	Value: 16, Name: CayBui
+	Value: 17, Name: Lua
+	Value: 18, Name: RauMau_CayCNnganngay
+	Value: 19, Name: CoCoi_SenSung_DuoiNuoc
+	Value: 20, Name: CoCoi_SenSung_TrenCan
+	Value: 10, Name: RungNon_HonHop
+Name: PhuBeMat_Rep_Rules, CodeCount: 15, Field: PhuBeMat_Rep_ID
+	Value: 1, Name: 116-Ruộng lúa
+	Value: 2, Name: 117-Rau, màu, cây công nghiệp ngắn ngày
+	Value: 3, Name: 115-a-Cây bụi
+	Value: 4, Name: 121-Vùng đất trống
+	Value: 5, Name: 118-b-Cỏ không ngập nước
+	Value: 6, Name: 114-a-Cây công nghiệp lâu năm
+	Value: 7, Name: 114-b-Cây ăn quả lâu năm
+	Value: 8, Name: cây ưa mặn, chua phèn dưới nước
+	Value: 9, Name: cây lá rộng
+	Value: 10, Name: cây lá kim
+	Value: 11, Name: cây hỗn hợp
+	Value: 12, Name: cây tre nứa
+	Value: 13, Name: cây dừa cọ
+	Value: 14, Name: cây ưa mặn
+	Value: -1, Name: Free Representation
+Name: PhuBeMat_Nen_Rules, CodeCount: 5, Field: PhuBeMat_Nen_ID
+	Value: 1, Name: 72-b-Nền sông suối, ao hồ
+	Value: 2, Name: 113-1-Nền rừng phát triển
+	Value: 3, Name: 113-2-Nền rừng tái sinh
+	Value: 4, Name: 113-1h-Khu thực phủ có dân cư
+	Value: -1, Name: Free Representation

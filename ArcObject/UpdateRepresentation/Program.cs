@@ -28,15 +28,15 @@ namespace ArcgisArcobjects
             #region "Run"
             //string pathProcessGDB = @"C:\Generalize_25_50\50K_Process.gdb";
             //string pathFileConfig = @"D:\ArcObject_Tools\DemoTools\ArcgisArcobjects\ConfigTool.json";
-            if (args[0] == "UpdateRuleID")
-            {
-                Console.WriteLine(@args[2]);
-                RunUpdateRuleID(@args[1], @args[2]);
-            }
-            else if (args[0] == "UpdateShapeOverride")
-            {
-                RunUpdateShapeOverride(@args[1], @args[2]);
-            }
+            //if (args[0] == "UpdateRuleID")
+            //{
+            //    Console.WriteLine(@args[2]);
+            //    RunUpdateRuleID(@args[1], @args[2]);
+            //}
+            //else if (args[0] == "UpdateShapeOverride")
+            //{
+            //    RunUpdateShapeOverride(@args[1], @args[2]);
+            //}
             #endregion
 
             #region "WriteFileRuleRepresentation"
@@ -53,11 +53,9 @@ namespace ArcgisArcobjects
             #endregion
 
             #region "WriteFileDomain"
-            //string pathGDB = @"D:\Official_Data\02_Dulieu\50K\CSDL\dulieumoi\5651-4\5651_4.gdb";
-            //string pathFile = @"D:\ArcObject_Tools\DemoTools\ArcgisArcobjects\Domain.txt";
-            //string featureDataset = "ThuyHe";
-            //string featureClass = "BienA";
-            //WriteFileDomain(pathGDB, pathFile);
+            string pathGDB = @"C:\Generalize_25_50\50K_Process.gdb";
+            string pathFile = @"C:\Users\ArcGIS 10.4\Documents\fpt-TongQuatHoa\ArcObject\UpdateRepresentation\Domain.txt";
+            WriteFileDomain(pathGDB, pathFile);
             #endregion
 
             #region "WriteFileFeatureClassRepresentation"
