@@ -42,9 +42,9 @@ class CreateDuongBinhDoPhu:
     def InsertDuongBinhDoPhu(self):
         print "\tInsertDuongBinhDoPhu"
         with arcpy.da.SearchCursor(self.duongBinhDoPhuTemp, ["Shape@", "Contour"]) as sCur:
-            with arcpy.da.InsertCursor(self.pathDuongBinhDoPhuProcess, ["Shape@", "doCaoH", "loaiKieuDuongBinhDo", "loaiDuongBinhDo", "doiTuong"]) as iCur:
+            with arcpy.da.InsertCursor(self.pathDuongBinhDoPhuProcess, ["Shape@", "doCaoH", "loaiKieuDuongBinhDo", "loaiDuongBinhDo", "doiTuong", "DuongBinhDo_Rep_ID"]) as iCur:
                 for row in sCur:
-                    iCur.insertRow((row[0], row[1], 2, 3, 1))
+                    iCur.insertRow((row[0], row[1], 2, 3, 1, 4))
         pass
 
 if __name__ == "__main__":
