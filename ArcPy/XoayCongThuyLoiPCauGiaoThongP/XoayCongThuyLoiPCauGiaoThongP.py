@@ -18,9 +18,12 @@ class XoayCongThuyLoiPCauGiaoThongP:
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.pathDefaultGDB = "C:\\Users\\vuong\\Documents\\ArcGIS\\Default.gdb"
+        self.fDThuyHe = "ThuyHe"
         self.fDGiaoThong = "GiaoThong"
+        self.fCCongThuyLoiP = "CongThuyLoiP"
         self.fCCauGiaoThongP = "CauGiaoThongP"
         self.fCDoanTimDuongBo = "DoanTimDuongBo"
+        self.pathCongThuyLoiPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCCongThuyLoiP)
         self.pathCauGiaoThongPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCCauGiaoThongP)
         self.pathDoanTimDuongBoFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
 
@@ -123,37 +126,10 @@ class XoayCongThuyLoiPCauGiaoThongP:
         file.close()
 
     def Excute(self):
-        arcpy.env.workspace = "C:\\Generalize_25_50\\50K_Final.gdb"
         arcpy.env.overwriteOutput = True
         arcpy.env.referenceScale = "50000"
-        fcCongThuyLoiP = "CongThuyLoiP"
-        fcCauGiaoThongP = "CauGiaoThongP"
-        fcDoanTimDuongBo = "DoanTimDuongBo"
-        congThuyLoiPLayer = "CongThuyLoiPLayer"
-        cauGiaoThongPLayer = "CauGiaoThongPLayer"
-        doanTimDuongBoLayer = "DoanTimDuongBoLayer"
-        arcpy.MakeFeatureLayer_management(in_features = fcCongThuyLoiP,
-                                            out_layer = congThuyLoiPLayer)
-        arcpy.MakeFeatureLayer_management(in_features = fcCauGiaoThongP,
-                                            out_layer = cauGiaoThongPLayer)
-        arcpy.MakeFeatureLayer_management(in_features = fcDoanTimDuongBo,
-                                            out_layer = doanTimDuongBoLayer)
-        arcpy.SetLayerRepresentation_cartography(in_layer = congThuyLoiPLayer,
-                                                 representation = "CongThuyLoiP_Rep")
-        arcpy.SetLayerRepresentation_cartography(in_layer = cauGiaoThongPLayer,
-                                                 representation = "CauGiaoThongP_Rep")
-        arcpy.SetLayerRepresentation_cartography(in_layer = doanTimDuongBoLayer,
-                                                 representation = "DoanTimDuongBo_Rep")
-        #PERPENDICULAR: aligns representation markers perpendicularly to the stroke or fill edge. This is the default.
-        #PARALLEL: aligns representation markers parallel to the stroke or fill edge.
-        arcpy.AlignMarkerToStrokeOrFill_cartography(in_point_features = congThuyLoiPLayer,
-                                                    in_line_or_polygon_features = doanTimDuongBoLayer,
-                                                    search_distance = "0 Meters",
-                                                    marker_orientation = "PERPENDICULAR")
-        arcpy.AlignMarkerToStrokeOrFill_cartography(in_point_features = cauGiaoThongPLayer,
-                                                    in_line_or_polygon_features = doanTimDuongBoLayer,
-                                                    search_distance = "0 Meters",
-                                                    marker_orientation = "PERPENDICULAR")
+        self.UpdateCauGiaoThongPRuleIDByDoanTimDuongBoRuleID()
+        self.XoayCongThuyLoiPCauGiaoThongP()
 
     def UpdateCauGiaoThongPRuleIDByDoanTimDuongBoRuleID(self):
         # Make Feature Layer
@@ -175,6 +151,9 @@ class XoayCongThuyLoiPCauGiaoThongP:
         arcpy.AddField_management(in_table = cauGiaoThongPLayer,
                                   field_name = "FID_DoanTimDuongBo",
                                   field_type = "LONG")
+        arcpy.AddField_management(in_table = cauGiaoThongPLayer,
+                                  field_name = "RepIDTemp",
+                                  field_type = "SHORT")
         # Table Select
         outTableTempB = "in_memory\\OutTabelTempB"
         arcpy.TableSelect_analysis(in_table = doanTimDuongBoLayer,
@@ -186,9 +165,6 @@ class XoayCongThuyLoiPCauGiaoThongP:
                 fieldsDelete.append(fieldTemp.name)
         arcpy.DeleteField_management(in_table = outTableTempB,
                                      drop_field = fieldsDelete)
-        fields = arcpy.ListFields(outTableTempB)
-        for fieldTemp in fields:
-            print fieldTemp.name
         # Join
         arcpy.AddJoin_management(in_layer_or_view = cauGiaoThongPLayer,
                                  in_field = "OBJECTID",
@@ -204,21 +180,49 @@ class XoayCongThuyLoiPCauGiaoThongP:
                                  in_field = "FID_DoanTimDuongBo",
                                  join_table = outTableTempB,
                                  join_field = "OBJECTID")
-        # Update RuleID
-        with arcpy.da.UpdateCursor(cauGiaoThongPLayer, ["CauGiaoThongP_Rep_ID", "DoanTimDuongBo_Rep_ID"]) as cursor:
-            for row in cursor:
-                for elem in self.configTool:
-                    if row[1] == elem["doanTimDuongBoRepID"]:
-                        row[0] = elem["cauGiaoThongPRepID"]
-                        cursor.updateRow(row)
-                        break
+        arcpy.CalculateField_management(in_table = cauGiaoThongPLayer,
+                                        field = "RepIDTemp",
+                                        expression = "!DoanTimDuongBo_Rep_ID!",
+                                        expression_type = "PYTHON_9.3")
         arcpy.RemoveJoin_management(in_layer_or_view = cauGiaoThongPLayer,
                                     join_name = outTableTempB.split("\\")[1])
+        # Update RuleID
+        with arcpy.da.UpdateCursor(cauGiaoThongPLayer, ["CauGiaoThongP_Rep_ID", "RepIDTemp"]) as cursor:
+            for row in cursor:
+                for elem in self.configTool:
+                    if row[1] == int(elem["doanTimDuongBoRepID"]):
+                        row[0] = int(elem["cauGiaoThongPRepID"])
+                        cursor.updateRow(row)
+                        break
         arcpy.DeleteField_management(in_table = cauGiaoThongPLayer,
-                                     drop_field = ["FID_DoanTimDuongBo"])
+                                     drop_field = ["FID_DoanTimDuongBo", "RepIDTemp"])
 
+    def XoayCongThuyLoiPCauGiaoThongP(self):
+        congThuyLoiPLayer = "CongThuyLoiPLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCongThuyLoiPFinal,
+                                            out_layer = congThuyLoiPLayer)
+        cauGiaoThongPLayer = "CauGiaoThongPLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCauGiaoThongPFinal,
+                                            out_layer = cauGiaoThongPLayer)
+        doanTimDuongBoLayer = "DoanTimDuongBoLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                            out_layer = doanTimDuongBoLayer)
+        arcpy.SetLayerRepresentation_cartography(in_layer = congThuyLoiPLayer,
+                                                 representation = "CongThuyLoiP_Rep")
+        arcpy.SetLayerRepresentation_cartography(in_layer = cauGiaoThongPLayer,
+                                                 representation = "CauGiaoThongP_Rep")
+        arcpy.SetLayerRepresentation_cartography(in_layer = doanTimDuongBoLayer,
+                                                 representation = "DoanTimDuongBo_Rep")
+        #PERPENDICULAR: aligns representation markers perpendicularly to the stroke or fill edge. This is the default.
+        #PARALLEL: aligns representation markers parallel to the stroke or fill edge.
+        arcpy.AlignMarkerToStrokeOrFill_cartography(in_point_features = congThuyLoiPLayer,
+                                                    in_line_or_polygon_features = doanTimDuongBoLayer,
+                                                    search_distance = "50 Meters",
+                                                    marker_orientation = "PERPENDICULAR")
+        arcpy.AlignMarkerToStrokeOrFill_cartography(in_point_features = cauGiaoThongPLayer,
+                                                    in_line_or_polygon_features = doanTimDuongBoLayer,
+                                                    search_distance = "50 Meters",
+                                                    marker_orientation = "PERPENDICULAR")
 if __name__ == '__main__':
-    arcpy.env.overwriteOutput = True
     xoayCongThuyLoiPCauGiaoThongP = XoayCongThuyLoiPCauGiaoThongP()
-    #xoayCongThuyLoiPCauGiaoThongP.Excute()
-    xoayCongThuyLoiPCauGiaoThongP.UpdateCauGiaoThongPRuleIDByDoanTimDuongBoRuleID()
+    xoayCongThuyLoiPCauGiaoThongP.Excute()

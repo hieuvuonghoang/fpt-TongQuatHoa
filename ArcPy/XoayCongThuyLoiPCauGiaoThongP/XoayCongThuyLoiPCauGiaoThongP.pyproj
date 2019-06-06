@@ -26,7 +26,6 @@
     <Compile Include="XoayCongThuyLoiPCauGiaoThongP.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConfigToolXoayCongThuyLoiPCauGiaoThongP.json" />
     <Content Include="Run.bat" />
   </ItemGroup>
   <PropertyGroup>
