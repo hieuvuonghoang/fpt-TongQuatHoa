@@ -1,5 +1,5 @@
 @echo off
-title Xoay Representation CongThuyLoiP CauGiaoThongP Theo DoanTimDuongBo
+title CreateDuongBinhDoPhu
 
 set start=%time%
 echo.Start Time: %time%
@@ -7,7 +7,7 @@ echo.Running...
 echo.
 
 :: Runs your command
-python XoayCongThuyLoiPCauGiaoThongP.py
+python CreateDuongBinhDoPhu.py
 
 set end=%time%
 set options="tokens=1-4 delims=:.,"

@@ -25,20 +25,21 @@ class DuongBoNuoc:
         self.pathDuongBoNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongBoNuoc)
 
     def Excute(self):
-        print "DuongBoNuoc"
+        print "DuongBoNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongBoNuocFinal()
+        self.SnapDuongBoNuoc()
 
     def CreateFeaturePointRemove(self):
-        print "CreateFeaturePointRemove"
+        print "\tCreateFeaturePointRemove"
         # Using Merge Tool
         inputsMerge = [self.pathBaiBoiAFinal, self.pathMatNuocTinhFinal, self.pathSongSuoiAFinal, self.pathKenhMuongAFinal]
-        outPutMergeTempA = "in_memory\\OutPutMergeTempA"
+        self.outPutMergeTempA = "in_memory\\OutPutMergeTempA"
         arcpy.Merge_management(inputs = inputsMerge,
-                               output = outPutMergeTempA)
+                               output = self.outPutMergeTempA)
         # Using Feature To Line
         outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
-        arcpy.FeatureToLine_management(in_features = outPutMergeTempA,
+        arcpy.FeatureToLine_management(in_features = self.outPutMergeTempA,
                                        out_feature_class = outPutFeatureToLineTempA)
         # Using Merge Tool
         inputsMerge = [self.pathBaiBoiAProcess, self.pathMatNuocTinhProcess, self.pathSongSuoiAProcess, self.pathKenhMuongAProcess]
@@ -93,7 +94,7 @@ class DuongBoNuoc:
                                       out_feature_class = self.duongBoNuocPointRemove)
 
     def UpdateShapeDuongBoNuocFinal(self):
-        print "UpdateShapeDuongBoNuocFinal"
+        print "\tUpdateShapeDuongBoNuocFinal"
         self.duongBoNuocLayer = "DuongBoNuocLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDuongBoNuocFinal,
                                           out_layer = self.duongBoNuocLayer)
@@ -131,6 +132,22 @@ class DuongBoNuoc:
                 rowA[1] = arcpy.Polyline(arcpy.Array(listPart))
                 cursorA.updateRow(rowA)
 
+    def SnapDuongBoNuoc(self):
+        print "\tSnapDuongBoNuoc"
+        self.duongBoNuocLayer = "DuongBoNuocLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDuongBoNuocFinal,
+                                          out_layer = self.duongBoNuocLayer)
+        outPutMergeTempALayer = "outPutMergeTempALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.outPutMergeTempA,
+                                          out_layer = outPutMergeTempALayer)
+        snapEnv = [outPutMergeTempALayer, "EDGE", "100 Meters"]
+        with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
+            for rowA in cursorA:
+                arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
+                                                        selection_type = "NEW_SELECTION",
+                                                        where_clause = "OBJECTID = " + str(rowA[0]))
+                arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
+
 class DuongMepNuoc:
 
     def __init__(self):
@@ -145,12 +162,12 @@ class DuongMepNuoc:
         self.pathDuongMepNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongMepNuoc)
 
     def Excute(self):
-        print "DuongMepNuoc"
+        print "DuongMepNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongMepNuocFinal()
 
     def CreateFeaturePointRemove(self):
-        print "CreateFeaturePointRemove"
+        print "\tCreateFeaturePointRemove"
         # Using Feature To Line
         outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
         arcpy.FeatureToLine_management(in_features = self.pathBaiBoiAFinal,
@@ -203,7 +220,7 @@ class DuongMepNuoc:
                                       out_feature_class = self.duongMepNuocPointRemove)
 
     def UpdateShapeDuongMepNuocFinal(self):
-        print "UpdateShapeDuongBoNuocFinal"
+        print "\tUpdateShapeDuongBoNuocFinal"
         self.duongMepNuocLayer = "DuongMepNuocLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDuongMepNuocFinal,
                                           out_layer = self.duongMepNuocLayer)
@@ -240,6 +257,21 @@ class DuongMepNuoc:
                         listPart.append(listPoint)
                 rowA[1] = arcpy.Polyline(arcpy.Array(listPart))
                 cursorA.updateRow(rowA)
+    def SnapDuongMepNuoc(self):
+        print "\tSnapDuongMepNuoc"
+        baiBoiALayer = "BaiBoiALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathBaiBoiAFinal,
+                                          out_layer = baiBoiALayer)
+        self.duongMepNuocLayer = "DuongMepNuocLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDuongMepNuocFinal,
+                                          out_layer = self.duongMepNuocLayer)
+        snapEnv = [baiBoiALayer, "EDGE", "100 Meters"]
+        with arcpy.da.UpdateCursor(self.duongMepNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
+            for rowA in cursorA:
+                arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongMepNuocLayer,
+                                                        selection_type = "NEW_SELECTION",
+                                                        where_clause = "OBJECTID = " + str(rowA[0]))
+                arcpy.Snap_edit(self.duongMepNuocLayer, [snapEnv])
 
 if __name__ == '__main__':
     print "DuongBoNuoc Tools"
