@@ -125,7 +125,7 @@ class XoayCongThuyLoiPCauGiaoThongP:
         file.write(textConfig)
         file.close()
 
-    def Excute(self):
+    def Execute(self):
         arcpy.env.overwriteOutput = True
         arcpy.env.referenceScale = "50000"
         self.UpdateCauGiaoThongPRuleIDByDoanTimDuongBoRuleID()
@@ -225,4 +225,4 @@ class XoayCongThuyLoiPCauGiaoThongP:
                                                     marker_orientation = "PERPENDICULAR")
 if __name__ == '__main__':
     xoayCongThuyLoiPCauGiaoThongP = XoayCongThuyLoiPCauGiaoThongP()
-    xoayCongThuyLoiPCauGiaoThongP.Excute()
+    xoayCongThuyLoiPCauGiaoThongP.Execute()

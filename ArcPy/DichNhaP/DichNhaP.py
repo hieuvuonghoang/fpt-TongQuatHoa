@@ -40,7 +40,7 @@ class DichNhaP:
         self.distanceDoanTimDuongBo = dictConfig["distanceDoanTimDuongBoMeter"]
         self.radiusNhaP = dictConfig["radiusNhaPMeter"]
 
-    def Excute(self):
+    def Execute(self):
         self.CopyNhaPToMemory()
         self.CreateBufferDoanTimDuongBo()
         self.CreateFeatureNhaPCanDich()
@@ -247,5 +247,5 @@ if __name__ == '__main__':
     print "DichNhaP Tools"
     arcpy.env.overwriteOutput = True
     dichNhaP = DichNhaP()
-    dichNhaP.Excute()
+    dichNhaP.Execute()
     print "Success!!!"

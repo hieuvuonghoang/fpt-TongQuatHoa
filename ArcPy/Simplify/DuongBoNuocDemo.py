@@ -24,7 +24,7 @@ class DuongBoNuoc:
         self.pathBaiBoiAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCBaiBoiA)
         self.pathDuongBoNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongBoNuoc)
 
-    def Excute(self):
+    def Execute(self):
         print "DuongBoNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongBoNuocFinal()
@@ -161,7 +161,7 @@ class DuongMepNuoc:
         self.pathBaiBoiAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCBaiBoiA)
         self.pathDuongMepNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongMepNuoc)
 
-    def Excute(self):
+    def Execute(self):
         print "DuongMepNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongMepNuocFinal()
@@ -277,7 +277,7 @@ if __name__ == '__main__':
     print "DuongBoNuoc Tools"
     arcpy.env.overwriteOutput = True
     duongBoNuoc = DuongBoNuoc()
-    duongBoNuoc.Excute()
+    duongBoNuoc.Execute()
     duongMepNuoc = DuongMepNuoc()
-    duongMepNuoc.Excute()
+    duongMepNuoc.Execute()
     print "Success!!!"

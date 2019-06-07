@@ -14,7 +14,7 @@ class CreateDuongBinhDoPhu:
         self.pathDuongBinhDoPhuProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDDiaHinh), self.fCDuongBinhDoPhu)
         pass
 
-    def Excute(self):
+    def Execute(self):
         arcpy.env.overwriteOutput = True
         self.RunContourTool()
         self.InitFeatureDuongBinhDoPhu()
@@ -50,5 +50,5 @@ class CreateDuongBinhDoPhu:
 if __name__ == "__main__":
     print "CreateDuongBinhDoPhu:"
     createDuongBinhDoPhu = CreateDuongBinhDoPhu()
-    createDuongBinhDoPhu.Excute()
+    createDuongBinhDoPhu.Execute()
     print "Success!!!"
