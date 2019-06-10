@@ -118,10 +118,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ConfigTool.json" />
+    <None Include="ConfigTools.json" />
+    <None Include="RunToolUpdateRuleID.bat" />
     <None Include="TemplateConfigTool.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Domain.txt" />
     <Content Include="NoConfig.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

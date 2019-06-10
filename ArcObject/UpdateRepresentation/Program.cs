@@ -26,17 +26,8 @@ namespace ArcgisArcobjects
             //ESRI License Initializer generated code.
 
             #region "Run"
-            //string pathProcessGDB = @"C:\Generalize_25_50\50K_Process.gdb";
-            //string pathFileConfig = @"D:\ArcObject_Tools\DemoTools\ArcgisArcobjects\ConfigTool.json";
-            //if (args[0] == "UpdateRuleID")
-            //{
-            //    Console.WriteLine(@args[2]);
-            //    RunUpdateRuleID(@args[1], @args[2]);
-            //}
-            //else if (args[0] == "UpdateShapeOverride")
-            //{
-            //    RunUpdateShapeOverride(@args[1], @args[2]);
-            //}
+            //string pathProcessGDB = @"C:\Generalize_25_50\50K_Final.gdb";
+            RunUpdateRuleID(@args[1], @args[2]);
             #endregion
 
             #region "WriteFileRuleRepresentation"
@@ -53,9 +44,9 @@ namespace ArcgisArcobjects
             #endregion
 
             #region "WriteFileDomain"
-            string pathGDB = @"C:\Generalize_25_50\50K_Process.gdb";
-            string pathFile = @"C:\Users\ArcGIS 10.4\Documents\fpt-TongQuatHoa\ArcObject\UpdateRepresentation\Domain.txt";
-            WriteFileDomain(pathGDB, pathFile);
+            //string pathGDB = @"C:\Generalize_25_50\50K_Process.gdb";
+            //string pathFile = @"C:\Users\ArcGIS 10.4\Documents\fpt-TongQuatHoa\ArcObject\UpdateRepresentation\Domain.txt";
+            //WriteFileDomain(pathGDB, pathFile);
             #endregion
 
             #region "WriteFileFeatureClassRepresentation"
@@ -143,7 +134,7 @@ namespace ArcgisArcobjects
                     IRepresentation iRepresentation = iRepresentationClass.GetRepresentation(iFeature, iMapContext);
                     if (iRepresentation != null && iRepresentation.RuleID != ruleID)
                     {
-                        Console.WriteLine("\t\tOID: {0}, {1} => {2}", iFeature.OID, iRepresentation.RuleID, ruleID);
+                        //Console.WriteLine("\t\tOID: {0}, {1} => {2}", iFeature.OID, iRepresentation.RuleID, ruleID);
                         iRepresentation.RuleID = ruleID;
                         iRepresentation.UpdateFeature();
                         iFeature.Store();
@@ -172,7 +163,7 @@ namespace ArcgisArcobjects
                 IFeature iFeature = null;
                 while ((iFeature = iFeatureCursor.NextFeature()) != null)
                 {
-                    Console.WriteLine("\tOID: {0}, Update Shape Override", iFeature.OID);
+                    //Console.WriteLine("\tOID: {0}, Update Shape Override", iFeature.OID);
                     IRepresentation iRepresentation = iRepresentationClass.GetRepresentation(iFeature, iMapContext);
                     if (iRepresentation.HasShapeOverride)
                     {
@@ -203,14 +194,14 @@ namespace ArcgisArcobjects
                     {
                         foreach (Representation elemRepresentation in elemFeatureClass.listRepresentation)
                         {
-                            Console.WriteLine("Process: {0}/{1}, Representation: {2}",
-                                elemConfig.nameFeatureDataset, elemFeatureClass.nameFeatureClass, elemRepresentation.nameRepresentation);
+                            //Console.WriteLine("Process: {0}/{1}, Representation: {2}",
+                            //    elemConfig.nameFeatureDataset, elemFeatureClass.nameFeatureClass, elemRepresentation.nameRepresentation);
                             foreach (Rule elemRule in elemRepresentation.listRule)
                             {
                                 int ruleID;
                                 if ((int.TryParse(elemRule.ruleID, out ruleID)) && (elemRule.querySQL != ""))
                                 {
-                                    Console.WriteLine("\tRuleID: {0}, QuerySQL: {1}", ruleID, elemRule.querySQL);
+                                    //Console.WriteLine("\tRuleID: {0}, QuerySQL: {1}", ruleID, elemRule.querySQL);
                                     UpdateRuleID(featureClass, iRepresentationWorkspaceExtension, elemRepresentation.nameRepresentation, ruleID, elemRule.querySQL);
                                 }
                             }
