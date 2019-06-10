@@ -7,6 +7,7 @@ echo.Running...
 echo.
 
 :: Runs your command
+cd %python27%
 python CreateDuongBinhDoPhu.py
 
 set end=%time%
