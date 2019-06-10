@@ -26,8 +26,10 @@ namespace ArcgisArcobjects
             //ESRI License Initializer generated code.
 
             #region "Run"
-            //string pathProcessGDB = @"C:\Generalize_25_50\50K_Final.gdb";
-            RunUpdateRuleID(@args[1], @args[2]);
+            string pathProcessGDB = @"C:\Generalize_25_50\50K_Final.gdb";
+            string pathFileConfig = @"C:\Users\ArcGIS 10.4\Documents\fpt-TongQuatHoa\ArcObject\UpdateRepresentation\ConfigTools.json";
+            //RunUpdateRuleID(@args[1], @args[2]);
+            RunUpdateRuleID(pathProcessGDB, pathFileConfig);
             #endregion
 
             #region "WriteFileRuleRepresentation"
@@ -76,7 +78,6 @@ namespace ArcgisArcobjects
             m_AOLicenseInitializer.ShutdownApplication();
 
             Console.WriteLine("Succees...");
-            Console.ReadKey();
         }
 
         static IFeatureClass OpenFeatureClass(IWorkspace iWorkspace, string featureDatasetName, string featureClassName)

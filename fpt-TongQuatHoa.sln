@@ -17,6 +17,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayCongThuyLoiP", "ArcPy\X
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DichNhaP_Representation", "ArcObject\DichNhaP_Representation\DichNhaP_Representation.csproj", "{B09D568E-DC9A-4D1A-A39D-3B7F83C1E293}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepresentationUpdateRuleID", "ArcObject\RepresentationUpdateRuleID\RepresentationUpdateRuleID.csproj", "{ED91550E-717C-4979-8E30-6093DDBF98BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{B09D568E-DC9A-4D1A-A39D-3B7F83C1E293}.Release|Any CPU.ActiveCfg = Release|x86
 		{B09D568E-DC9A-4D1A-A39D-3B7F83C1E293}.Release|x86.ActiveCfg = Release|x86
 		{B09D568E-DC9A-4D1A-A39D-3B7F83C1E293}.Release|x86.Build.0 = Release|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Debug|x86.ActiveCfg = Debug|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Debug|x86.Build.0 = Debug|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Release|Any CPU.ActiveCfg = Release|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Release|x86.ActiveCfg = Release|x86
+		{ED91550E-717C-4979-8E30-6093DDBF98BA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +67,6 @@ Global
 		{B04DA927-0680-4537-B2A9-8C5CD71B7EA7} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{DE4D13B7-8987-4BB0-A073-74856F782F9D} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{B09D568E-DC9A-4D1A-A39D-3B7F83C1E293} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
+		{ED91550E-717C-4979-8E30-6093DDBF98BA} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
 	EndGlobalSection
 EndGlobal
