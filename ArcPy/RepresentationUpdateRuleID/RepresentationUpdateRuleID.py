@@ -44,6 +44,7 @@ class RepresentationUpdateRuleID:
                                                                     field = child.ruleIDFieldName,
                                                                     expression = elemRule["ruleID"],
                                                                     expression_type = "PYTHON_9.3")
+                                break 
         pass
 
 if __name__ == "__main__":

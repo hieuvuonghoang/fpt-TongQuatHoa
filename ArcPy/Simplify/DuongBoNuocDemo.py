@@ -134,6 +134,15 @@ class DuongBoNuoc:
 
     def SnapDuongBoNuoc(self):
         print "\tSnapDuongBoNuoc"
+        #
+        outPutFeatureVerticesToPointsTempC = "in_memory\\OutPutFeatureVerticesToPointsTempC"
+        arcpy.FeatureVerticesToPoints_management(in_features = self.pathDuongBoNuocFinal,
+                                                 out_feature_class = outPutFeatureVerticesToPointsTempC,
+                                                 point_location = "BOTH_ENDS")
+        outLayerTemp = "OutPutFeatureVerticesToPointsTempCLayer"
+        arcpy.MakeFeatureLayer_management(in_features = outPutFeatureVerticesToPointsTempC,
+                                          out_layer = outLayerTemp)
+        #
         self.duongBoNuocLayer = "DuongBoNuocLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDuongBoNuocFinal,
                                           out_layer = self.duongBoNuocLayer)
@@ -141,6 +150,13 @@ class DuongBoNuoc:
         arcpy.MakeFeatureLayer_management(in_features = self.outPutMergeTempA,
                                           out_layer = outPutMergeTempALayer)
         snapEnv = [outPutMergeTempALayer, "EDGE", "100 Meters"]
+        #
+        arcpy.SelectLayerByLocation_management(in_layer = self.duongBoNuocLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = outLayerTemp,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "NOT_INVERT")
         with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
             for rowA in cursorA:
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
@@ -259,6 +275,15 @@ class DuongMepNuoc:
                 cursorA.updateRow(rowA)
     def SnapDuongMepNuoc(self):
         print "\tSnapDuongMepNuoc"
+        #
+        outPutFeatureVerticesToPointsTempC = "in_memory\\OutPutFeatureVerticesToPointsTempC"
+        arcpy.FeatureVerticesToPoints_management(in_features = self.pathDuongMepNuocFinal,
+                                                 out_feature_class = outPutFeatureVerticesToPointsTempC,
+                                                 point_location = "BOTH_ENDS")
+        outLayerTemp = "OutPutFeatureVerticesToPointsTempCLayer"
+        arcpy.MakeFeatureLayer_management(in_features = outPutFeatureVerticesToPointsTempC,
+                                          out_layer = outLayerTemp)
+        #
         baiBoiALayer = "BaiBoiALayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathBaiBoiAFinal,
                                           out_layer = baiBoiALayer)
@@ -266,6 +291,13 @@ class DuongMepNuoc:
         arcpy.MakeFeatureLayer_management(in_features = self.pathDuongMepNuocFinal,
                                           out_layer = self.duongMepNuocLayer)
         snapEnv = [baiBoiALayer, "EDGE", "100 Meters"]
+        #
+        arcpy.SelectLayerByLocation_management(in_layer = self.duongMepNuocLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = outLayerTemp,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "NOT_INVERT")
         with arcpy.da.UpdateCursor(self.duongMepNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
             for rowA in cursorA:
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongMepNuocLayer,
