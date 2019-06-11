@@ -27,6 +27,7 @@ class RanhGioiPhuBeMat:
                                       out_feature_class = self.pathRanhGioiPhuBeMatFinal)
         self.CreateFCPointRemove()
         self.UpdateShapeRanhGioiPhuBeMatFinal()
+        self.SelectLineSnap()
         self.SnapRanhGioiPhuBeMatFinal()
         pass
 
@@ -59,9 +60,9 @@ class RanhGioiPhuBeMat:
         arcpy.FeatureToLine_management(in_features = self.phuBeMatFinalLayer,
                                        out_feature_class = self.fCPhuBeMatFinalFeatureToLine,
                                        cluster_tolerance = "0 Meters")
-        phuBeMatFinalFeatureToLineLayer = "PhuBeMatFinalFeatureToLineLayer"
+        self.phuBeMatFinalFeatureToLineLayer = "PhuBeMatFinalFeatureToLineLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.fCPhuBeMatFinalFeatureToLine,
-                                          out_layer = phuBeMatFinalFeatureToLineLayer)
+                                          out_layer = self.phuBeMatFinalFeatureToLineLayer)
         ## Feature Vertices To Points: RanhGioiPhuBeMat Final
         fCRanhGioiPhuBeMatFinalPointsALL = "in_memory\\RanhGioiPhuBeMatFinalPointsALL"
         arcpy.FeatureVerticesToPoints_management(in_features = self.ranhGioiPhuBeMatFinalLayer,
@@ -81,7 +82,7 @@ class RanhGioiPhuBeMat:
         ## Select fCRanhGioiPhuBeMatFinalPoints
         arcpy.SelectLayerByLocation_management(in_layer = ranhGioiPhuBeMatFinalPointsLayer,
                                                overlap_type = "INTERSECT",
-                                               select_features = phuBeMatFinalFeatureToLineLayer,
+                                               select_features = self.phuBeMatFinalFeatureToLineLayer,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
@@ -122,8 +123,7 @@ class RanhGioiPhuBeMat:
                         found = False
                         with arcpy.da.UpdateCursor(self.pointRemoveLayer, ["OID@", "SHAPE@"]) as cursorB:
                             for rowB in cursorB:
-                                pointB = rowB[1].centroid
-                                if rowASubSub.X == pointB.X and rowASubSub.Y == pointB.Y:
+                                if rowB[1].equals(rowASubSub):
                                     found = True
                                     cursorB.deleteRow()
                                     break
@@ -135,43 +135,47 @@ class RanhGioiPhuBeMat:
                 cursorA.updateRow(rowA)
         pass
 
-    def SnapRanhGioiPhuBeMatFinal(self):
-        print "\tSnapRanhGioiPhuBeMatFinal"
+    def SelectLineSnap(self):
+        print "\tSelectLineSnap"
         self.ranhGioiPhuBeMatFinalLayer = "RanhGioiPhuBeMatFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathRanhGioiPhuBeMatFinal,
                                           out_layer = self.ranhGioiPhuBeMatFinalLayer)
-        #
         fCRanhGioiPhuBeMatFinalPointsBOTHENDS = "in_memory\\RanhGioiPhuBeMatFinalPointsBOTHENDS"
         arcpy.FeatureVerticesToPoints_management(in_features = self.ranhGioiPhuBeMatFinalLayer,
                                                  out_feature_class = fCRanhGioiPhuBeMatFinalPointsBOTHENDS,
                                                  point_location = "BOTH_ENDS")
-        ranhGioiPhuBeMatFinalPointsBOTHENDS = "RanhGioiPhuBeMatFinalPointsBOTHENDS"
+        ranhGioiPhuBeMatFinalPointsBOTHENDSLayer = "RanhGioiPhuBeMatFinalPointsBOTHENDSLayer"
         arcpy.MakeFeatureLayer_management(in_features = fCRanhGioiPhuBeMatFinalPointsBOTHENDS,
-                                          out_layer = ranhGioiPhuBeMatFinalPointsBOTHENDS)
-        phuBeMatFinalFeatureToLineLayer = "PhuBeMatFinalFeatureToLineLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.fCPhuBeMatFinalFeatureToLine,
-                                          out_layer = phuBeMatFinalFeatureToLineLayer)
-        arcpy.SelectLayerByLocation_management(in_layer = ranhGioiPhuBeMatFinalPointsBOTHENDS,
+                                          out_layer = ranhGioiPhuBeMatFinalPointsBOTHENDSLayer)
+        arcpy.SelectLayerByLocation_management(in_layer = ranhGioiPhuBeMatFinalPointsBOTHENDSLayer,
                                                overlap_type = "INTERSECT",
-                                               select_features = phuBeMatFinalFeatureToLineLayer,
+                                               select_features = self.phuBeMatFinalFeatureToLineLayer,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
         arcpy.SelectLayerByLocation_management(in_layer = self.ranhGioiPhuBeMatFinalLayer,
                                                overlap_type = "INTERSECT",
-                                               select_features = ranhGioiPhuBeMatFinalPointsBOTHENDS,
+                                               select_features = ranhGioiPhuBeMatFinalPointsBOTHENDSLayer,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "NOT_INVERT")
-        self.phuBeMatFinalLayer = "PhuBeMatFinalLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathPhuBeMatFinal,
-                                          out_layer = self.phuBeMatFinalLayer)
-        snapEnv = [self.phuBeMatFinalLayer, "EDGE", "100 Meters"]
+        pass
+
+    def SnapRanhGioiPhuBeMatFinal(self):
+        print "\tSnapRanhGioiPhuBeMatFinal"
+        distance = "100 Meters"
+        snapEnv = [self.phuBeMatFinalLayer, "EDGE", distance]
         with arcpy.da.SearchCursor(self.ranhGioiPhuBeMatFinalLayer, ["OID@", "SHAPE@"]) as cursorA:
             for rowA in cursorA:
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.ranhGioiPhuBeMatFinalLayer,
                                                         selection_type = "NEW_SELECTION",
                                                         where_clause = "OBJECTID = " + str(rowA[0]))
+                arcpy.SelectLayerByLocation_management(in_layer = self.phuBeMatFinalLayer,
+                                                       overlap_type = "INTERSECT",
+                                                       select_features = self.ranhGioiPhuBeMatFinalLayer,
+                                                       search_distance = distance,
+                                                       selection_type = "NEW_SELECTION",
+                                                       invert_spatial_relationship = "NOT_INVERT")
                 arcpy.Snap_edit(self.ranhGioiPhuBeMatFinalLayer, [snapEnv])
         pass
 
