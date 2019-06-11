@@ -28,6 +28,7 @@ class DuongBoNuoc:
         print "DuongBoNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongBoNuocFinal()
+        self.SelectLineSnap()
         self.SnapDuongBoNuoc()
 
     def CreateFeaturePointRemove(self):
@@ -38,9 +39,9 @@ class DuongBoNuoc:
         arcpy.Merge_management(inputs = inputsMerge,
                                output = self.outPutMergeTempA)
         # Using Feature To Line
-        outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
+        self.outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
         arcpy.FeatureToLine_management(in_features = self.outPutMergeTempA,
-                                       out_feature_class = outPutFeatureToLineTempA)
+                                       out_feature_class = self.outPutFeatureToLineTempA)
         # Using Merge Tool
         inputsMerge = [self.pathBaiBoiAProcess, self.pathMatNuocTinhProcess, self.pathSongSuoiAProcess, self.pathKenhMuongAProcess]
         outPutMergeTempB = "in_memory\\OutPutMergeTempB"
@@ -77,15 +78,15 @@ class DuongBoNuoc:
                              erase_features = outPutFeatureVerticesToPointsTempC,
                              out_feature_class = outPutEraseA)
         # Using Select Feature Layer By Location
-        outLayerTempA = "OutLayerTempA"
-        arcpy.MakeFeatureLayer_management(in_features = outPutFeatureToLineTempA,
-                                          out_layer = outLayerTempA)
+        self.outLayerTempA = "OutLayerTempA"
+        arcpy.MakeFeatureLayer_management(in_features = self.outPutFeatureToLineTempA,
+                                          out_layer = self.outLayerTempA)
         outLayerTempB = "OutLayerTempB"
         arcpy.MakeFeatureLayer_management(in_features = outPutEraseA,
                                           out_layer = outLayerTempB)
         arcpy.SelectLayerByLocation_management(in_layer = outLayerTempB,
                                                overlap_type = "INTERSECT",
-                                               select_features = outLayerTempA,
+                                               select_features = self.outLayerTempA,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
@@ -132,9 +133,8 @@ class DuongBoNuoc:
                 rowA[1] = arcpy.Polyline(arcpy.Array(listPart))
                 cursorA.updateRow(rowA)
 
-    def SnapDuongBoNuoc(self):
-        print "\tSnapDuongBoNuoc"
-        #
+    def SelectLineSnap(self):
+        print "\tSelectLineSnap"
         outPutFeatureVerticesToPointsTempC = "in_memory\\OutPutFeatureVerticesToPointsTempC"
         arcpy.FeatureVerticesToPoints_management(in_features = self.pathDuongBoNuocFinal,
                                                  out_feature_class = outPutFeatureVerticesToPointsTempC,
@@ -142,21 +142,26 @@ class DuongBoNuoc:
         outLayerTemp = "OutPutFeatureVerticesToPointsTempCLayer"
         arcpy.MakeFeatureLayer_management(in_features = outPutFeatureVerticesToPointsTempC,
                                           out_layer = outLayerTemp)
-        #
-        self.duongBoNuocLayer = "DuongBoNuocLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathDuongBoNuocFinal,
-                                          out_layer = self.duongBoNuocLayer)
-        outPutMergeTempALayer = "outPutMergeTempALayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.outPutMergeTempA,
-                                          out_layer = outPutMergeTempALayer)
-        snapEnv = [outPutMergeTempALayer, "EDGE", "100 Meters"]
-        #
+        arcpy.SelectLayerByLocation_management(in_layer = outLayerTemp,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.outLayerTempA,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
         arcpy.SelectLayerByLocation_management(in_layer = self.duongBoNuocLayer,
                                                overlap_type = "INTERSECT",
                                                select_features = outLayerTemp,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "NOT_INVERT")
+        pass
+
+    def SnapDuongBoNuoc(self):
+        print "\tSnapDuongBoNuoc"
+        outPutMergeTempALayer = "outPutMergeTempALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.outPutMergeTempA,
+                                          out_layer = outPutMergeTempALayer)
+        snapEnv = [outPutMergeTempALayer, "EDGE", "100 Meters"]
         with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
             for rowA in cursorA:
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
@@ -181,24 +186,26 @@ class DuongMepNuoc:
         print "DuongMepNuoc:"
         self.CreateFeaturePointRemove()
         self.UpdateShapeDuongMepNuocFinal()
+        self.SelectLineSnap()
+        self.SnapDuongMepNuoc()
 
     def CreateFeaturePointRemove(self):
         print "\tCreateFeaturePointRemove"
         # Using Feature To Line
-        outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
+        self.outPutFeatureToLineTempA = "in_memory\\OutPutFeatureToLineTempA"
         arcpy.FeatureToLine_management(in_features = self.pathBaiBoiAFinal,
-                                       out_feature_class = outPutFeatureToLineTempA)
+                                       out_feature_class = self.outPutFeatureToLineTempA)
         # Using Feature To Line
-        outPutFeatureToLineTempB = "in_memory\\OutPutFeatureToLineTempB"
+        self.outPutFeatureToLineTempB = "in_memory\\OutPutFeatureToLineTempB"
         arcpy.FeatureToLine_management(in_features = self.pathBaiBoiAProcess,
-                                       out_feature_class = outPutFeatureToLineTempB)
+                                       out_feature_class = self.outPutFeatureToLineTempB)
         # Using Feature Vertices To Points
-        outPutFeatureVerticesToPointsTempA = "in_memory\\OutPutFeatureVerticesToPointsTempA"
-        arcpy.FeatureVerticesToPoints_management(in_features = outPutFeatureToLineTempB,
-                                                 out_feature_class = outPutFeatureVerticesToPointsTempA,
+        self.outPutFeatureVerticesToPointsTempA = "in_memory\\OutPutFeatureVerticesToPointsTempA"
+        arcpy.FeatureVerticesToPoints_management(in_features = self.outPutFeatureToLineTempB,
+                                                 out_feature_class = self.outPutFeatureVerticesToPointsTempA,
                                                  point_location = "ALL")
         # Using Integrate
-        inputsIntegrate = [[self.pathDuongMepNuocProcess, 1], [outPutFeatureVerticesToPointsTempA, 2]]
+        inputsIntegrate = [[self.pathDuongMepNuocProcess, 1], [self.outPutFeatureVerticesToPointsTempA, 2]]
         arcpy.Integrate_management(in_features = inputsIntegrate,
                                    cluster_tolerance = "0 Meters")
         # Using Copy Feature
@@ -219,15 +226,15 @@ class DuongMepNuoc:
                              erase_features = outPutFeatureVerticesToPointsTempC,
                              out_feature_class = outPutEraseA)
         # Using Select Feature Layer By Location
-        outLayerTempA = "OutLayerTempA"
-        arcpy.MakeFeatureLayer_management(in_features = outPutFeatureToLineTempA,
-                                          out_layer = outLayerTempA)
+        self.outLayerTempA = "OutLayerTempA"
+        arcpy.MakeFeatureLayer_management(in_features = self.outPutFeatureToLineTempA,
+                                          out_layer = self.outLayerTempA)
         outLayerTempB = "OutLayerTempB"
         arcpy.MakeFeatureLayer_management(in_features = outPutEraseA,
                                           out_layer = outLayerTempB)
         arcpy.SelectLayerByLocation_management(in_layer = outLayerTempB,
                                                overlap_type = "INTERSECT",
-                                               select_features = outLayerTempA,
+                                               select_features = self.outLayerTempA,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
@@ -273,9 +280,9 @@ class DuongMepNuoc:
                         listPart.append(listPoint)
                 rowA[1] = arcpy.Polyline(arcpy.Array(listPart))
                 cursorA.updateRow(rowA)
-    def SnapDuongMepNuoc(self):
-        print "\tSnapDuongMepNuoc"
-        #
+
+    def SelectLineSnap(self):
+        print "\tSelectLineSnap"
         outPutFeatureVerticesToPointsTempC = "in_memory\\OutPutFeatureVerticesToPointsTempC"
         arcpy.FeatureVerticesToPoints_management(in_features = self.pathDuongMepNuocFinal,
                                                  out_feature_class = outPutFeatureVerticesToPointsTempC,
@@ -283,21 +290,26 @@ class DuongMepNuoc:
         outLayerTemp = "OutPutFeatureVerticesToPointsTempCLayer"
         arcpy.MakeFeatureLayer_management(in_features = outPutFeatureVerticesToPointsTempC,
                                           out_layer = outLayerTemp)
-        #
-        baiBoiALayer = "BaiBoiALayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathBaiBoiAFinal,
-                                          out_layer = baiBoiALayer)
-        self.duongMepNuocLayer = "DuongMepNuocLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathDuongMepNuocFinal,
-                                          out_layer = self.duongMepNuocLayer)
-        snapEnv = [baiBoiALayer, "EDGE", "100 Meters"]
-        #
+        arcpy.SelectLayerByLocation_management(in_layer = outLayerTemp,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.outLayerTempA,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
         arcpy.SelectLayerByLocation_management(in_layer = self.duongMepNuocLayer,
                                                overlap_type = "INTERSECT",
                                                select_features = outLayerTemp,
                                                search_distance = "0 Meters",
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "NOT_INVERT")
+        pass
+
+    def SnapDuongMepNuoc(self):
+        print "\tSnapDuongMepNuoc"
+        baiBoiALayer = "BaiBoiALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathBaiBoiAFinal,
+                                          out_layer = baiBoiALayer)
+        snapEnv = [baiBoiALayer, "EDGE", "100 Meters"]
         with arcpy.da.UpdateCursor(self.duongMepNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
             for rowA in cursorA:
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongMepNuocLayer,
@@ -306,10 +318,8 @@ class DuongMepNuoc:
                 arcpy.Snap_edit(self.duongMepNuocLayer, [snapEnv])
 
 if __name__ == '__main__':
-    print "DuongBoNuoc Tools"
     arcpy.env.overwriteOutput = True
     duongBoNuoc = DuongBoNuoc()
     duongBoNuoc.Execute()
     duongMepNuoc = DuongMepNuoc()
     duongMepNuoc.Execute()
-    print "Success!!!"

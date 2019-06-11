@@ -163,6 +163,21 @@ class DuongBienGioiDiaGioi:
                 cursorA.updateRow(rowA)
         pass
 
+    def SelectLineSnap(self, doiTuong):
+        print "\tSelectLineSnap"
+        self.duongDiaGioiFinalLayer = "DuongDiaGioiFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDuongDiaGioiFinal,
+                                          out_layer = self.duongDiaGioiFinalLayer)
+        sqlQuery = "doiTuong = " + doiTuong
+        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongDiaGioiFinalLayer,
+                                                selection_type = "NEW_SELECTION",
+                                                where_clause = sqlQuery)
+        fCDiaPhanFinalFeatureToLine = "in_memory\\DiaPhanFinalFeatureToLine"
+        arcpy.FeatureToLine_management(in_features = self.diaPhanFinalLayer,
+                                       out_feature_class = fCDiaPhanFinalFeatureToLine,
+                                       cluster_tolerance = "0 Meters")
+        pass
+
     def SnapDuongDiaGioi(self, doiTuong):
         print "\tSnapDuongDiaGioi"
         self.duongDiaGioiFinalLayer = "DuongDiaGioiFinalLayer"

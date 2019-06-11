@@ -8,7 +8,6 @@ class SimplifyPolygon:
     def __init__(self, pathFileConfigOne, pathFileConfigTwo):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
-        self.pathDefaultGDB = "C:\\Users\\vuong\\Documents\\ArcGIS\\Default.gdb"
         self.configTools = ConfigTools()
         if os.path.isfile(pathFileConfigOne):
             self.ReadFileConfig(pathFileConfigOne)
@@ -20,7 +19,6 @@ class SimplifyPolygon:
         self.MergeTools()
         self.SimplifyTools()
         self.UpdateShapeAfterSimplify()
-        #self.GetGenerateNearTable("in_memory\\ThuyHeSongSuoiALayer")
 
     def CreateFileConfig(self, pathFile):
         for fcDataSetTemp in arcpy.Describe(self.pathProcessGDB).children:
@@ -48,11 +46,9 @@ class SimplifyPolygon:
         for featureDataSetTemp in self.configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
                 continue
-            #print featureDataSetTemp.featureDataSet + ":"
             for featureClassTemp in featureDataSetTemp.listPolygon:
                 if featureClassTemp.runSimplify == False:
                     continue
-                #print "\t" + featureClassTemp.featureClass
                 # Add Field FID_XXX For Feature Class
                 pathFc = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass)
                 fieldFID, fieldType = self.GetFieldFID(featureClassTemp.featureClass, "LONG")
@@ -75,14 +71,10 @@ class SimplifyPolygon:
                 # FeatureClass Delete Field FID_XXX
                 arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
                 # Maker Layer
-                #featureClassTemp.SetFeatureLayerInMemory(featureDataSetTemp.featureDataSet)
-                #arcpy.MakeFeatureLayer_management(in_features = featureClassTemp.featureClassInMemory, out_layer = featureClassTemp.featureLayerInMemory)
                 inFeatureClassMerges.append(featureClassTemp.featureClassInMemory)
         # Merge
-        self.outputMerge = os.path.join(self.pathDefaultGDB, "FeatureClassMerge")
         self.outputMergeLayer = "FeatureClassMergeLayer"
-        #"in_memory\\FeatureClassMerge"
-        #os.path.join(self.pathDefaultGDB, "FeatureClassMerge")
+        self.outputMerge = "in_memory\\FeatureClassMerge"
         arcpy.Merge_management(inputs = inFeatureClassMerges,
                                output = self.outputMerge)
         arcpy.MakeFeatureLayer_management(in_features = self.outputMerge,
@@ -90,9 +82,7 @@ class SimplifyPolygon:
 
     def SimplifyTools(self):
         print "SimplifyTools..."
-        #self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
-        self.outputSimplifyPolygon = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon")
-        #self.outputSimplifyPolygonPnt = os.path.join(self.pathDefaultGDB, "FeatureClassSimplifyPolygon_Pnt")
+        self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
         arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
                                             out_feature_class = self.outputSimplifyPolygon,
                                             algorithm = "BEND_SIMPLIFY",
@@ -123,41 +113,6 @@ class SimplifyPolygon:
                 updateShapeByOID = UpdateShapeByOID(sFC = outTableTemp, dFC = os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass), fID_XXX = fieldName)
                 updateShapeByOID.Excute()
 
-    def GetGenerateNearTable(self, inFeatureLayer):
-        nearFeatures = []
-        for featureDataSetTemp in self.configTools.listConfig:
-            if len(featureDataSetTemp.listPolygon) == 0:
-                continue
-            for featureClassTemp in featureDataSetTemp.listPolygon:
-                if featureClassTemp.runSimplify == False or featureClassTemp.featureLayerInMemory == inFeatureLayer:
-                    continue
-                nearFeatures.append(featureClassTemp.featureLayerInMemory)
-        outTableTemp = os.path.join(self.pathDefaultGDB, "TableTemp")
-        # os.path.join(self.pathDefaultGDB, "TableTemp")
-        # "in_memory\\OutTableTemp"
-        arcpy.GenerateNearTable_analysis(in_features = inFeatureLayer,
-                                         near_features = nearFeatures,
-                                         out_table = outTableTemp,
-                                         search_radius = "0 Meters",
-                                         closest = "ALL",
-                                         closest_count = "0")
-        nearFeatureLayers = [inFeatureLayer]
-        with arcpy.da.SearchCursor(outTableTemp, ['NEAR_FC']) as cursor:
-            for row in cursor:
-                if row[0] not in nearFeatureLayers:
-                    nearFeatureLayers.append(row[0])
-        
-        for nearFeatureLayerTemp in nearFeatureLayers:
-            arcpy.SelectLayerByAttribute_management(nearFeatureLayerTemp, "CLEAR_SELECTION")
-        
-        with arcpy.da.SearchCursor(outTableTemp, ['NEAR_FID', 'NEAR_FC']) as cursor:
-            for row in cursor:
-                sqlQuery = "OBJECTID = " + str(row[0])
-                arcpy.SelectLayerByAttribute_management(in_layer_or_view = row[1],
-                                                        selection_type = "ADD_TO_SELECTION",
-                                                        where_clause = sqlQuery)
-        arcpy.Merge_management(nearFeatureLayers, os.path.join(self.pathDefaultGDB, "FeatureClassMerge"))
-        
     def GetFieldFID(self, featureClass, fieldType):
         return "FID_" + featureClass, fieldType
 

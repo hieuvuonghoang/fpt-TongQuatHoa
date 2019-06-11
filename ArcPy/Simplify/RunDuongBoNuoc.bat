@@ -7,7 +7,10 @@ echo.Running...
 echo.
 
 :: Runs your command
+cd %python27%
 python DuongBoNuocDemo.py
+
+echo.Success...
 
 set end=%time%
 set options="tokens=1-4 delims=:.,"
