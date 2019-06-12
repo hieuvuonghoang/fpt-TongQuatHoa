@@ -101,16 +101,16 @@ class CongGiaoThongP:
         arcpy.Merge_management(inputs = inputMerge,
                                output = outputMerge)
         # AddField And Dissolve
-        arcpy.AddField_management(in_table = outputMerge,
-                                  field_name = "Dissolve",
-                                  field_type = "Short")
-        outputDissolve = "in_memory\\OutputDissolve"
-        arcpy.Dissolve_management(in_features = outputMerge,
-                                  out_feature_class = outputDissolve,
-                                  dissolve_field = "Dissolve")
+        #arcpy.AddField_management(in_table = outputMerge,
+        #                          field_name = "Dissolve",
+        #                          field_type = "Short")
+        #outputDissolve = "in_memory\\OutputDissolve"
+        #arcpy.Dissolve_management(in_features = outputMerge,
+        #                          out_feature_class = outputDissolve,
+        #                          dissolve_field = "Dissolve")
         # Feature To Line
         outputFeatureToLine = "in_memory\\OutputFeatureToLine"
-        arcpy.FeatureToLine_management(in_features = outputDissolve,
+        arcpy.FeatureToLine_management(in_features = outputMerge,
                                        out_feature_class = outputFeatureToLine)
         # Create doanTimDuongBoFinalTemp
         doanTimDuongBoFinalTemp = "in_memory\\DoanTimDuongBoFinalTemp"
@@ -126,7 +126,7 @@ class CongGiaoThongP:
                                   dissolve_field = "Dissolve")
         # Intersect And Erase
         outputIntersect = "in_memory\\OutputIntersect"
-        arcpy.Intersect_analysis(in_features = [outputDissolve, outputDissolveA],
+        arcpy.Intersect_analysis(in_features = [outputMerge, outputDissolveA],
                                  out_feature_class = outputIntersect,
                                  output_type = "LINE")
         outputErase = "in_memory\\OutputErase"
@@ -189,18 +189,6 @@ class CongGiaoThongP:
         arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
                                                overlap_type = "INTERSECT",
                                                select_features = self.pointEnvSnapBLayer,
-                                               search_distance = "0 Meters",
-                                               selection_type = "REMOVE_FROM_SELECTION")
-        arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
-        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
-                                               overlap_type = "INTERSECT",
-                                               select_features = self.pointEnvSnapBLayer,
-                                               search_distance = "0 Meters",
-                                               selection_type = "NEW_SELECTION",
-                                               invert_spatial_relationship = "INVERT")
-        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
-                                               overlap_type = "INTERSECT",
-                                               select_features = self.pointEnvSnapALayer,
                                                search_distance = "0 Meters",
                                                selection_type = "REMOVE_FROM_SELECTION")
         arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
