@@ -212,10 +212,11 @@ class CongThuyLoiP:
         arcpy.Dissolve_management(in_features = fCPolygonTemp,
                                   out_feature_class = fCPolygonTempDissolve,
                                   dissolve_field = "Dissolve")
-        ## Feature To Line
-        fCPolygonTempDissolveFeatureToLine = "in_memory\\fCPolygonTempDissolveFeatureToLine"
-        arcpy.FeatureToLine_management(in_features = fCPolygonTempDissolve,
-                                       out_feature_class = fCPolygonTempDissolveFeatureToLine)
+        ## Intersect
+        outputIntersect = "in_memory\\outputIntersect"
+        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygonTempDissolve],
+                                 out_feature_class = outputIntersect,
+                                 output_type = "LINE")
         outputErase = "in_memory\\outputErase"
         arcpy.Erase_analysis(in_features = outputIntersect,
                              erase_features = self.pathDuongBoNuocFinal,
