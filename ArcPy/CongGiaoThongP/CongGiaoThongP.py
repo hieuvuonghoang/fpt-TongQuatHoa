@@ -49,10 +49,17 @@ class CongGiaoThongP:
 
     def Execute(self):
         arcpy.env.overwriteOutput = True
-        #self.CopyFromProcessToFinal()
-        #self.CreatePointByIntersectLine()
-        #self.SnapVsPointByIntersectLine()
-        self.MergePolygon()
+        self.CopyFromProcessToFinal()
+        # Sinh ra lop Point la giao cua Line vs Line (DoanTimDuongBo vs [SongSuoiL, KenhMuongL, MangDanNuocL]): self.pointEnvSnapA
+        self.CreatePointByIntersectLine()
+        # Snap CongGiaoThongP vs FeatureClass: self.pointEnvSnapA
+        self.SnapVsPointByIntersectLine()
+        # Sinh ra lop Point la giao cua Line vs Polygon (DoanTimDuongBo vs [SongSuoiA, KenhMuongA, MangDanNuocA, MatNuocTinh]): self.pointEnvSnapB
+        self.CreatePointByIntersectLineVsPolygon()
+        # Snap CongGiaoThongP vs FeatureClass: self.pointEnvSnapB
+        self.SnapVsPointByIntersectLineVsPolygon()
+        # Delete CongGiaoThongP khong the Snap
+        self.DeleteCongGiaoThongP()
         pass
 
     def CopyFromProcessToFinal(self):
@@ -76,17 +83,24 @@ class CongGiaoThongP:
 
     def SnapVsPointByIntersectLine(self):
         print "\tSnapVsPointByIntersectLine"
+        # Make Feature Layer
+        self.congGiaoThongPFinalLayer = "CongGiaoThongPFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
+                                          out_layer = self.congGiaoThongPFinalLayer)
+        # Snap
         snapEnv = [self.pointEnvSnapA, "END", self.distance]
-        arcpy.Snap_edit(in_features = self.pathCongGiaoThongPFinal,
+        arcpy.Snap_edit(in_features = self.congGiaoThongPFinalLayer,
                         snap_environment = [snapEnv])
         pass
 
     def CreatePointByIntersectLineVsPolygon(self):
         print "\tCreatePointByIntersectLineVsPolygon"
+        # Merge Polygon
         inputMerge = [self.pathKenhMuongAFinal, self.pathSongSuoiAFinal, self.pathMangDanNuocAFinal, self.pathMatNuocTinhFinal]
         outputMerge = "in_memory\\OutputMerge"
         arcpy.Merge_management(inputs = inputMerge,
                                output = outputMerge)
+        # AddField And Dissolve
         arcpy.AddField_management(in_table = outputMerge,
                                   field_name = "Dissolve",
                                   field_type = "Short")
@@ -94,12 +108,15 @@ class CongGiaoThongP:
         arcpy.Dissolve_management(in_features = outputMerge,
                                   out_feature_class = outputDissolve,
                                   dissolve_field = "Dissolve")
+        # Feature To Line
         outputFeatureToLine = "in_memory\\OutputFeatureToLine"
         arcpy.FeatureToLine_management(in_features = outputDissolve,
                                        out_feature_class = outputFeatureToLine)
+        # Create doanTimDuongBoFinalTemp
         doanTimDuongBoFinalTemp = "in_memory\\DoanTimDuongBoFinalTemp"
         arcpy.CopyFeatures_management(in_features = self.pathDoanTimDuongBoFinal,
                                       out_feature_class = doanTimDuongBoFinalTemp)
+        # AddField And Dissolve
         arcpy.AddField_management(in_table = doanTimDuongBoFinalTemp,
                                   field_name = "Dissolve",
                                   field_type = "Short")
@@ -107,6 +124,7 @@ class CongGiaoThongP:
         arcpy.Dissolve_management(in_features = doanTimDuongBoFinalTemp,
                                   out_feature_class = outputDissolveA,
                                   dissolve_field = "Dissolve")
+        # Intersect And Erase
         outputIntersect = "in_memory\\OutputIntersect"
         arcpy.Intersect_analysis(in_features = [outputDissolve, outputDissolveA],
                                  out_feature_class = outputIntersect,
@@ -115,57 +133,77 @@ class CongGiaoThongP:
         arcpy.Erase_analysis(in_features = outputIntersect,
                              erase_features = outputFeatureToLine,
                              out_feature_class = outputErase)
+        # Multipart To Singlepart
         outputMultipartToSinglepart = "in_memory\\OutputMultipartToSinglepart"
         arcpy.MultipartToSinglepart_management(in_features = outputErase,
                                                out_feature_class = outputMultipartToSinglepart)
+        # FeatureVerticesToPoints: MID (diem chinh giua cua moi Polyline)
         self.pointEnvSnapB = "in_memory\\PointEnvSnapB"
         arcpy.FeatureVerticesToPoints_management(in_features = outputMultipartToSinglepart,
                                                  out_feature_class = self.pointEnvSnapB,
                                                  point_location = "MID")
         pass
 
-    def MergePolygon(self):
-        print "\tMergePolygon"
-        inputMerge = [self.pathKenhMuongAFinal, self.pathSongSuoiAFinal, self.pathMangDanNuocAFinal, self.pathMatNuocTinhFinal]
-        outputMerge = "in_memory\\OutputMerge"
-        arcpy.Merge_management(inputs = inputMerge,
-                               output = outputMerge)
-        arcpy.AddField_management(in_table = outputMerge,
-                                  field_name = "Dissolve",
-                                  field_type = "Short")
-        outputDissolve = "in_memory\\OutputDissolve"
-        arcpy.Dissolve_management(in_features = outputMerge,
-                                  out_feature_class = outputDissolve,
-                                  dissolve_field = "Dissolve")
-        outputFeatureToLine = "in_memory\\OutputFeatureToLine"
-        arcpy.FeatureToLine_management(in_features = outputDissolve,
-                                       out_feature_class = outputFeatureToLine)
-        doanTimDuongBoFinalTemp = "in_memory\\DoanTimDuongBoFinalTemp"
-        arcpy.CopyFeatures_management(in_features = self.pathDoanTimDuongBoFinal,
-                                      out_feature_class = doanTimDuongBoFinalTemp)
-        arcpy.AddField_management(in_table = doanTimDuongBoFinalTemp,
-                                  field_name = "Dissolve",
-                                  field_type = "Short")
-        outputDissolveA = "in_memory\\OutputDissolveA"
-        arcpy.Dissolve_management(in_features = doanTimDuongBoFinalTemp,
-                                  out_feature_class = outputDissolveA,
-                                  dissolve_field = "Dissolve")
-        outputIntersect = "in_memory\\OutputIntersect"
-        arcpy.Intersect_analysis(in_features = [outputDissolve, outputDissolveA],
-                                 out_feature_class = outputIntersect,
-                                 output_type = "LINE")
-        outputErase = "in_memory\\OutputErase"
-        arcpy.Erase_analysis(in_features = outputIntersect,
-                             erase_features = outputFeatureToLine,
-                             out_feature_class = outputErase)
-        #outputMultipartToSinglepart = "in_memory\\OutputMultipartToSinglepart"
-        outputMultipartToSinglepart = os.path.join(self.pathDefaultGDB, "outputMultipartToSinglepart")
-        arcpy.MultipartToSinglepart_management(in_features = outputErase,
-                                               out_feature_class = outputMultipartToSinglepart)
-        outputFeatureVerticesToPoints = os.path.join(self.pathDefaultGDB, "outputFeatureVerticesToPoints")
-        arcpy.FeatureVerticesToPoints_management(in_features = outputMultipartToSinglepart,
-                                                 out_feature_class = outputFeatureVerticesToPoints,
-                                                 point_location = "MID")
+    def SnapVsPointByIntersectLineVsPolygon(self):
+        print "\tSnapVsPointByIntersectLineVsPolygon"
+        # Make Feature Layer
+        self.congGiaoThongPFinalLayer = "CongGiaoThongPFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
+                                          out_layer = self.congGiaoThongPFinalLayer)
+        self.pointEnvSnapALayer = "PointEnvSnapALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pointEnvSnapA,
+                                          out_layer = self.pointEnvSnapALayer)
+        # Select By Location
+        ## Chon nhung CongGiaoThongP chua duoc Snap o buoc Snap truoc
+        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointEnvSnapALayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        # Snap
+        snapEnv = [self.pointEnvSnapB, "END", self.distance]
+        arcpy.Snap_edit(in_features = self.congGiaoThongPFinalLayer,
+                        snap_environment = [snapEnv])
+        pass
+
+    def DeleteCongGiaoThongP(self):
+        print "\tDeleteCongGiaoThongP"
+        # Make Feature Layer
+        self.congGiaoThongPFinalLayer = "CongGiaoThongPFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
+                                          out_layer = self.congGiaoThongPFinalLayer)
+        self.pointEnvSnapALayer = "PointEnvSnapALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pointEnvSnapA,
+                                          out_layer = self.pointEnvSnapALayer)
+        self.pointEnvSnapBLayer = "PointEnvSnapBLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pointEnvSnapB,
+                                          out_layer = self.pointEnvSnapBLayer)
+        # Select By Location
+        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointEnvSnapALayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointEnvSnapBLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "REMOVE_FROM_SELECTION")
+        arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
+        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointEnvSnapBLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointEnvSnapALayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "REMOVE_FROM_SELECTION")
+        arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
         pass
 
 if __name__ == "__main__":
