@@ -8,7 +8,9 @@ echo.
 
 :: Runs your command
 cd %python27%
-python CongGiaoThongP.py
+python CongGiaoThongP.py "50 Meters"
+
+echo.Success...
 
 set end=%time%
 set options="tokens=1-4 delims=:.,"

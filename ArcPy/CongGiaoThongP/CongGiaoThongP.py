@@ -4,13 +4,13 @@ import sys
 
 class CongGiaoThongP:
 
-    def __init__(self):
+    def __init__(self, distance):
         # Distance Snap
-        self.distance = "50 Meters"
+        self.distance = distance
+        print "\tDistance: {}".format(distance)
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
-        self.pathDefaultGDB = "C:\\Users\\vuong\\Documents\\ArcGIS\\Default.gdb"
         # Feature DataSet Name
         self.fDThuyHe = "ThuyHe"
         self.fDGiaoThong = "GiaoThong"
@@ -207,5 +207,5 @@ class CongGiaoThongP:
         pass
 
 if __name__ == "__main__":
-    congGiaoThongP = CongGiaoThongP()
+    congGiaoThongP = CongGiaoThongP(sys.argv[1])
     congGiaoThongP.Execute()
