@@ -56,6 +56,7 @@ class CongThuyLoiP:
         self.fCKenhMuongA = "KenhMuongA"
         self.fCKenhMuongL = "KenhMuongL"
         self.fCDapL = "DapL"
+        self.fCDuongBoNuoc = "DuongBoNuoc"
         # Path Feature Class
         ## Path Process
         self.pathDoanTimDuongBoProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
@@ -66,6 +67,7 @@ class CongThuyLoiP:
         self.pathKenhMuongAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCKenhMuongA)
         self.pathKenhMuongLProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCKenhMuongL)
         self.pathDapLProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDapL)
+        self.pathDuongBoNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongBoNuoc)
         ## Path Final
         self.pathDoanTimDuongBoFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
         self.pathCongThuyLoiPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCCongThuyLoiP)
@@ -75,6 +77,7 @@ class CongThuyLoiP:
         self.pathKenhMuongAFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCKenhMuongA)
         self.pathKenhMuongLFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCKenhMuongL)
         self.pathDapLFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCDapL)
+        self.pathDuongBoNuocFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCDuongBoNuoc)
         pass
 
     def Execute(self):
@@ -213,14 +216,9 @@ class CongThuyLoiP:
         fCPolygonTempDissolveFeatureToLine = "in_memory\\fCPolygonTempDissolveFeatureToLine"
         arcpy.FeatureToLine_management(in_features = fCPolygonTempDissolve,
                                        out_feature_class = fCPolygonTempDissolveFeatureToLine)
-        ## Intersect
-        outputIntersect = "in_memory\\outputIntersect"
-        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygonTempDissolve],
-                                 out_feature_class = outputIntersect,
-                                 output_type = "LINE")
         outputErase = "in_memory\\outputErase"
         arcpy.Erase_analysis(in_features = outputIntersect,
-                             erase_features = fCPolygonTempDissolveFeatureToLine,
+                             erase_features = self.pathDuongBoNuocFinal,
                              out_feature_class = outputErase)
         ## MultipartToSinglepart And FeatureVerticesToPoints
         outputMultipartToSinglepart = "in_memory\\OutputMultipartToSinglepart"
