@@ -112,17 +112,17 @@ class DuongBoNuoc:
                                                        select_features = self.duongBoNuocLayer,
                                                        search_distance = "0 Meters",
                                                        selection_type = "NEW_SELECTION")
-                if int(arcpy.GetCount_management(self.duongBoNuocPointRemoveInMemoryLayer).getOutput(0)) == 0:
+                countPointRemoveLayer = int(arcpy.GetCount_management(self.duongBoNuocPointRemoveInMemoryLayer).getOutput(0))
+                if countPointRemoveLayer == 0:
                     continue
                 listPart = []
                 for rowASub in rowA[1]:
                     listPoint = []
                     for rowASubSub in rowASub:
                         found = False
-                        with arcpy.da.UpdateCursor(self.duongBoNuocPointRemoveInMemoryLayer, ["OID@", "SHAPE@"]) as cursorB:
+                        with arcpy.da.UpdateCursor(self.duongBoNuocPointRemoveInMemoryLayer, ["SHAPE@"]) as cursorB:
                             for rowB in cursorB:
-                                pointB = rowB[1].centroid
-                                if rowASubSub.X == pointB.X and rowASubSub.Y == pointB.Y:
+                                if rowB[0].equals(rowASubSub):
                                     found = True
                                     cursorB.deleteRow()
                                     break
@@ -260,17 +260,17 @@ class DuongMepNuoc:
                                                        select_features = self.duongMepNuocLayer,
                                                        search_distance = "0 Meters",
                                                        selection_type = "NEW_SELECTION")
-                if int(arcpy.GetCount_management(self.duongMepNuocPointRemoveInMemoryLayer).getOutput(0)) == 0:
+                countPointRemoveLayer = int(arcpy.GetCount_management(self.duongMepNuocPointRemoveInMemoryLayer).getOutput(0))
+                if countPointRemoveLayer == 0:
                     continue
                 listPart = []
                 for rowASub in rowA[1]:
                     listPoint = []
                     for rowASubSub in rowASub:
                         found = False
-                        with arcpy.da.UpdateCursor(self.duongMepNuocPointRemoveInMemoryLayer, ["OID@", "SHAPE@"]) as cursorB:
+                        with arcpy.da.UpdateCursor(self.duongMepNuocPointRemoveInMemoryLayer, ["SHAPE@"]) as cursorB:
                             for rowB in cursorB:
-                                pointB = rowB[1].centroid
-                                if rowASubSub.X == pointB.X and rowASubSub.Y == pointB.Y:
+                                if rowB[0].equals(rowASubSub):
                                     found = True
                                     cursorB.deleteRow()
                                     break

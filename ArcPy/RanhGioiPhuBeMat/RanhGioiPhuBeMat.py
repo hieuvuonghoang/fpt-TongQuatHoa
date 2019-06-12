@@ -27,8 +27,8 @@ class RanhGioiPhuBeMat:
                                       out_feature_class = self.pathRanhGioiPhuBeMatFinal)
         self.CreateFCPointRemove()
         self.UpdateShapeRanhGioiPhuBeMatFinal()
-        self.SelectLineSnap()
-        self.SnapRanhGioiPhuBeMatFinal()
+        #self.SelectLineSnap()
+        #self.SnapRanhGioiPhuBeMatFinal()
         pass
 
     def CreateFCPointRemove(self):
@@ -114,18 +114,23 @@ class RanhGioiPhuBeMat:
                                                        select_features = self.ranhGioiPhuBeMatFinalLayer,
                                                        search_distance = "0 Meters",
                                                        selection_type = "NEW_SELECTION")
-                if int(arcpy.GetCount_management(self.pointRemoveLayer).getOutput(0)) == 0:
+                countPointRemoveLayer = int(arcpy.GetCount_management(self.pointRemoveLayer).getOutput(0))
+                if countPointRemoveLayer == 0:
                     continue
                 listPart = []
                 for rowASub in rowA[1]:
                     listPoint = []
                     for rowASubSub in rowASub:
+                        if countPointRemoveLayer == 0:
+                            listPoint.append(rowASubSub)
+                            continue
                         found = False
-                        with arcpy.da.UpdateCursor(self.pointRemoveLayer, ["OID@", "SHAPE@"]) as cursorB:
+                        with arcpy.da.UpdateCursor(self.pointRemoveLayer, ["SHAPE@"]) as cursorB:
                             for rowB in cursorB:
-                                if rowB[1].equals(rowASubSub):
+                                if rowB[0].equals(rowASubSub):
                                     found = True
                                     cursorB.deleteRow()
+                                    countPointRemoveLayer = int(arcpy.GetCount_management(self.pointRemoveLayer).getOutput(0))
                                     break
                         if found == False:
                             listPoint.append(rowASubSub)
