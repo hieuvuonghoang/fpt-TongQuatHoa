@@ -31,9 +31,9 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RepresentationUpdateRuleID"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DemoThreading", "ArcPy\DemoThreading\DemoThreading.pyproj", "{B67BEF43-0F3E-4490-B993-85C21A3F4F3B}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CongGiaoThongP", "ArcPy\CongGiaoThongP\CongGiaoThongP.pyproj", "{514610B3-39A0-419B-AC85-5B3504005FF5}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SnapCongGiaoThongP", "ArcPy\CongGiaoThongP\SnapCongGiaoThongP.pyproj", "{514610B3-39A0-419B-AC85-5B3504005FF5}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CongThuyLoiP", "ArcPy\CongThuyLoiP\CongThuyLoiP.pyproj", "{8686F6B2-F306-4B77-A395-3AF30006669C}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SnapCongThuyLoiP", "ArcPy\CongThuyLoiP\SnapCongThuyLoiP.pyproj", "{8686F6B2-F306-4B77-A395-3AF30006669C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
