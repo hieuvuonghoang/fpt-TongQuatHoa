@@ -7,8 +7,12 @@ echo.Running...
 echo.
 
 :: Runs your command
+set pathfile=%~dp0CongThuyLoiP.py
+echo.%pathfile%
+c:
 cd %python27%
-python CongThuyLoiP.py "50 Meters"
+python %pathfile% "50 Meters"
+::
 
 echo.Success...
 

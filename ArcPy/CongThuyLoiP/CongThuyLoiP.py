@@ -5,9 +5,6 @@ print "| |__    | |__) |    | |       ______       | |      ___     ___   | |  _
 print "|  __|   |  ___/     | |      |______|      | |     / _ \   / _ \  | | / __|"
 print "| |      | |         | |                    | |    | (_) | | (_) | | | \\__ \\"
 print "|_|      |_|         |_|                    |_|     \___/   \___/  |_| |___/"
-                                                                             
-                                                                             
-
 
 #   + IntersectPoint:
 #       ++ KenhMuongL vs MatNuocTinh (Line vs Polygon)
@@ -43,7 +40,6 @@ class CongThuyLoiP:
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
-        self.pathDefaultGDB = "C:\\Users\\vuong\\Documents\\ArcGIS\\Default.gdb"
         # Feature DataSet Name
         self.fDThuyHe = "ThuyHe"
         self.fDGiaoThong = "GiaoThong"
@@ -91,13 +87,11 @@ class CongThuyLoiP:
         pass
 
     def CopyFromProcessToFinal(self):
-        print "Copy CongThuyLoiP From Process To Final"
         arcpy.CopyFeatures_management(in_features = self.pathCongThuyLoiPProcess,
                                       out_feature_class = self.pathCongThuyLoiPFinal)
         pass
 
     def CreateFeatureClassPointSnapA(self):
-        print "CreateFeatureClassPointSnapA"
         # CreateFeatureclass self.pointSnapA
         self.pointSnapA = "in_memory\\PointSnapA"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
@@ -121,13 +115,9 @@ class CongThuyLoiP:
         self.IntersectAndInsertPointSnapA(self.pathDapLFinal, self.pathKenhMuongLFinal)
         # DapL vs SongSuoiL
         self.IntersectAndInsertPointSnapA(self.pathDapLFinal, self.pathSongSuoiLFinal)
-        # CopyFeatures
-        #arcpy.CopyFeatures_management(in_features = self.pointSnapA,
-        #                              out_feature_class = os.path.join(self.pathDefaultGDB, "PointSnapA"))
         pass
 
     def SnapCongThuyLoiPVsPointSnapA(self):
-        print "SnapCongThuyLoiPVsPointSnapA"
         snapEnv = [self.pointSnapA, "END", self.distance]
         arcpy.Snap_edit(in_features = self.pathCongThuyLoiPFinal,
                         snap_environment = [snapEnv])
@@ -145,7 +135,6 @@ class CongThuyLoiP:
         pass
 
     def CreateFeatureClassPointSnapB(self):
-        print "CreateFeatureClassPointSnapB"
         # CreateFeatureclass self.pointSnapB
         self.pointSnapB = "in_memory\\PointSnapB"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
@@ -173,13 +162,9 @@ class CongThuyLoiP:
         arcpy.Merge_management(inputs = [self.pathSongSuoiAFinal, self.pathKenhMuongAFinal],
                                output = outputMerge)
         self.InsertPointSnapB(outputMerge)
-        # Copy Feature
-        #arcpy.CopyFeatures_management(in_features = self.pointSnapB,
-        #                              out_feature_class = os.path.join(self.pathDefaultGDB, "PointSnapB"))
         pass
 
     def SnapCongThuyLoiPVsPointSnapB(self):
-        print "SnapCongThuyLoiPVsPointSnapB"
         # Make Feature Layer
         self.pointSnapALayer = "pointSnapALayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pointSnapA,
@@ -202,19 +187,19 @@ class CongThuyLoiP:
 
     def InsertPointSnapB(self, fCPolygon):
         ## Dissolve fCPolygon
-        fCPolygonTemp = "in_memory\\fCPolygonTemp"
-        arcpy.CopyFeatures_management(in_features = fCPolygon,
-                                      out_feature_class = fCPolygonTemp)
-        arcpy.AddField_management(in_table = fCPolygonTemp,
-                                  field_name = "Dissolve",
-                                  field_type = "Short")
-        fCPolygonTempDissolve = "in_memory\\fCPolygonTempDissolve"
-        arcpy.Dissolve_management(in_features = fCPolygonTemp,
-                                  out_feature_class = fCPolygonTempDissolve,
-                                  dissolve_field = "Dissolve")
+        #fCPolygonTemp = "in_memory\\fCPolygonTemp"
+        #arcpy.CopyFeatures_management(in_features = fCPolygon,
+        #                              out_feature_class = fCPolygonTemp)
+        #arcpy.AddField_management(in_table = fCPolygonTemp,
+        #                          field_name = "Dissolve",
+        #                          field_type = "Short")
+        #fCPolygonTempDissolve = "in_memory\\fCPolygonTempDissolve"
+        #arcpy.Dissolve_management(in_features = fCPolygonTemp,
+        #                          out_feature_class = fCPolygonTempDissolve,
+        #                          dissolve_field = "Dissolve")
         ## Intersect
         outputIntersect = "in_memory\\outputIntersect"
-        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygonTempDissolve],
+        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygon],
                                  out_feature_class = outputIntersect,
                                  output_type = "LINE")
         outputErase = "in_memory\\outputErase"
@@ -236,7 +221,6 @@ class CongThuyLoiP:
         pass
 
     def DeleteCongThuyLoiP(self):
-        print "DeleteCongThuyLoiP"
         # Make Feature Layer
         self.congThuyLoiPFinalLayer = "congThuyLoiPFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathCongThuyLoiPFinal,

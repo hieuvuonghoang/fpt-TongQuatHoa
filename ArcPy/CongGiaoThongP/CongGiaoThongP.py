@@ -1,3 +1,11 @@
+
+print " ______   _____    _______                _______                   _       "
+print "|  ____| |  __ \  |__   __|              |__   __|                 | |      "
+print "| |__    | |__) |    | |       ______       | |      ___     ___   | |  ___ "
+print "|  __|   |  ___/     | |      |______|      | |     / _ \   / _ \  | | / __|"
+print "| |      | |         | |                    | |    | (_) | | (_) | | | \\__ \\"
+print "|_|      |_|         |_|                    |_|     \___/   \___/  |_| |___/"
+
 import arcpy
 import os
 import sys
@@ -7,7 +15,7 @@ class CongGiaoThongP:
     def __init__(self, distance):
         # Distance Snap
         self.distance = distance
-        print "\tDistance: {}".format(distance)
+        print "Distance: {}".format(distance)
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
@@ -61,13 +69,11 @@ class CongGiaoThongP:
         pass
 
     def CopyFromProcessToFinal(self):
-        print "\tCopyFromProcessToFinal"
         arcpy.CopyFeatures_management(in_features = self.pathCongGiaoThongPProcess,
                                       out_feature_class = self.pathCongGiaoThongPFinal)
         pass
 
     def CreateFeatureClassPointSnapA(self):
-        print "CreateFeatureClassPointSnapA"
         # CreateFeatureclass self.pointSnapA
         self.pointSnapA = "in_memory\\PointSnapA"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
@@ -82,7 +88,6 @@ class CongGiaoThongP:
         pass
 
     def SnapCongGiaoThongPVsPointSnapA(self):
-        print "SnapCongGiaoThongPVsPointSnapA"
         snapEnv = [self.pointSnapA, "END", self.distance]
         arcpy.Snap_edit(in_features = self.pathCongGiaoThongPFinal,
                         snap_environment = [snapEnv])
@@ -100,7 +105,6 @@ class CongGiaoThongP:
         pass
 
     def CreateFeatureClassPointSnapB(self):
-        print "CreateFeatureClassPointSnapB"
         # CreateFeatureclass self.pointSnapB
         self.pointSnapB = "in_memory\\PointSnapB"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
@@ -125,13 +129,9 @@ class CongGiaoThongP:
         self.InsertPointSnapB(self.pathMatNuocTinhFinal)
         # DoanTimDuongBo vs MangDanNuocA (Line vs Polygon)
         self.InsertPointSnapB(self.pathMangDanNuocAFinal)
-        # Copy Feature
-        #arcpy.CopyFeatures_management(in_features = self.pointSnapB,
-        #                              out_feature_class = os.path.join(self.pathDefaultGDB, "PointSnapB"))
         pass
 
     def SnapCongGiaoThongPVsPointSnapB(self):
-        print "SnapCongGiaoThongPVsPointSnapB"
         # Make Feature Layer
         self.pointSnapALayer = "pointSnapALayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pointSnapA,
@@ -153,20 +153,9 @@ class CongGiaoThongP:
         pass
 
     def InsertPointSnapB(self, fCPolygon):
-        ## Dissolve fCPolygon
-        fCPolygonTemp = "in_memory\\fCPolygonTemp"
-        arcpy.CopyFeatures_management(in_features = fCPolygon,
-                                      out_feature_class = fCPolygonTemp)
-        arcpy.AddField_management(in_table = fCPolygonTemp,
-                                  field_name = "Dissolve",
-                                  field_type = "Short")
-        fCPolygonTempDissolve = "in_memory\\fCPolygonTempDissolve"
-        arcpy.Dissolve_management(in_features = fCPolygonTemp,
-                                  out_feature_class = fCPolygonTempDissolve,
-                                  dissolve_field = "Dissolve")
         ## Intersect
         outputIntersect = "in_memory\\outputIntersect"
-        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygonTempDissolve],
+        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygon],
                                  out_feature_class = outputIntersect,
                                  output_type = "LINE")
         outputErase = "in_memory\\outputErase"
@@ -188,7 +177,6 @@ class CongGiaoThongP:
         pass
 
     def DeleteCongGiaoThongP(self):
-        print "DeleteCongGiaoThongP"
         # Make Feature Layer
         self.congGiaoThongPFinalLayer = "congGiaoThongPFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
