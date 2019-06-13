@@ -6,12 +6,12 @@
     <ProjectGuid>514610b3-39a0-419b-ac85-5b3504005ff5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>CongGiaoThongP.py</StartupFile>
+    <StartupFile>SnapCongGiaoThong.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>SnapCongGiaoThongP</Name>
+    <Name>SnapCongGiaoThong</Name>
     <RootNamespace>CongGiaoThongP</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -23,7 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CongGiaoThongP.py" />
+    <Compile Include="SnapCongGiaoThong.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />

@@ -1,5 +1,5 @@
 @echo off
-title CongGiaoThongP
+title SnapCongThuyLoi
 
 set start=%time%
 echo.Start Time: %time%
@@ -7,11 +7,12 @@ echo.Running...
 echo.
 
 :: Runs your command
-set pathfile=%~dp0CongGiaoThongP.py
+set pathfile=%~dp0SnapCongThuyLoi.py
 echo.%pathfile%
 c:
 cd %python27%
 python %pathfile% "50 Meters"
+::
 
 echo.Success...
 

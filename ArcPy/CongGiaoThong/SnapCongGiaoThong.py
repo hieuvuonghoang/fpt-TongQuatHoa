@@ -15,7 +15,6 @@ class CongGiaoThongP:
     def __init__(self, distance):
         # Distance Snap
         self.distance = distance
-        print "Distance: {}".format(distance)
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
@@ -202,6 +201,110 @@ class CongGiaoThongP:
         arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
         pass
 
+class CongGiaoThongL:
+    
+    def __init__(self, distance):
+        # Distance Snap
+        self.distance = distance
+        # Path GDB
+        self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
+        self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
+        # Feature DataSet Name
+        self.fDThuyHe = "ThuyHe"
+        self.fDGiaoThong = "GiaoThong"
+        # Feature Class Name
+        self.fCDoanTimDuongBo = "DoanTimDuongBo"
+        self.fCCongGiaoThongL = "CongGiaoThongL"
+        self.fCMatNuocTinh = "MatNuocTinh"
+        self.fCSongSuoiA = "SongSuoiA"
+        self.fCKenhMuongA = "KenhMuongA"
+        self.fCMangDanNuocA = "MangDanNuocA"
+        self.fCDuongBoNuoc = "DuongBoNuoc"
+        # Path Feature Class
+        ## Path Process
+        self.pathDoanTimDuongBoProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
+        self.pathCongGiaoThongLProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCCongGiaoThongL)
+        self.pathMatNuocTinhProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh)
+        self.pathSongSuoiAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCSongSuoiA)
+        self.pathKenhMuongAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCKenhMuongA)
+        self.pathMangDanNuocAProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMangDanNuocA)
+        self.pathDuongBoNuocProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCDuongBoNuoc)
+        ## Path Final
+        self.pathDoanTimDuongBoFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
+        self.pathCongGiaoThongLFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCCongGiaoThongL)
+        self.pathMatNuocTinhFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCMatNuocTinh)
+        self.pathSongSuoiAFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCSongSuoiA)
+        self.pathKenhMuongAFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCKenhMuongA)
+        self.pathMangDanNuocAFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCMangDanNuocA)
+        self.pathDuongBoNuocFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCDuongBoNuoc)
+        pass
+
+    def Execute(self):
+        arcpy.env.overwriteOutput = True
+        self.CopyFromProcessToFinal()
+        self.CreateFeatureClassLineSnap()
+        self.SnapCongGiaoThongLVsLineSnap()
+        pass
+
+    def CopyFromProcessToFinal(self):
+        arcpy.CopyFeatures_management(in_features = self.pathCongGiaoThongLProcess,
+                                      out_feature_class = self.pathCongGiaoThongLFinal)
+        pass
+
+    def CreateFeatureClassLineSnap(self):
+        # CreateFeatureclass self.pointSnapB
+        self.lineSnap = "in_memory\\lineSnap"
+        arcpy.CreateFeatureclass_management(out_path = "in_memory",
+                                            out_name = "lineSnap",
+                                            geometry_type = "POLYLINE")
+        # Dissolve DoanTimDuongBoFinal
+        self.doanTimDuongBoFinalTemp = "in_memory\\doanTimDuongBoFinalTemp"
+        arcpy.CopyFeatures_management(in_features = self.pathDoanTimDuongBoFinal,
+                                      out_feature_class = self.doanTimDuongBoFinalTemp)
+        arcpy.AddField_management(in_table = self.doanTimDuongBoFinalTemp,
+                                  field_name = "Dissolve",
+                                  field_type = "Short")
+        self.doanTimDuongBoFinalTempDissolve = "in_memory\\doanTimDuongBoFinalTempDissolve"
+        arcpy.Dissolve_management(in_features = self.doanTimDuongBoFinalTemp,
+                                  out_feature_class = self.doanTimDuongBoFinalTempDissolve,
+                                  dissolve_field = "Dissolve")
+        # DoanTimDuongBo vs SuongSuoiA (Line vs Polygon)
+        self.InsertLineSnap(self.pathSongSuoiAFinal)
+        # DoanTimDuongBo vs KenhMuongA (Line vs Polygon)
+        self.InsertLineSnap(self.pathKenhMuongAFinal)
+        # DoanTimDuongBo vs MatNuocTinh (Line vs Polygon)
+        self.InsertLineSnap(self.pathMatNuocTinhFinal)
+        # DoanTimDuongBo vs MangDanNuocA (Line vs Polygon)
+        self.InsertLineSnap(self.pathMangDanNuocAFinal)
+        pass
+
+    def InsertLineSnap(self, fCPolygon):
+        ## Intersect
+        outputIntersect = "in_memory\\outputIntersect"
+        arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoFinalTempDissolve, fCPolygon],
+                                 out_feature_class = outputIntersect,
+                                 output_type = "LINE")
+        outputErase = "in_memory\\outputErase"
+        arcpy.Erase_analysis(in_features = outputIntersect,
+                             erase_features = self.pathDuongBoNuocFinal,
+                             out_feature_class = outputErase)
+        with arcpy.da.SearchCursor(outputErase, ["Shape@"]) as sCur:
+            with arcpy.da.InsertCursor(self.lineSnap, ["Shape@"]) as iCur:
+                for row in sCur:
+                    iCur.insertRow((row[0], ))
+        pass
+
+    def SnapCongGiaoThongLVsLineSnap(self):
+        snapEnv = [self.lineSnap, "VERTEX", self.distance]
+        arcpy.Snap_edit(in_features = self.pathCongGiaoThongLFinal,
+                        snap_environment = [snapEnv])
+        pass
+
 if __name__ == "__main__":
+    print "Distance: {}".format(sys.argv[1])
+    print "CongGiaoThongP"
     congGiaoThongP = CongGiaoThongP(sys.argv[1])
     congGiaoThongP.Execute()
+    print "CongGiaoThongL"
+    congGiaoThongL = CongGiaoThongL(sys.argv[1])
+    congGiaoThongL.Execute()
