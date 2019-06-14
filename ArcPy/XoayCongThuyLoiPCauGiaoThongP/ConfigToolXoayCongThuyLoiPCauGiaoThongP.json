@@ -1,58 +1,58 @@
 [
-  {
-    "doanTimDuongBoRepID": "1",
-    "cauGiaoThongPRepID": "7"
-  },
-  {
-    "doanTimDuongBoRepID": "2",
-    "cauGiaoThongPRepID": "7"
-  },
-  {
-    "doanTimDuongBoRepID": "3",
-    "cauGiaoThongPRepID": "8"
-  },
-  {
-    "doanTimDuongBoRepID": "4",
-    "cauGiaoThongPRepID": "9"
-  },
-  {
-    "doanTimDuongBoRepID": "5",
-    "cauGiaoThongPRepID": "1"
-  },
-  {
-    "doanTimDuongBoRepID": "6",
-    "cauGiaoThongPRepID": "11"
-  },
-  {
-    "doanTimDuongBoRepID": "7",
-    "cauGiaoThongPRepID": "5"
-  },
-  {
-    "doanTimDuongBoRepID": "8",
-    "cauGiaoThongPRepID": "6"
-  },
-  {
-    "doanTimDuongBoRepID": "9",
-    "cauGiaoThongPRepID": "6"
-  },
-  {
-    "doanTimDuongBoRepID": "10",
-    "cauGiaoThongPRepID": "9"
-  },
-  {
-    "doanTimDuongBoRepID": "11",
-    "cauGiaoThongPRepID": "5"
-  },
-  {
-    "doanTimDuongBoRepID": "12",
-    "cauGiaoThongPRepID": "5"
-  },
-  {
-    "doanTimDuongBoRepID": "13",
-    "cauGiaoThongPRepID": "8"
-  },
-  {
-    "doanTimDuongBoRepID": "14",
-    "cauGiaoThongPRepID": "9"
-  }
+ {
+  "cauGiaoThongPRepID": "7", 
+  "doanTimDuongBoRepID": "1"
+ }, 
+ {
+  "cauGiaoThongPRepID": "7",
+  "doanTimDuongBoRepID": "2"
+ }, 
+ {
+  "cauGiaoThongPRepID": "8",
+  "doanTimDuongBoRepID": "3"
+ }, 
+ {
+  "cauGiaoThongPRepID": "9",
+  "doanTimDuongBoRepID": "4"
+ }, 
+ {
+  "cauGiaoThongPRepID": "1",
+  "doanTimDuongBoRepID": "5"
+ }, 
+ {
+  "cauGiaoThongPRepID": "11",
+  "doanTimDuongBoRepID": "6"
+ }, 
+ {
+  "cauGiaoThongPRepID": "5",
+  "doanTimDuongBoRepID": "7"
+ }, 
+ {
+  "cauGiaoThongPRepID": "6",
+  "doanTimDuongBoRepID": "8"
+ }, 
+ {
+  "cauGiaoThongPRepID": "6",
+  "doanTimDuongBoRepID": "9"
+ }, 
+ {
+  "cauGiaoThongPRepID": "9",
+  "doanTimDuongBoRepID": "10"
+ }, 
+ {
+  "cauGiaoThongPRepID": "5",
+  "doanTimDuongBoRepID": "11"
+ }, 
+ {
+  "cauGiaoThongPRepID": "5",
+  "doanTimDuongBoRepID": "12"
+ }, 
+ {
+  "cauGiaoThongPRepID": "8",
+  "doanTimDuongBoRepID": "13"
+ }, 
+ {
+  "cauGiaoThongPRepID": "9",
+  "doanTimDuongBoRepID": "14"
+ }
 ]

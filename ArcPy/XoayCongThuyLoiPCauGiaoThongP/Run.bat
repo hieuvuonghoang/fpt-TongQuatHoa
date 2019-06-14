@@ -7,8 +7,13 @@ echo.Running...
 echo.
 
 :: Runs your command
+set pathfile=%~dp0XoayCongThuyLoiPCauGiaoThongP.py
+echo.%pathfile%
+c:
 cd %python27%
-python XoayCongThuyLoiPCauGiaoThongP.py
+python %pathfile%
+
+echo.Success...
 
 set end=%time%
 set options="tokens=1-4 delims=:.,"

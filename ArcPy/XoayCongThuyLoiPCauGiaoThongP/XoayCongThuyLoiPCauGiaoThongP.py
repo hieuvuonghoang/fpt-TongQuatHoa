@@ -4,6 +4,7 @@
 import arcpy
 import os
 import json
+import io
 
 class XoayCongThuyLoiPCauGiaoThongP:
 
@@ -223,6 +224,8 @@ class XoayCongThuyLoiPCauGiaoThongP:
                                                     in_line_or_polygon_features = doanTimDuongBoLayer,
                                                     search_distance = "50 Meters",
                                                     marker_orientation = "PERPENDICULAR")
+        pass
+
 if __name__ == '__main__':
     xoayCongThuyLoiPCauGiaoThongP = XoayCongThuyLoiPCauGiaoThongP()
     xoayCongThuyLoiPCauGiaoThongP.Execute()
