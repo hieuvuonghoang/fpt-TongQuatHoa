@@ -1,9 +1,13 @@
-import arcpy
 import os
+import sys
+import arcpy
 
 class CreateDuongBinhDoPhu:
 
-    def __init__(self):
+    def __init__(self, contourInterval, baseContour, zFactor):
+        self.contourInterval = contourInterval
+        self.baseContour = baseContour
+        self.zFactor = zFactor
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.fDDiaHinh = "DiaHinh"
         self.fCDuongBinhDo = "DuongBinhDo"
@@ -19,20 +23,19 @@ class CreateDuongBinhDoPhu:
         self.RunContourTool()
         self.InitFeatureDuongBinhDoPhu()
         self.InsertDuongBinhDoPhu()
+        self.DeleteTempFeatureClass()
         pass
 
     def RunContourTool(self):
-        print "\tRunContourTool"
-        self.duongBinhDoPhuTemp = "in_memory\\DuongBinhDoPhuTemp"
+        self.duongBinhDoPhuTemp = os.path.join(self.pathProcessGDB, "OutPutContuor")
         arcpy.sa.Contour(in_raster = self.pathRaster,
                          out_polyline_features = self.duongBinhDoPhuTemp,
-                         contour_interval = "5",
-                         base_contour = "2.5",
-                         z_factor = "1")
+                         contour_interval = self.contourInterval,
+                         base_contour = self.baseContour,
+                         z_factor = self.zFactor)
         pass
 
     def InitFeatureDuongBinhDoPhu(self):
-        print "\tInitFeatureDuongBinhDoPhu"
         arcpy.CreateFeatureclass_management(out_path = self.pathDiaHinh,
                                             out_name = self.fCDuongBinhDoPhu,
                                             geometry_type = "POLYLINE",
@@ -40,15 +43,25 @@ class CreateDuongBinhDoPhu:
         pass
 
     def InsertDuongBinhDoPhu(self):
-        print "\tInsertDuongBinhDoPhu"
-        with arcpy.da.SearchCursor(self.duongBinhDoPhuTemp, ["Shape@", "Contour"]) as sCur:
+        duongBinhDoPhuTempLayer = "duongBinhDoPhuTempLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.duongBinhDoPhuTemp,
+                                          out_layer = duongBinhDoPhuTempLayer)
+        arcpy.SelectLayerByAttribute_management(in_layer_or_view = duongBinhDoPhuTempLayer,
+                                                selection_type = "NEW_SELECTION",
+                                                where_clause = "Contour > 0")
+        with arcpy.da.SearchCursor(duongBinhDoPhuTempLayer, ["Shape@", "Contour"]) as sCur:
             with arcpy.da.InsertCursor(self.pathDuongBinhDoPhuProcess, ["Shape@", "doCaoH", "loaiKieuDuongBinhDo", "loaiDuongBinhDo", "doiTuong", "DuongBinhDo_Rep_ID"]) as iCur:
                 for row in sCur:
                     iCur.insertRow((row[0], row[1], 2, 3, 1, 4))
         pass
 
+    def DeleteTempFeatureClass(self):
+        arcpy.Delete_management(in_data = self.duongBinhDoPhuTemp)
+        pass
+
 if __name__ == "__main__":
-    print "CreateDuongBinhDoPhu:"
-    createDuongBinhDoPhu = CreateDuongBinhDoPhu()
+    print "Contour Interval = {0}\nBase Contour = {1}\nZFactor = {2}".format(sys.argv[1], sys.argv[2], sys.argv[3])
+    createDuongBinhDoPhu = CreateDuongBinhDoPhu(sys.argv[1], sys.argv[2], sys.argv[3])
+    print "Running..."
     createDuongBinhDoPhu.Execute()
-    print "Success!!!"
+    print "Success..."

@@ -442,5 +442,7 @@ class SnapTools:
 if __name__ == "__main__":
     print "Snap Distance: {}".format(sys.argv[1])
     snapTools = SnapTools(sys.argv[1])
+    print "Running..."
     snapTools.Execute()
+    print "Success..."
     pass
