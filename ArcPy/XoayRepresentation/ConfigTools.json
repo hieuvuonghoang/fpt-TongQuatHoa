@@ -1,90 +1,90 @@
-[
+Ôªø[
   {
     "nameTools": "UpdateRuleCauGiaoThongTheoRuleIDDoanTimDuongBo",
     "dataConfig": [
       {
         "cauGiaoThongPRepID": "7",
-        "nameRepCauGiaoThong": "60-1-a-2-C?u trÍn ???ng cao t?c PTL",
+        "nameRepCauGiaoThong": "60-1-a-2-C?u tr√™n ???ng cao t?c PTL",
         "doanTimDuongBoRepID": "1",
-        "nameRepDoanTimDuongBo": "47-a-3-Tim ???ng cao t?c TL"
+        "nameRepDoanTimDuongBo": "47-a-3-Tim ƒë∆∞·ªùng cao t·ªëc TL"
       },
       {
         "cauGiaoThongPRepID": "7",
-        "nameRepCauGiaoThong": "60-1-a-2-C?u trÍn ???ng cao t?c PTL",
+        "nameRepCauGiaoThong": "60-1-a-2-C?u tr√™n ???ng cao t?c PTL",
         "doanTimDuongBoRepID": "2",
         "nameRepDoanTimDuongBo": "47-b-???ng cao t?c n?aTL"
       },
       {
         "cauGiaoThongPRepID": "8",
-        "nameRepCauGiaoThong": "60-1-a-3-C?u trÍn ?g qu?c l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-3-C?u tr√™n ?g qu?c l? PTL",
         "doanTimDuongBoRepID": "3",
-        "nameRepDoanTimDuongBo": "48-2-???ng QL l·t nh?a n?a TL"
+        "nameRepDoanTimDuongBo": "48-2-???ng QL l√°t nh?a n?a TL"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u trÍn ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-3-C?u tr√™n ?g qu?c l? PTL",
         "doanTimDuongBoRepID": "4",
-        "nameRepDoanTimDuongBo": "49-T?nh l? l·t nh?a n?a TL"
+        "nameRepDoanTimDuongBo": "49-T?nh l? l√°t nh?a n?a TL"
       },
       {
         "cauGiaoThongPRepID": "1",
-        "nameRepCauGiaoThong": "60-1-b-C?u trÍn ???ng s?t ho?c ?g Ù tÙ PTL",
+        "nameRepCauGiaoThong": "60-1-b-C?u tr√™n ???ng s?t ho?c ?g √¥ t√¥ PTL",
         "doanTimDuongBoRepID": "5",
-        "nameRepDoanTimDuongBo": "50-b-???ng Ù tÙ kh·c"
+        "nameRepDoanTimDuongBo": "50-b-???ng √¥ t√¥ kh√°c"
       },
       {
         "cauGiaoThongPRepID": "11",
         "nameRepCauGiaoThong": "NA",
         "doanTimDuongBoRepID": "6",
-        "nameRepDoanTimDuongBo": "51-???ng Ù tÙ ?ang l‡m n?a TL"
+        "nameRepDoanTimDuongBo": "51-???ng √¥ t√¥ ?ang l√†m n?a TL"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u Ù tÙ khÙng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-C?u √¥ t√¥ kh√¥ng qua ???c PTL",
         "doanTimDuongBoRepID": "7",
         "nameRepDoanTimDuongBo": "52-???ng nh?"
       },
       {
         "cauGiaoThongPRepID": "6",
-        "nameRepCauGiaoThong": "58-2-b-C?u chui khÙng theo t? l?",
+        "nameRepCauGiaoThong": "58-2-b-C?u chui kh√¥ng theo t? l?",
         "doanTimDuongBoRepID": "8",
-        "nameRepDoanTimDuongBo": "53-???ng mÚn"
+        "nameRepDoanTimDuongBo": "53-???ng m√≤n"
       },
       {
         "cauGiaoThongPRepID": "6",
-        "nameRepCauGiaoThong": "58-2-b-C?u chui khÙng theo t? l?",
+        "nameRepCauGiaoThong": "58-2-b-C?u chui kh√¥ng theo t? l?",
         "doanTimDuongBoRepID": "9",
-        "nameRepDoanTimDuongBo": "54-???ng chia lÙ"
+        "nameRepDoanTimDuongBo": "54-???ng chia l√¥"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u trÍn ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-4-C?u tr√™n ?g t?nh l? PTL",
         "doanTimDuongBoRepID": "10",
-        "nameRepDoanTimDuongBo": "55-a-???ng ph? chÌnh"
+        "nameRepDoanTimDuongBo": "55-a-???ng ph? ch√≠nh"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u Ù tÙ khÙng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-C?u √¥ t√¥ kh√¥ng qua ???c PTL",
         "doanTimDuongBoRepID": "11",
-        "nameRepDoanTimDuongBo": "55-b-???ng ph? ph?, ngı ph?"
+        "nameRepDoanTimDuongBo": "55-b-???ng ph? ph?, ng√µ ph?"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u Ù tÙ khÙng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-C?u √¥ t√¥ kh√¥ng qua ???c PTL",
         "doanTimDuongBoRepID": "12",
-        "nameRepDoanTimDuongBo": "65-2-b-???ng Ù tÙ kh·c ??p cao"
+        "nameRepDoanTimDuongBo": "65-2-b-???ng √¥ t√¥ kh√°c ??p cao"
       },
       {
         "cauGiaoThongPRepID": "8",
-        "nameRepCauGiaoThong": "60-1-a-3-C?u trÍn ?g qu?c l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-3-C?u tr√™n ?g qu?c l? PTL",
         "doanTimDuongBoRepID": "13",
-        "nameRepDoanTimDuongBo": "8-2-???ng QL l·t nh?a n?a TL ??p cao 2 bÍn"
+        "nameRepDoanTimDuongBo": "8-2-???ng QL l√°t nh?a n?a TL ??p cao 2 b√™n"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u trÍn ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-4-C?u tr√™n ?g t?nh l? PTL",
         "doanTimDuongBoRepID": "14",
-        "nameRepDoanTimDuongBo": "49-T?nh l? l·t nh?a n?a TL ??p cao 2 bÍn"
+        "nameRepDoanTimDuongBo": "49-T?nh l? l√°t nh?a n?a TL ??p cao 2 b√™n"
       }
     ]
   }
