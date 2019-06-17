@@ -1,14 +1,15 @@
 import time
+import datetime
 
 class RunTime:
 
     def __init__(self):
         self.startTime = time.time()
+        print "Start time: {}".format(datetime.datetime.now())
         pass
 
     def GetTotalRunTime(self):
-        #self.totalRunTime = time.time() - self.startTime
-        self.totalRunTime = 10970
+        self.totalRunTime = int(time.time() - self.startTime)
         self.ConvertTime()
         self.strHours = ""
         self.strMinute = ""
@@ -25,7 +26,7 @@ class RunTime:
             self.strSeconds = "0" + str(self.seconds)
         else:
             self.strSeconds = str(self.seconds)
-        print "Total time: {0}: {1}: {2}".format(self.strHours, self.strMinute, self.strSeconds)
+        print "Total time: {0}:{1}:{2}".format(self.strHours, self.strMinute, self.strSeconds)
         pass
 
     def ConvertTime(self):

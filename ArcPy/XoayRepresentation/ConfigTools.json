@@ -1,0 +1,91 @@
+[
+  {
+    "nameTools": "UpdateRuleCauGiaoThongTheoRuleIDDoanTimDuongBo",
+    "dataConfig": [
+      {
+        "cauGiaoThongPRepID": "7",
+        "nameRepCauGiaoThong": "60-1-a-2-C?u trên ???ng cao t?c PTL",
+        "doanTimDuongBoRepID": "1",
+        "nameRepDoanTimDuongBo": "47-a-3-Tim ???ng cao t?c TL"
+      },
+      {
+        "cauGiaoThongPRepID": "7",
+        "nameRepCauGiaoThong": "60-1-a-2-C?u trên ???ng cao t?c PTL",
+        "doanTimDuongBoRepID": "2",
+        "nameRepDoanTimDuongBo": "47-b-???ng cao t?c n?aTL"
+      },
+      {
+        "cauGiaoThongPRepID": "8",
+        "nameRepCauGiaoThong": "60-1-a-3-C?u trên ?g qu?c l? PTL",
+        "doanTimDuongBoRepID": "3",
+        "nameRepDoanTimDuongBo": "48-2-???ng QL lát nh?a n?a TL"
+      },
+      {
+        "cauGiaoThongPRepID": "9",
+        "nameRepCauGiaoThong": "60-1-a-4-C?u trên ?g t?nh l? PTL",
+        "doanTimDuongBoRepID": "4",
+        "nameRepDoanTimDuongBo": "49-T?nh l? lát nh?a n?a TL"
+      },
+      {
+        "cauGiaoThongPRepID": "1",
+        "nameRepCauGiaoThong": "60-1-b-C?u trên ???ng s?t ho?c ?g ô tô PTL",
+        "doanTimDuongBoRepID": "5",
+        "nameRepDoanTimDuongBo": "50-b-???ng ô tô khác"
+      },
+      {
+        "cauGiaoThongPRepID": "11",
+        "nameRepCauGiaoThong": "NA",
+        "doanTimDuongBoRepID": "6",
+        "nameRepDoanTimDuongBo": "51-???ng ô tô ?ang làm n?a TL"
+      },
+      {
+        "cauGiaoThongPRepID": "5",
+        "nameRepCauGiaoThong": "60-4-b-C?u ô tô không qua ???c PTL",
+        "doanTimDuongBoRepID": "7",
+        "nameRepDoanTimDuongBo": "52-???ng nh?"
+      },
+      {
+        "cauGiaoThongPRepID": "6",
+        "nameRepCauGiaoThong": "58-2-b-C?u chui không theo t? l?",
+        "doanTimDuongBoRepID": "8",
+        "nameRepDoanTimDuongBo": "53-???ng mòn"
+      },
+      {
+        "cauGiaoThongPRepID": "6",
+        "nameRepCauGiaoThong": "58-2-b-C?u chui không theo t? l?",
+        "doanTimDuongBoRepID": "9",
+        "nameRepDoanTimDuongBo": "54-???ng chia lô"
+      },
+      {
+        "cauGiaoThongPRepID": "9",
+        "nameRepCauGiaoThong": "60-1-a-4-C?u trên ?g t?nh l? PTL",
+        "doanTimDuongBoRepID": "10",
+        "nameRepDoanTimDuongBo": "55-a-???ng ph? chính"
+      },
+      {
+        "cauGiaoThongPRepID": "5",
+        "nameRepCauGiaoThong": "60-4-b-C?u ô tô không qua ???c PTL",
+        "doanTimDuongBoRepID": "11",
+        "nameRepDoanTimDuongBo": "55-b-???ng ph? ph?, ngõ ph?"
+      },
+      {
+        "cauGiaoThongPRepID": "5",
+        "nameRepCauGiaoThong": "60-4-b-C?u ô tô không qua ???c PTL",
+        "doanTimDuongBoRepID": "12",
+        "nameRepDoanTimDuongBo": "65-2-b-???ng ô tô khác ??p cao"
+      },
+      {
+        "cauGiaoThongPRepID": "8",
+        "nameRepCauGiaoThong": "60-1-a-3-C?u trên ?g qu?c l? PTL",
+        "doanTimDuongBoRepID": "13",
+        "nameRepDoanTimDuongBo": "8-2-???ng QL lát nh?a n?a TL ??p cao 2 bên"
+      },
+      {
+        "cauGiaoThongPRepID": "9",
+        "nameRepCauGiaoThong": "60-1-a-4-C?u trên ?g t?nh l? PTL",
+        "doanTimDuongBoRepID": "14",
+        "nameRepDoanTimDuongBo": "49-T?nh l? lát nh?a n?a TL ??p cao 2 bên"
+      }
+    ]
+  }
+]

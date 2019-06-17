@@ -37,6 +37,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SnapTools", "ArcPy\SnapCong
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DemoTime", "Test\DemoTime\DemoTime.pyproj", "{5BEC5ACE-63F5-4899-896B-4DEBD9260835}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayRepresentation", "ArcPy\XoayRepresentation\XoayRepresentation.pyproj", "{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{5BEC5ACE-63F5-4899-896B-4DEBD9260835}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{5BEC5ACE-63F5-4899-896B-4DEBD9260835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BEC5ACE-63F5-4899-896B-4DEBD9260835}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,5 +137,6 @@ Global
 		{CDC0B612-FD01-4981-B39A-A097993ED5B9} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{DBDA4C96-6CB1-41E2-85B5-E7F5346BA82F} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{5BEC5ACE-63F5-4899-896B-4DEBD9260835} = {75503257-EE32-41CE-A29E-3C12C6274155}
+		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08} = {75503257-EE32-41CE-A29E-3C12C6274155}
 	EndGlobalSection
 EndGlobal
