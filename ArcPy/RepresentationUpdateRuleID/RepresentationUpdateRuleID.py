@@ -1,23 +1,26 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
+import time
 import json
 import arcpy
 import codecs
+import datetime
 
 class RepresentationUpdateRuleID:
     
-    def __init__(self):
+    def __init__(self, pathFileConfig):
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
-        self.pathFileConfig = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigTools.json")
-        self.ReadFile(self.pathFileConfig)
+        self.pathFileConfig = pathFileConfig
         pass
 
-    def ReadFile(self, pathFile):
-        inputFile = open(pathFile, "r")
+    def ReadFile(self):
+        inputFile = open(self.pathFileConfig, "r")
         self.dictConfig = json.loads(inputFile.read().decode("utf-8-sig"))
         pass
 
     def Execute(self):
+        self.ReadFile()
         self.UpdateRuleID()
         pass
 
@@ -47,6 +50,48 @@ class RepresentationUpdateRuleID:
                                 break 
         pass
 
+class RunTime:
+
+    def __init__(self):
+        self.startTime = time.time()
+        print "Start time: {}".format(datetime.datetime.now())
+        pass
+
+    def GetTotalRunTime(self):
+        self.totalRunTime = int(time.time() - self.startTime)
+        self.ConvertTime()
+        self.strHours = ""
+        self.strMinute = ""
+        self.strSeconds = ""
+        if self.hours / 10 == 0:
+            self.strHours = "0" + str(self.hours)
+        else:
+            self.strHours = str(self.hours)
+        if self.minute / 10 == 0:
+            self.strMinute = "0" + str(self.minute)
+        else:
+            self.strMinute = str(self.minute)
+        if self.seconds / 10 == 0:
+            self.strSeconds = "0" + str(self.seconds)
+        else:
+            self.strSeconds = str(self.seconds)
+        print "Total time: {0}:{1}:{2}".format(self.strHours, self.strMinute, self.strSeconds)
+        pass
+
+    def ConvertTime(self):
+        self.hours = self.totalRunTime / (60 * 60)
+        self.totalRunTime = self.totalRunTime - (self.hours * 60 * 60)
+        self.minute = self.totalRunTime / 60
+        self.totalRunTime = self.totalRunTime - (self.minute * 60)
+        self.seconds = self.totalRunTime
+        pass
+
 if __name__ == "__main__":
-   representationUpdateRuleID = RepresentationUpdateRuleID()
-   representationUpdateRuleID.Execute()
+    runTime = RunTime()
+    print "Path File Config: {}".format(sys.argv[1])
+    representationUpdateRuleID = RepresentationUpdateRuleID(sys.argv[1])
+    print "Running..."
+    representationUpdateRuleID.Execute()
+    print "Success!!!"
+    runTime.GetTotalRunTime()
+    pass
