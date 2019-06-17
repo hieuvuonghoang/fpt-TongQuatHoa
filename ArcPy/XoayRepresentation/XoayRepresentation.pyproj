@@ -27,6 +27,7 @@
   <ItemGroup>
     <Content Include="ConfigTools - Copy.json" />
     <Content Include="ConfigTools.json" />
+    <Content Include="Run.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

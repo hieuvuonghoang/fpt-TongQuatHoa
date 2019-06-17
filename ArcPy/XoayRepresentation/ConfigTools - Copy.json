@@ -1,90 +1,90 @@
-[
+﻿[
   {
     "nameTools": "UpdateRuleCauGiaoThongTheoRuleIDDoanTimDuongBo",
     "dataConfig": [
       {
         "cauGiaoThongPRepID": "7",
-        "nameRepCauGiaoThong": "60-1-a-2-C?u tr�n ???ng cao t?c PTL",
+        "nameRepCauGiaoThong": "60-1-a-2-Cầu trên đường cao tốc PTL",
         "doanTimDuongBoRepID": "1",
-        "nameRepDoanTimDuongBo": "47-a-3-Tim ???ng cao t?c TL"
+        "nameRepDoanTimDuongBo": "47-a-3-Tim đường cao tốc TL"
       },
       {
         "cauGiaoThongPRepID": "7",
-        "nameRepCauGiaoThong": "60-1-a-2-C?u tr�n ???ng cao t?c PTL",
+        "nameRepCauGiaoThong": "60-1-a-2-Cầu trên đường cao tốc PTL",
         "doanTimDuongBoRepID": "2",
-        "nameRepDoanTimDuongBo": "47-b-???ng cao t?c n?aTL"
+        "nameRepDoanTimDuongBo": "47-b-Đường cao tốc nửaTL"
       },
       {
         "cauGiaoThongPRepID": "8",
-        "nameRepCauGiaoThong": "60-1-a-3-C?u tr�n ?g qu?c l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-3-Cầu trên đg quốc lộ PTL",
         "doanTimDuongBoRepID": "3",
-        "nameRepDoanTimDuongBo": "48-2-???ng QL l�t nh?a n?a TL"
+        "nameRepDoanTimDuongBo": "48-2-Đường QL lát nhựa nửa TL"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u tr�n ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-4-Cầu trên đg tỉnh lộ PTL",
         "doanTimDuongBoRepID": "4",
-        "nameRepDoanTimDuongBo": "49-T?nh l? l�t nh?a n?a TL"
+        "nameRepDoanTimDuongBo": "49-Tỉnh lộ lát nhựa nửa TL"
       },
       {
         "cauGiaoThongPRepID": "1",
-        "nameRepCauGiaoThong": "60-1-b-C?u tr�n ???ng s?t ho?c ?g � t� PTL",
+        "nameRepCauGiaoThong": "60-1-b-Cầu trên đường sắt hoặc đg ô tô PTL",
         "doanTimDuongBoRepID": "5",
-        "nameRepDoanTimDuongBo": "50-b-???ng � t� kh�c"
+        "nameRepDoanTimDuongBo": "50-b-Đường ô tô khác"
       },
       {
         "cauGiaoThongPRepID": "11",
         "nameRepCauGiaoThong": "NA",
         "doanTimDuongBoRepID": "6",
-        "nameRepDoanTimDuongBo": "51-???ng � t� ?ang l�m n?a TL"
+        "nameRepDoanTimDuongBo": "51-Đường ô tô đang làm nửa TL"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u � t� kh�ng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-Cầu ô tô không qua được PTL",
         "doanTimDuongBoRepID": "7",
-        "nameRepDoanTimDuongBo": "52-???ng nh?"
+        "nameRepDoanTimDuongBo": "52-Đường nhỏ"
       },
       {
         "cauGiaoThongPRepID": "6",
-        "nameRepCauGiaoThong": "58-2-b-C?u chui kh�ng theo t? l?",
+        "nameRepCauGiaoThong": "58-2-b-C?u chui không theo t? l?",
         "doanTimDuongBoRepID": "8",
-        "nameRepDoanTimDuongBo": "53-???ng m�n"
+        "nameRepDoanTimDuongBo": "53-Đường mòn"
       },
       {
         "cauGiaoThongPRepID": "6",
-        "nameRepCauGiaoThong": "58-2-b-C?u chui kh�ng theo t? l?",
+        "nameRepCauGiaoThong": "58-2-b-Cầu chui không theo tỷ lệ",
         "doanTimDuongBoRepID": "9",
-        "nameRepDoanTimDuongBo": "54-???ng chia l�"
+        "nameRepDoanTimDuongBo": "54-Đường chia lô"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u tr�n ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-4-Cầu trên đg tỉnh lộ PTL",
         "doanTimDuongBoRepID": "10",
-        "nameRepDoanTimDuongBo": "55-a-???ng ph? ch�nh"
+        "nameRepDoanTimDuongBo": "55-a-Đường phố chính"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u � t� kh�ng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-Cầu ô tô không qua được PTL",
         "doanTimDuongBoRepID": "11",
-        "nameRepDoanTimDuongBo": "55-b-???ng ph? ph?, ng� ph?"
+        "nameRepDoanTimDuongBo": "55-b-Đường phố phụ, ngõ phố"
       },
       {
         "cauGiaoThongPRepID": "5",
-        "nameRepCauGiaoThong": "60-4-b-C?u � t� kh�ng qua ???c PTL",
+        "nameRepCauGiaoThong": "60-4-b-Cầu ô tô không qua được PTL",
         "doanTimDuongBoRepID": "12",
-        "nameRepDoanTimDuongBo": "65-2-b-???ng � t� kh�c ??p cao"
+        "nameRepDoanTimDuongBo": "65-2-b-Đường ô tô khác đắp cao"
       },
       {
         "cauGiaoThongPRepID": "8",
-        "nameRepCauGiaoThong": "60-1-a-3-C?u tr�n ?g qu?c l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-3-Cầu trên đg quốc lộ PTL",
         "doanTimDuongBoRepID": "13",
-        "nameRepDoanTimDuongBo": "8-2-???ng QL l�t nh?a n?a TL ??p cao 2 b�n"
+        "nameRepDoanTimDuongBo": "8-2-Đường QL lát nhựa nửa TL đắp cao 2 bên"
       },
       {
         "cauGiaoThongPRepID": "9",
-        "nameRepCauGiaoThong": "60-1-a-4-C?u tr�n ?g t?nh l? PTL",
+        "nameRepCauGiaoThong": "60-1-a-4-Cầu trên đg tỉnh lộ PTL",
         "doanTimDuongBoRepID": "14",
-        "nameRepDoanTimDuongBo": "49-T?nh l? l�t nh?a n?a TL ??p cao 2 b�n"
+        "nameRepDoanTimDuongBo": "49-Tỉnh lộ lát nhựa nửa TL đắp cao 2 bên"
       }
     ]
   }

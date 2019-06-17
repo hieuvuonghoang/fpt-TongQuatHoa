@@ -2,7 +2,7 @@
 title SnapTools
 
 :: Runs your command
-set pathfile=%~dp0SnapTools.py
+set pathfile=%~dp0%SnapTools.py
 echo.%pathfile%
 c:
 cd %python27%

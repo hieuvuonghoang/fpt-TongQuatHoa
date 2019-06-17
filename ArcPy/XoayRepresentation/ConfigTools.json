@@ -1,6 +1,6 @@
 ﻿[
   {
-    "nameTools": "UpdateRuleCauGiaoThongTheoRuleIDDoanTimDuongBo",
+    "nameTools": "UpdateRuleCauGiaoThongPTheoRuleIDDoanTimDuongBo",
     "dataConfig": [
       {
         "cauGiaoThongPRepID": "7",
@@ -46,7 +46,7 @@
       },
       {
         "cauGiaoThongPRepID": "6",
-        "nameRepCauGiaoThong": "58-2-b-C?u chui không theo t? l?",
+        "nameRepCauGiaoThong": "58-2-b-Cầu chui không theo tỷ lệ",
         "doanTimDuongBoRepID": "8",
         "nameRepDoanTimDuongBo": "53-Đường mòn"
       },
@@ -83,6 +83,95 @@
       {
         "cauGiaoThongPRepID": "9",
         "nameRepCauGiaoThong": "60-1-a-4-Cầu trên đg tỉnh lộ PTL",
+        "doanTimDuongBoRepID": "14",
+        "nameRepDoanTimDuongBo": "49-Tỉnh lộ lát nhựa nửa TL đắp cao 2 bên"
+      }
+    ]
+  },
+  {
+    "nameTools": "UpdateRuleCongGiaoThongPTheoRuleIDDoanTimDuongBo",
+    "dataConfig": [
+      {
+        "congGiaoThongPRepID": "1",
+        "nameRepCauGiaoThong": "Cống trên đường cao tốc_phải/trái",
+        "doanTimDuongBoRepID": "1",
+        "nameRepDoanTimDuongBo": "47-a-3-Tim đường cao tốc TL"
+      },
+      {
+        "congGiaoThongPRepID": "1",
+        "nameRepCauGiaoThong": "Cống trên đường cao tốc_phải/trái",
+        "doanTimDuongBoRepID": "2",
+        "nameRepDoanTimDuongBo": "47-b-Đường cao tốc nửaTL"
+      },
+      {
+        "congGiaoThongPRepID": "2",
+        "nameRepCauGiaoThong": "Cống trên đường quốc lộ_phải/trái",
+        "doanTimDuongBoRepID": "3",
+        "nameRepDoanTimDuongBo": "48-2-Đường QL lát nhựa nửa TL"
+      },
+      {
+        "congGiaoThongPRepID": "3",
+        "nameRepCauGiaoThong": "Cống trên đường tỉnh lộ_phải/trái",
+        "doanTimDuongBoRepID": "4",
+        "nameRepDoanTimDuongBo": "49-Tỉnh lộ lát nhựa nửa TL"
+      },
+      {
+        "congGiaoThongPRepID": "4",
+        "nameRepCauGiaoThong": "Cống trên đường ô tô khác_phải/trái",
+        "doanTimDuongBoRepID": "5",
+        "nameRepDoanTimDuongBo": "50-b-Đường ô tô khác"
+      },
+      {
+        "congGiaoThongPRepID": "4",
+        "nameRepCauGiaoThong": "Cống trên đường ô tô khác_phải/trái",
+        "doanTimDuongBoRepID": "6",
+        "nameRepDoanTimDuongBo": "51-Đường ô tô đang làm nửa TL"
+      },
+      {
+        "congGiaoThongPRepID": "NA",
+        "nameRepCauGiaoThong": "NA",
+        "doanTimDuongBoRepID": "7",
+        "nameRepDoanTimDuongBo": "52-Đường nhỏ"
+      },
+      {
+        "congGiaoThongPRepID": "5",
+        "nameRepCauGiaoThong": "Cống trên đường mòn_phải/trái",
+        "doanTimDuongBoRepID": "8",
+        "nameRepDoanTimDuongBo": "53-Đường mòn"
+      },
+      {
+        "congGiaoThongPRepID": "6",
+        "nameRepCauGiaoThong": "Cống trên đường chia lô_phải/trái",
+        "doanTimDuongBoRepID": "9",
+        "nameRepDoanTimDuongBo": "54-Đường chia lô"
+      },
+      {
+        "congGiaoThongPRepID": "NA",
+        "nameRepCauGiaoThong": "NA",
+        "doanTimDuongBoRepID": "10",
+        "nameRepDoanTimDuongBo": "55-a-Đường phố chính"
+      },
+      {
+        "congGiaoThongPRepID": "7",
+        "nameRepCauGiaoThong": "Cống trên phố phụ_phải/trái",
+        "doanTimDuongBoRepID": "11",
+        "nameRepDoanTimDuongBo": "55-b-Đường phố phụ, ngõ phố"
+      },
+      {
+        "congGiaoThongPRepID": "4",
+        "nameRepCauGiaoThong": "Cống trên đường ô tô khác_phải/trái",
+        "doanTimDuongBoRepID": "12",
+        "nameRepDoanTimDuongBo": "65-2-b-Đường ô tô khác đắp cao"
+      },
+      {
+        "congGiaoThongPRepID": "2",
+        "nameRepCauGiaoThong": "Cống trên đường quốc lộ_phải",
+        "doanTimDuongBoRepID": "13",
+        "nameRepDoanTimDuongBo": "8-2-Đường QL lát nhựa nửa TL đắp cao 2 bên"
+      },
+      {
+        "congGiaoThongPRepID": "3",
+        "nameRepCauGiaoThong": "Cống trên đường tỉnh lộ_phải/trái",
         "doanTimDuongBoRepID": "14",
         "nameRepDoanTimDuongBo": "49-Tỉnh lộ lát nhựa nửa TL đắp cao 2 bên"
       }

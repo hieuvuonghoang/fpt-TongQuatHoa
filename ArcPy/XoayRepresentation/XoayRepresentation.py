@@ -2,13 +2,16 @@
 import os
 import sys
 import time
+import json
 import arcpy
+import codecs
 import datetime
 
 class XoayRepresentation:
 
-    def __init__(self, distance):
+    def __init__(self, pathFileConfig, distance):
         self.distance = distance
+        self.pathFileConfig = pathFileConfig
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
@@ -53,13 +56,22 @@ class XoayRepresentation:
         arcpy.env.overwriteOutput = True
         # Set Scale: 50K
         arcpy.env.referenceScale = "50000"
-        # AlignMarkerToStrokeOrFill Tools
-        self.AlignMarkerToStrokeOrFill()
+        # Read File Config
+        self.ReadFile()
+        # Make Feature Layer
+        self.MakeFeatureLayer()
         # UpdateRuleIDCauGiaoThong
         self.UpdateRuleIDCauGiaoThong()
+        # AlignMarkerToStrokeOrFill Tools
+        self.AlignMarkerToStrokeOrFill()
         pass
 
-    def AlignMarkerToStrokeOrFill(self):
+    def ReadFile(self):
+        inputFile = open(self.pathFileConfig, "r")
+        self.dictConfig = json.loads(inputFile.read().decode("utf-8-sig"))
+        pass
+
+    def MakeFeatureLayer(self):
         # Make Feature Layer
         self.congThuyLoiPFinalLayer = "congThuyLoiPFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathCongThuyLoiPFinal,
@@ -73,6 +85,9 @@ class XoayRepresentation:
         self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
                                             out_layer = self.doanTimDuongBoFinalLayer)
+        pass
+
+    def AlignMarkerToStrokeOrFill(self):
         # Set Layer Representation And AlignMarkerToStrokeOrFill
         ## Set Layer Representation DoanTimDuongBo
         arcpy.SetLayerRepresentation_cartography(in_layer = self.doanTimDuongBoFinalLayer,
@@ -157,7 +172,14 @@ class XoayRepresentation:
         arcpy.RemoveJoin_management(in_layer_or_view = self.cauGiaoThongPFinalLayer,
                                     join_name = outTableTempB.split("\\")[1])
         # Update RuleID Using File Config:
-
+        dataConfig = self.dictConfig[0]["dataConfig"]
+        with arcpy.da.UpdateCursor(self.cauGiaoThongPFinalLayer, ["CauGiaoThongP_Rep_ID", "RepIDTemp"]) as cursor:
+            for row in cursor:
+                for elem in dataConfig:
+                    if row[1] == int(elem["doanTimDuongBoRepID"]):
+                        row[0] = int(elem["cauGiaoThongPRepID"])
+                        cursor.updateRow(row)
+                        break
         # Delete Filed
         arcpy.DeleteField_management(in_table = self.cauGiaoThongPFinalLayer,
                                      drop_field = ["FID_DoanTimDuongBo", "RepIDTemp"])
@@ -201,8 +223,8 @@ class RunTime:
 
 if __name__ == "__main__":
     runTime = RunTime()
-    print "Distance: {}".format(sys.argv[1])
-    xoayRepresentation = XoayRepresentation(sys.argv[1])
+    print "Path File Config: {0}\nDistance: {1}".format(sys.argv[1], sys.argv[2])
+    xoayRepresentation = XoayRepresentation(sys.argv[1], sys.argv[2])
     print "Running..."
     xoayRepresentation.Execute()
     print "Success!!!"
