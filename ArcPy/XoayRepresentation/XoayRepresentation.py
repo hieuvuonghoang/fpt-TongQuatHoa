@@ -56,13 +56,10 @@ class XoayRepresentation:
         arcpy.env.overwriteOutput = True
         # Set Scale: 50K
         arcpy.env.referenceScale = "50000"
-        # Read File Config
         self.ReadFile()
-        # Make Feature Layer
         self.MakeFeatureLayer()
-        # UpdateRuleIDCauGiaoThong
         self.UpdateRuleIDCauGiaoThong()
-        # AlignMarkerToStrokeOrFill Tools
+        self.UpdateRuleIDCongGiaoThong()
         self.AlignMarkerToStrokeOrFill()
         pass
 
@@ -182,6 +179,69 @@ class XoayRepresentation:
                         break
         # Delete Filed
         arcpy.DeleteField_management(in_table = self.cauGiaoThongPFinalLayer,
+                                     drop_field = ["FID_DoanTimDuongBo", "RepIDTemp"])
+        pass
+
+    def UpdateRuleIDCongGiaoThong(self):
+        # Generate Near Table
+        outTableTempA = "in_memory\\OutTabelTempA"
+        arcpy.GenerateNearTable_analysis(in_features = self.congGiaoThongPFinalLayer,
+                                         near_features = self.doanTimDuongBoFinalLayer,
+                                         out_table = outTableTempA,
+                                         search_radius = "0 Meters",
+                                         closest = "CLOSEST",
+                                         method = "PLANAR")
+        # Add Field DoanTimDuongBo
+        arcpy.AddField_management(in_table = self.congGiaoThongPFinalLayer,
+                                  field_name = "FID_DoanTimDuongBo",
+                                  field_type = "LONG")
+        arcpy.AddField_management(in_table = self.congGiaoThongPFinalLayer,
+                                  field_name = "RepIDTemp",
+                                  field_type = "SHORT")
+        # Table Select
+        outTableTempB = "in_memory\\OutTabelTempB"
+        arcpy.TableSelect_analysis(in_table = self.doanTimDuongBoFinalLayer,
+                                   out_table = outTableTempB)
+        fields = arcpy.ListFields(outTableTempB)
+        fieldsDelete = []
+        for fieldTemp in fields:
+            if fieldTemp.name != "DoanTimDuongBo_Rep_ID" and fieldTemp.type != "OID":
+                fieldsDelete.append(fieldTemp.name)
+        arcpy.DeleteField_management(in_table = outTableTempB,
+                                     drop_field = fieldsDelete)
+        # Join
+        arcpy.AddJoin_management(in_layer_or_view = self.congGiaoThongPFinalLayer,
+                                 in_field = "OBJECTID",
+                                 join_table = outTableTempA,
+                                 join_field = "IN_FID")
+        arcpy.CalculateField_management(in_table = self.congGiaoThongPFinalLayer,
+                                        field = "FID_DoanTimDuongBo",
+                                        expression = "!NEAR_FID!",
+                                        expression_type = "PYTHON_9.3")
+        arcpy.RemoveJoin_management(in_layer_or_view = self.congGiaoThongPFinalLayer,
+                                    join_name = outTableTempA.split("\\")[1])
+        arcpy.AddJoin_management(in_layer_or_view = self.congGiaoThongPFinalLayer,
+                                 in_field = "FID_DoanTimDuongBo",
+                                 join_table = outTableTempB,
+                                 join_field = "OBJECTID")
+        arcpy.CalculateField_management(in_table = self.congGiaoThongPFinalLayer,
+                                        field = "RepIDTemp",
+                                        expression = "!DoanTimDuongBo_Rep_ID!",
+                                        expression_type = "PYTHON_9.3")
+        arcpy.RemoveJoin_management(in_layer_or_view = self.congGiaoThongPFinalLayer,
+                                    join_name = outTableTempB.split("\\")[1])
+        # Update RuleID Using File Config:
+        dataConfig = self.dictConfig[1]["dataConfig"]
+        with arcpy.da.UpdateCursor(self.congGiaoThongPFinalLayer, ["CongGiaoThongP_RepTrai_ID", "CongGiaoThongP_RepPhai_ID", "RepIDTemp"]) as cursor:
+            for row in cursor:
+                for elem in dataConfig:
+                    if row[2] == int(elem["doanTimDuongBoRepID"]) and elem["congGiaoThongPRepID"] != "NA":
+                        row[0] = int(elem["congGiaoThongPRepID"])
+                        row[1] = int(elem["congGiaoThongPRepID"])
+                        cursor.updateRow(row)
+                        break
+        # Delete Filed
+        arcpy.DeleteField_management(in_table = self.congGiaoThongPFinalLayer,
                                      drop_field = ["FID_DoanTimDuongBo", "RepIDTemp"])
         pass
 

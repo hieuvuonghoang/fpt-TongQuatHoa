@@ -8,5 +8,5 @@ c:
 cd %python27%
 python %pathfile% 5 2.5 1
 
-::
+:: Presses any key
 pause
