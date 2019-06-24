@@ -91,10 +91,8 @@ class DichNhaPRep:
         pass
 
     def CallToolSetEmptyShape(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        pathFileBatch = os.path.join(dir_path, "SetEmptyShapeRepresentation.bat")
-        print pathFileBatch
-        subprocess.call([pathFileBatch]);
+        #args [] = {pathGDB, featureClassName, representationName, whereClause}
+        subprocess.call(["SetEmptyShapeRepresentation.exe", r"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "invisibility_field = 1"])
         pass
 
 class RunTime:
