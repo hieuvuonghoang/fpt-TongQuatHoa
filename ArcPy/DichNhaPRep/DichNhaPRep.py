@@ -6,13 +6,17 @@ import json
 import arcpy
 import codecs
 import datetime
+import subprocess
 
 class DichNhaPRep:
 
-    def __init__(self, distanceAlign, distanceConflict):
+    def __init__(self, distanceAlign, distanceNhaP, buildingGap, minimumSize):
         # Set distance
+        print "distanceAlign = {0}, distanceNhaP = {1}, buildingGap = {2}, minimumSize = {3}".format(distanceAlign, distanceNhaP, buildingGap, minimumSize)
         self.distanceAlign = distanceAlign
-        self.distanceConflict = distanceConflict
+        self.distanceNhaP = distanceNhaP
+        self.buildingGap = buildingGap
+        self.minimumSize = minimumSize
         # Path GDB
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
@@ -29,6 +33,8 @@ class DichNhaPRep:
         # Representation Name
         self.repDoanTimDuongBo = "DoanTimDuongBo_Rep"
         self.repNhaP = "NhaP_Rep1"
+        # Field Name
+        self.invisibilityField = "invisibility_field"
         pass
 
     def Execute(self):
@@ -37,8 +43,10 @@ class DichNhaPRep:
         #
         self.MakeFeatureLayerAndSetLayerRepresentation()
         self.AlignMarkerToStrokeOrFill()
-        self.DetectGraphicConflict()
-        self.AddJoin()
+        self.AddField()
+        self.ResolveBuildingConflict()
+        self.CallToolSetEmptyShape()
+        self.DeleteField()
         pass
 
     def MakeFeatureLayerAndSetLayerRepresentation(self):
@@ -63,29 +71,30 @@ class DichNhaPRep:
                                                     marker_orientation = "PERPENDICULAR")
         pass
 
-    def DetectGraphicConflict(self):
-        self.fCOutPutConflict = "in_memory\\fCOutPutConflict"
-        arcpy.DetectGraphicConflict_cartography(in_features = self.nhaPFinalLayer,
-                                                conflict_features = self.doanTimDuongBoFinalLayer,
-                                                out_feature_class = self.fCOutPutConflict,
-                                                conflict_distance = self.distanceConflict)
-        self.tableOutPutSelect = "in_memory\\tableOutPutSelect"
-        arcpy.TableSelect_analysis(in_table = self.fCOutPutConflict,
-                                   out_table = self.tableOutPutSelect,
-                                   where_clause = "OBJECTID IS NOT NULL")
+    def AddField(self):
+        arcpy.AddField_management(in_table = self.nhaPFinalLayer,
+                                  field_name = self.invisibilityField,
+                                  field_type = "Short")
         pass
 
-    def AddJoin(self):
-        arcpy.AddJoin_management(in_layer_or_view = self.nhaPFinalLayer,
-                                 in_field = "OBJECTID",
-                                 join_table = self.tableOutPutSelect,
-                                 join_field = "FID_NhaP")
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.nhaPFinalLayer,
-                                                selection_type = "NEW_SELECTION",
-                                                where_clause = "FID_NhaP IS NOT NULL")
-        self.fCNhaPConflict = os.path.join(r"C:\Users\vuong\Documents\ArcGIS\Default.gdb", "fCNhaPConflict")
-        arcpy.CopyFeatures_management(in_features = self.nhaPFinalLayer,
-                                      out_feature_class = self.fCNhaPConflict)
+    def ResolveBuildingConflict(self):
+        arcpy.ResolveBuildingConflicts_cartography(in_buildings = self.nhaPFinalLayer,
+                                                   in_barriers = [[self.doanTimDuongBoFinalLayer, "False", self.distanceNhaP]],
+                                                   invisibility_field = self.invisibilityField,
+                                                   building_gap = self.buildingGap,
+                                                   minimum_size = self.minimumSize)
+        pass
+
+    def DeleteField(self):
+        arcpy.DeleteField_management(in_table = self.nhaPFinalLayer,
+                                     drop_field = [self.invisibilityField])
+        pass
+
+    def CallToolSetEmptyShape(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        pathFileBatch = os.path.join(dir_path, "SetEmptyShapeRepresentation.bat")
+        print pathFileBatch
+        subprocess.call([pathFileBatch]);
         pass
 
 class RunTime:
@@ -126,7 +135,7 @@ class RunTime:
 
 if __name__ == "__main__":
     runTime = RunTime()
-    dichNhaPRep = DichNhaPRep("50 Meters", "0 Meters")
+    dichNhaPRep = DichNhaPRep(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     print "Running..."
     dichNhaPRep.Execute()
     print "Success!!!"
