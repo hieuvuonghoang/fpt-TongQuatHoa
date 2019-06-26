@@ -1016,7 +1016,7 @@
               {
                 "ruleID": "1",
                 "nameRule": "4-c-Nhà phi tỷ lệ",
-                "querySQL": "doiTuong = 2"
+                "querySQL": "OBJECTID IS NOT NULL"
               }
             ]
           }
