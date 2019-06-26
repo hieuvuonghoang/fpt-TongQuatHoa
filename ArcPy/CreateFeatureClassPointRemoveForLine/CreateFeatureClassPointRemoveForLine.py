@@ -27,7 +27,6 @@ class DuongBoNuoc:
     def Execute(self):
         print "DuongBoNuoc:"
         self.CreateFeaturePointRemove()
-        self.AddFieldAndUpdate()
 
     def CreateFeaturePointRemove(self):
         print "\tCreateFeaturePointRemove"
@@ -89,34 +88,9 @@ class DuongBoNuoc:
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
         #self.duongBoNuocPointRemove = "in_memory\\DuongBoNuocPointRemove"
-        self.duongBoNuocPointRemove = os.path.join(pathProcessGDB, "PointRemove")
+        self.duongBoNuocPointRemove = os.path.join(self.pathProcessGDB, "PointRemove")
         arcpy.CopyFeatures_management(in_features = outLayerTempB,
                                       out_feature_class = self.duongBoNuocPointRemove)
-        pass
-
-    def AddFieldAndUpdate(self):
-        arcpy.AddField_management(in_table = self.duongBoNuocPointRemove,
-                                  field_name = "ISOID",
-                                  field_type = "LONG")
-        self.pointRemoveLayer = "PointRemoveLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.duongBoNuocPointRemove,
-                                          out_layer = self.pointRemoveLayer)
-        self.outPutFeatureToLineTempALayer = "OutPutFeatureToLineTempALayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.outPutFeatureToLineTempA,
-                                          out_layer = self.outPutFeatureToLineTempALayer)
-        with arcpy.da.SearchCursor(self.outPutFeatureToLineTempALayer, ["OID"]) as cursor:
-            for row in cursor:
-                arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.outPutFeatureToLineTempALayer,
-                                                        selection_type = "NEW_SELECTION",
-                                                        where_clause = "OBJECTID = " + str(row[0]))
-                arcpy.SelectLayerByLocation_management(in_layer = self.pointRemoveLayer,
-                                                       overlap_type = "INTERSECT",
-                                                       search_distance = "0 Meters",
-                                                       select_features = self.outPutFeatureToLineTempALayer,
-                                                       selection_type = "NEW_SELECTION")
-                arcpy.CalculateField_management(in_table = self.pointRemoveLayer,
-                                                field = "ISOID",
-                                                expression = row[0])
         pass
 
 
