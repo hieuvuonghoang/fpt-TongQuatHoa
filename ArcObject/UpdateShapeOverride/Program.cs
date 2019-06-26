@@ -87,6 +87,7 @@ namespace UpdateShapeOverride
             IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathGDB, 0);
             IFeatureWorkspace iFeatureWorkspace = iWorkspace as IFeatureWorkspace;
             IFeatureClass featureClassNhaP = iFeatureWorkspace.OpenFeatureClass(featureClassName);
+            IFeatureClass featureClassPointRemove = GetFeatureClassPointRemove(@"C:\Generalize_25_50\50K_Process.gdb", "PointRemove");
             IQueryFilter iQueryFilter = new QueryFilter();
             iQueryFilter.WhereClause = whereClause;
             IFeatureCursor iFeatureCursor = featureClassNhaP.Search(iQueryFilter, true);
@@ -94,8 +95,33 @@ namespace UpdateShapeOverride
             while ((iFeature = iFeatureCursor.NextFeature()) != null)
             {
                 IPointCollection pointCollection = iFeature.Shape as IPointCollection;
-                Console.Write("OID = {0}, PointCount = {1}; ", iFeature.OID, pointCollection.PointCount);
+                string querySQL = "ORIG_FID = " + iFeature.OID.ToString();
+                iQueryFilter.WhereClause = querySQL;
+                IFeatureCursor iFeatureCursorPointRemove = featureClassPointRemove.Search(iQueryFilter, true);
+                IFeature iFeaturePointRemve = null;
+                while ((iFeaturePointRemve = iFeatureCursorPointRemove.NextFeature()) != null)
+                {
+                    IPoint pointTemp = iFeaturePointRemve.Shape as IPoint;
+                    for (int index = 0; index < pointCollection.PointCount; index++)
+                    {
+                        if (pointCollection.Point[index].X == pointTemp.X && pointCollection.Point[index].Y == pointTemp.Y)
+                        {
+                            pointCollection.RemovePoints(index, 1);
+                            break;
+                        }
+                    }
+                }
+                iFeature.Store();
             }
+        }
+
+        private static IFeatureClass GetFeatureClassPointRemove(string pathGDB, string featureClassName)
+        {
+            IWorkspaceFactory iWorkspaceFactory = new FileGDBWorkspaceFactoryClass();
+            IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathGDB, 0);
+            IFeatureWorkspace iFeatureWorkspace = iWorkspace as IFeatureWorkspace;
+            IFeatureClass featureClassPointRemove = iFeatureWorkspace.OpenFeatureClass(featureClassName);
+            return featureClassPointRemove;
         }
     }
 }

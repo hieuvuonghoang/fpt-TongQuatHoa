@@ -329,7 +329,7 @@ class SnapTools:
         pass
 
     def SnapVsLineSnap(self):
-        snapEnv = [self.lineSnap, "VERTEX", self.distance]
+        snapEnv = [self.lineSnap, "EDGE", self.distance]
         arcpy.Snap_edit(in_features = self.pathCongThuyLoiLFinal,
                         snap_environment = [snapEnv])
         arcpy.Snap_edit(in_features = self.pathCauGiaoThongLFinal,
