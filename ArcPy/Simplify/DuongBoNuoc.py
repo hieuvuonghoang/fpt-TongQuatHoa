@@ -8,7 +8,8 @@ import subprocess
 
 class DuongBoNuoc:
 
-    def __init__(self):
+    def __init__(self, distanceSnap):
+        self.distanceSnap = distanceSnap
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.fDThuyHe = "ThuyHe"
@@ -129,16 +130,18 @@ class DuongBoNuoc:
         pass
 
     def SnapDuongBoNuoc(self):
-        outPutMergeTempALayer = "outPutMergeTempALayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.outPutMergeTempA,
-                                          out_layer = outPutMergeTempALayer)
-        snapEnv = [outPutMergeTempALayer, "EDGE", "100 Meters"]
-        with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
-            for rowA in cursorA:
-                arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
-                                                        selection_type = "NEW_SELECTION",
-                                                        where_clause = "OBJECTID = " + str(rowA[0]))
-                arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
+        outPutFeatureToLineTempALayer = "outPutFeatureToLineTempALayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.outPutFeatureToLineTempA,
+                                          out_layer = outPutFeatureToLineTempALayer)
+        snapEnv = [outPutFeatureToLineTempALayer, "EDGE", self.distanceSnap]
+        arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
+        #with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
+        #    for rowA in cursorA:
+        #        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
+        #                                                selection_type = "NEW_SELECTION",
+        #                                                where_clause = "OBJECTID = " + str(rowA[0]))
+        #        arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
+        pass
 
 class RunTime:
 
@@ -178,7 +181,7 @@ class RunTime:
 
 if __name__ == "__main__":
     runTime = RunTime()
-    duongBoNuoc = DuongBoNuoc()
+    duongBoNuoc = DuongBoNuoc(sys.argv[1])
     print "Running..."
     duongBoNuoc.Execute()
     print "Success!!!"

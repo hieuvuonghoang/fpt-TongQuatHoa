@@ -8,17 +8,17 @@ import datetime
 
 class SimplifyPolygon:
 
-    def __init__(self, pathFileConfigOne, pathFileConfigTwo):
+    def __init__(self, pathFileConfig):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.configTools = ConfigTools()
-        if os.path.isfile(pathFileConfigOne):
-            self.ReadFileConfig(pathFileConfigOne)
+        if os.path.isfile(pathFileConfig):
+            self.ReadFileConfig(pathFileConfig)
         else:
-            print "Not Found: " + pathFileConfigOne + "?\n Create FileConfig..."
-            self.CreateFileConfig(pathFileConfigOne)
+            print "Not Found: " + pathFileConfig + "?\n Create FileConfig..."
+            self.CreateFileConfig(pathFileConfig)
 
-    def Execute(self):
+    def Excute(self):
         arcpy.env.overwriteOutput = True
         self.MergeTools()
         self.SimplifyTools()
@@ -45,7 +45,6 @@ class SimplifyPolygon:
         self.configTools.InitFromDict(json.loads(textConfig))
 
     def MergeTools(self):
-        print "MergeTools..."
         inFeatureClassMerges = []
         for featureDataSetTemp in self.configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
@@ -85,7 +84,6 @@ class SimplifyPolygon:
                                           out_layer = self.outputMergeLayer)
 
     def SimplifyTools(self):
-        print "SimplifyTools..."
         self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
         arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
                                             out_feature_class = self.outputSimplifyPolygon,
@@ -96,7 +94,6 @@ class SimplifyPolygon:
                                             collapsed_point_option = "NO_KEEP")
 
     def UpdateShapeAfterSimplify(self):
-        print "UpdateShapeAfterSimplify..."
         outputSimplifyPolygonLayer = "FeatureClassSimplifyPolygonLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.outputSimplifyPolygon,
                                           out_layer = outputSimplifyPolygonLayer)
@@ -239,15 +236,10 @@ class RunTime:
         pass
 
 if __name__ == '__main__':
-
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    fileConfigNameOne = "ConfigSimplifyPolygon.json"
-    pathFileConfigOne = os.path.join(dir_path, fileConfigNameOne)
-
     runTime = RunTime()
-    simplifyPolygon = SimplifyPolygon(pathFileConfigOne, pathFileConfigOne)
+    simplifyPolygon = SimplifyPolygon(sys.argv[1])
     print "Running..."
-    simplifyPolygon.Execute()
+    simplifyPolygon.Excute()
     print "Success!!!"
     runTime.GetTotalRunTime()
     pass
