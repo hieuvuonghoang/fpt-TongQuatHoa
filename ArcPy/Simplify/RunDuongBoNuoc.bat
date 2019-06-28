@@ -6,7 +6,7 @@ set pathfile=%~dp0%DuongBoNuoc.py
 echo.%pathfile%
 c:
 cd %python27%
-python %pathfile%
+python %pathfile% "100 Meters"
 
 :: Presses any key
 pause

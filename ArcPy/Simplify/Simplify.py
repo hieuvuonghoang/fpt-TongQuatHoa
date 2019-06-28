@@ -1,21 +1,25 @@
-import sys
+# -*- coding: utf-8 -*-
 import os
-import arcpy
+import sys
+import time
 import json
+import arcpy
+import datetime
 
 class SimplifyPolygon:
 
-    def __init__(self, pathFileConfigOne, pathFileConfigTwo):
+    def __init__(self, pathFileConfig):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.configTools = ConfigTools()
-        if os.path.isfile(pathFileConfigOne):
-            self.ReadFileConfig(pathFileConfigOne)
+        if os.path.isfile(pathFileConfig):
+            self.ReadFileConfig(pathFileConfig)
         else:
-            print "Not Found: " + pathFileConfigOne + "?\n Create FileConfig..."
-            self.CreateFileConfig(pathFileConfigOne)
+            print "Not Found: " + pathFileConfig + "?\n Create FileConfig..."
+            self.CreateFileConfig(pathFileConfig)
 
     def Excute(self):
+        arcpy.env.overwriteOutput = True
         self.MergeTools()
         self.SimplifyTools()
         self.UpdateShapeAfterSimplify()
@@ -41,7 +45,6 @@ class SimplifyPolygon:
         self.configTools.InitFromDict(json.loads(textConfig))
 
     def MergeTools(self):
-        print "MergeTools..."
         inFeatureClassMerges = []
         for featureDataSetTemp in self.configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
@@ -81,7 +84,6 @@ class SimplifyPolygon:
                                           out_layer = self.outputMergeLayer)
 
     def SimplifyTools(self):
-        print "SimplifyTools..."
         self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
         arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
                                             out_feature_class = self.outputSimplifyPolygon,
@@ -92,7 +94,6 @@ class SimplifyPolygon:
                                             collapsed_point_option = "NO_KEEP")
 
     def UpdateShapeAfterSimplify(self):
-        print "UpdateShapeAfterSimplify..."
         outputSimplifyPolygonLayer = "FeatureClassSimplifyPolygonLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.outputSimplifyPolygon,
                                           out_layer = outputSimplifyPolygonLayer)
@@ -198,10 +199,47 @@ class ElemListPolygon:
     def SetFeatureLayerInMemory(self, featureDataSet):
         self.featureLayerInMemory = "in_memory\\" + featureDataSet + self.featureClass + "Layer"
 
+class RunTime:
+
+    def __init__(self):
+        self.startTime = time.time()
+        print "Start time: {}".format(datetime.datetime.now())
+        pass
+
+    def GetTotalRunTime(self):
+        self.totalRunTime = int(time.time() - self.startTime)
+        self.ConvertTime()
+        self.strHours = ""
+        self.strMinute = ""
+        self.strSeconds = ""
+        if self.hours / 10 == 0:
+            self.strHours = "0" + str(self.hours)
+        else:
+            self.strHours = str(self.hours)
+        if self.minute / 10 == 0:
+            self.strMinute = "0" + str(self.minute)
+        else:
+            self.strMinute = str(self.minute)
+        if self.seconds / 10 == 0:
+            self.strSeconds = "0" + str(self.seconds)
+        else:
+            self.strSeconds = str(self.seconds)
+        print "Total time: {0}:{1}:{2}".format(self.strHours, self.strMinute, self.strSeconds)
+        pass
+
+    def ConvertTime(self):
+        self.hours = self.totalRunTime / (60 * 60)
+        self.totalRunTime = self.totalRunTime - (self.hours * 60 * 60)
+        self.minute = self.totalRunTime / 60
+        self.totalRunTime = self.totalRunTime - (self.minute * 60)
+        self.seconds = self.totalRunTime
+        pass
+
 if __name__ == '__main__':
-    arcpy.env.overwriteOutput = True
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    fileConfigNameOne = "ConfigSimplifyPolygon.json"
-    pathFileConfigOne = os.path.join(dir_path, fileConfigNameOne)
-    simplifyPolygon = SimplifyPolygon(pathFileConfigOne, pathFileConfigOne)
+    runTime = RunTime()
+    simplifyPolygon = SimplifyPolygon(sys.argv[1])
+    print "Running..."
     simplifyPolygon.Excute()
+    print "Success!!!"
+    runTime.GetTotalRunTime()
+    pass
