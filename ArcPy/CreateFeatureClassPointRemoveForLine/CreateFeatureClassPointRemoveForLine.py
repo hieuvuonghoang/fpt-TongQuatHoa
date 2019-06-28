@@ -93,7 +93,6 @@ class DuongBoNuoc:
                                       out_feature_class = self.duongBoNuocPointRemove)
         pass
 
-
 if __name__ == '__main__':
     arcpy.env.overwriteOutput = True
     duongBoNuoc = DuongBoNuoc()

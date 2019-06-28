@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DuongBoNuoc.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DuongBoNuocDemo.py">
       <SubType>Code</SubType>
     </Compile>

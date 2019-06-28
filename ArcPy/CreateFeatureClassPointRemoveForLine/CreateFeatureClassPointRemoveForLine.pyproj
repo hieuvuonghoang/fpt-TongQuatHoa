@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CreateFeatureClassPointRemoveForLine.py" />
+    <Compile Include="RemovePointOnLine.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />

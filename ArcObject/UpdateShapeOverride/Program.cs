@@ -49,27 +49,10 @@ namespace UpdateShapeOverride
                 //if (iRepresentation.HasShapeOverride == false)
                 //{
                 //    Console.WriteLine("False");
-                //    iRepresentation.Shape = iFeature.Shape;
-                //    iRepresentation.UpdateFeature();
-                //    iFeature.Store();
                 //}
-                //Console.WriteLine(iRepresentation.HasShapeOverride);
-                IGeometry shapeCopy = iRepresentation.ShapeCopy;
-                IPointCollection shapeCopyPointCollection = shapeCopy as IPointCollection;
-                IPoint pointTemp = shapeCopyPointCollection.Point[0];
-                //Console.WriteLine("X = {0}, Y = {1}", shapeCopyPointCollection.Point[0].X, shapeCopyPointCollection.Point[0].Y);
-                pointTemp.X -= 1000;
-                pointTemp.Y -= 1000;
-                //Console.WriteLine("X = {0}, Y = {1}", pointTemp.X, pointTemp.Y);
-                IPointCollection shape = iRepresentation.Shape as IPointCollection;
-                shape.UpdatePoint(0, pointTemp);
-                pointTemp = shapeCopyPointCollection.Point[1];
-                pointTemp.X -= 1000;
-                pointTemp.Y -= 1000;
-                shape.UpdatePoint(1, pointTemp);
-                iRepresentation.UpdateFeature();
-                iFeature.Store();
-                break;
+                //iRepresentation.Shape = iFeature.Shape;
+                //iRepresentation.UpdateFeature();
+                //iFeature.Store();
             }
         }
 
