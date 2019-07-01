@@ -18,21 +18,22 @@ namespace RemovePointOnLine
             //ESRI License Initializer generated code.
             m_AOLicenseInitializer.InitializeApplication(new esriLicenseProductCode[] { esriLicenseProductCode.esriLicenseProductCodeBasic, esriLicenseProductCode.esriLicenseProductCodeStandard, esriLicenseProductCode.esriLicenseProductCodeAdvanced },
             new esriLicenseExtensionCode[] { });
-            Console.WriteLine("{0}, {1}, {2}, {3}", args[0], args[1], args[2], args[3]);
-            Run(args[0], args[1], args[2], args[3]);
+            Console.WriteLine("{0}, {1}, {2}, {3}, {4}", args[0], args[1], args[2], args[3], args[4]);
+            Run(args[0], args[1], args[2], args[3], args[4]);
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
         }
-        private static void Run(string pathFinalGDB, string fCLineName, string pathProcessGDB, string fCPointRemoveName)
+        private static void Run(string pathFinalGDB, string fCLineName, string pathProcessGDB, string whereClause, string fCPointRemoveName)
         {
             IWorkspaceFactory iWorkspaceFactory = new FileGDBWorkspaceFactoryClass();
             IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathFinalGDB, 0);
             IFeatureWorkspace iFeatureWorkspace = iWorkspace as IFeatureWorkspace;
-            IFeatureClass featureClassNhaP = iFeatureWorkspace.OpenFeatureClass(fCLineName);
+            IFeatureClass featureClassLine = iFeatureWorkspace.OpenFeatureClass(fCLineName);
             IFeatureClass featureClassPointRemove = GetFeatureClassPointRemove(pathProcessGDB, fCPointRemoveName);
             IQueryFilter iQueryFilter = new QueryFilter();
-            IFeatureCursor iFeatureCursor = featureClassNhaP.Search(null, true);
+            iQueryFilter.WhereClause = whereClause;
+            IFeatureCursor iFeatureCursor = featureClassLine.Search(iQueryFilter, true);
             IFeature iFeature = null;
             while ((iFeature = iFeatureCursor.NextFeature()) != null)
             {

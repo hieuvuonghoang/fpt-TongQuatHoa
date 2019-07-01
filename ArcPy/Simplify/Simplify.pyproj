@@ -28,6 +28,9 @@
     <Compile Include="DuongBoNuocDemo.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DuongDiaGioi.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Simplify.py" />
   </ItemGroup>
   <ItemGroup>

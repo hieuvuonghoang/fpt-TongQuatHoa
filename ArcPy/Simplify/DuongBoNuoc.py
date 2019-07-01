@@ -101,7 +101,7 @@ class DuongBoNuoc:
                                       out_feature_class = self.duongBoNuocPointRemove)
 
     def RemovePoint(self):
-        subprocess.call(["RemovePointOnLine.exe", r"C:\Generalize_25_50\50K_Final.gdb", "DuongBoNuoc", r"C:\Generalize_25_50\50K_Process.gdb", self.duongBoNuocPointRemoveName])
+        subprocess.call(["RemovePointOnLine.exe", r"C:\Generalize_25_50\50K_Final.gdb", "", "DuongBoNuoc", r"C:\Generalize_25_50\50K_Process.gdb", self.duongBoNuocPointRemoveName])
         pass
 
     def SelectLineSnap(self):
