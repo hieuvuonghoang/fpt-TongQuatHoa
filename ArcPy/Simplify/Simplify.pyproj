@@ -37,6 +37,7 @@
     <Content Include="ConfigSimplifyPolygon.json" />
     <Content Include="Run.bat" />
     <Content Include="RunDuongBoNuoc.bat" />
+    <Content Include="RunDuongDiaGioi.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -30,7 +30,6 @@
   <ItemGroup>
     <Content Include="RunDemo.bat" />
     <Content Include="RunDuongBienGioiDiaGioi.bat" />
-    <Content Include="RunDuongDiaGioi.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
