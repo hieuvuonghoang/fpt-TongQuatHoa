@@ -8,7 +8,8 @@ import subprocess
 
 class DuongDiaGioi:
 
-    def __init__(self):
+    def __init__(self, distanceSnap):
+        self.distanceSnap = distanceSnap
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.fDBienGioiDiaGioi = "BienGioiDiaGioi"
@@ -123,7 +124,7 @@ class DuongDiaGioi:
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.diaPhanFinalLayer,
                                                 selection_type = "NEW_SELECTION",
                                                 where_clause = sqlQuery)
-        snapEnv = [self.diaPhanFinalLayer, "EDGE", "100 Meters"]
+        snapEnv = [self.diaPhanFinalLayer, "EDGE", self.distanceSnap]
         arcpy.Snap_edit(self.duongDiaGioiFinalLayer, [snapEnv])
         #with arcpy.da.SearchCursor(self.duongDiaGioiFinalLayer, ["OID@", "SHAPE@"]) as cursorA:
         #    for rowA in cursorA:

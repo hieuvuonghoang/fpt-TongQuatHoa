@@ -24,7 +24,7 @@ namespace RemovePointOnLine
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
         }
-        private static void Run(string pathFinalGDB, string fCLineName, string pathProcessGDB, string whereClause, string fCPointRemoveName)
+        private static void Run(string pathFinalGDB, string fCLineName, string whereClause, string pathProcessGDB, string fCPointRemoveName)
         {
             IWorkspaceFactory iWorkspaceFactory = new FileGDBWorkspaceFactoryClass();
             IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathFinalGDB, 0);
