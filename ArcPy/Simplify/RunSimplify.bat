@@ -1,5 +1,5 @@
 @echo off
-title SnapTools
+title SimplifyPolygon
 
 :: Runs your command
 set pathfile=%~dp0%Simplify.py
