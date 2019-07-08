@@ -20,6 +20,7 @@ namespace RemovePointOnLine
             new esriLicenseExtensionCode[] { });
             Console.WriteLine("{0}, {1}, {2}, {3}, {4}", args[0], args[1], args[2], args[3], args[4]);
             Run(args[0], args[1], args[2], args[3], args[4]);
+            //Run(@"C:\Generalize_25_50\50K_Final.gdb", "RanhGioiPhuBeMat", "", @"C:\Generalize_25_50\50K_Process.gdb", "RanhGioiPhuBeMatPointRemove");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();

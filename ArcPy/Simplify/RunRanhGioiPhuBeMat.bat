@@ -1,8 +1,8 @@
 @echo off
-title DuongDiaGioi
+title RanhGioiPhuBeMat
 
 :: Runs your command
-set pathfile=%~dp0%DuongDiaGioi.py
+set pathfile=%~dp0%RanhGioiPhuBeMat.py
 echo.%pathfile%
 c:
 cd %python27%

@@ -20,6 +20,7 @@ namespace SetEmptyShapeRepresentation
             new esriLicenseExtensionCode[] { });
             Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
             SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
+            //SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "DoanTimDuongBo", "DoanTimDuongBo_Rep", "");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();

@@ -31,6 +31,12 @@
     <Compile Include="DuongDiaGioi.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RanhGioiPhuBeMat.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoveFeatureRanhGioiPhuBeMat.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Simplify.py" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +44,8 @@
     <Content Include="Run.bat" />
     <Content Include="RunDuongBoNuoc.bat" />
     <Content Include="RunDuongDiaGioi.bat" />
+    <Content Include="RunRanhGioiPhuBeMat.bat" />
+    <Content Include="RunRemoveFeatureRanhGioiPhuBeMat.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

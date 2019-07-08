@@ -32,6 +32,14 @@ class DuongDiaGioi:
         self.CreateFCPointRemove("3")
         self.RemovePoint("doiTuong = 3")
         self.SnapDuongDiaGioi("3")
+        # doiTuong = 2 (C?p huy?n)
+        self.CreateFCPointRemove("2")
+        self.RemovePoint("doiTuong = 2")
+        self.SnapDuongDiaGioi("2")
+        # doiTuong = 1 (C?p t?nh)
+        self.CreateFCPointRemove("1")
+        self.RemovePoint("doiTuong = 1")
+        self.SnapDuongDiaGioi("1")
         pass
 
     def CreateFCPointRemove(self, doiTuong):
@@ -126,12 +134,6 @@ class DuongDiaGioi:
                                                 where_clause = sqlQuery)
         snapEnv = [self.diaPhanFinalLayer, "EDGE", self.distanceSnap]
         arcpy.Snap_edit(self.duongDiaGioiFinalLayer, [snapEnv])
-        #with arcpy.da.SearchCursor(self.duongDiaGioiFinalLayer, ["OID@", "SHAPE@"]) as cursorA:
-        #    for rowA in cursorA:
-        #        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongDiaGioiFinalLayer,
-        #                                                selection_type = "NEW_SELECTION",
-        #                                                where_clause = "OBJECTID = " + str(rowA[0]))
-        #        arcpy.Snap_edit(self.duongDiaGioiFinalLayer, [snapEnv])
         pass
 
 class RunTime:

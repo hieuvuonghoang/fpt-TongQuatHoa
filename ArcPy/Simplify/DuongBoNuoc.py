@@ -101,7 +101,7 @@ class DuongBoNuoc:
                                       out_feature_class = self.duongBoNuocPointRemove)
 
     def RemovePoint(self):
-        subprocess.call(["RemovePointOnLine.exe", r"C:\Generalize_25_50\50K_Final.gdb", "", "DuongBoNuoc", r"C:\Generalize_25_50\50K_Process.gdb", self.duongBoNuocPointRemoveName])
+        subprocess.call(["RemovePointOnLine.exe", r"C:\Generalize_25_50\50K_Final.gdb", "DuongBoNuoc", "", r"C:\Generalize_25_50\50K_Process.gdb", self.duongBoNuocPointRemoveName])
         pass
 
     def SelectLineSnap(self):
@@ -135,12 +135,6 @@ class DuongBoNuoc:
                                           out_layer = outPutFeatureToLineTempALayer)
         snapEnv = [outPutFeatureToLineTempALayer, "EDGE", self.distanceSnap]
         arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
-        #with arcpy.da.UpdateCursor(self.duongBoNuocLayer, ["OID@", "SHAPE@"]) as cursorA:
-        #    for rowA in cursorA:
-        #        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.duongBoNuocLayer,
-        #                                                selection_type = "NEW_SELECTION",
-        #                                                where_clause = "OBJECTID = " + str(rowA[0]))
-        #        arcpy.Snap_edit(self.duongBoNuocLayer, [snapEnv])
         pass
 
 class RunTime:
