@@ -791,6 +791,16 @@
               {
                 "ruleID": "3",
                 "nameRule": "48-2-Đường QL lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 2"
+              },
+                            {
+                "ruleID": "4",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 3"
+              },
+              {
+                "ruleID": "3",
+                "nameRule": "48-2-Đường QL lát nhựa nửa TL",
                 "querySQL": "phanLoaiDuong = 2 AND loaiChatLieuTraiMat = 5"
               },
               {

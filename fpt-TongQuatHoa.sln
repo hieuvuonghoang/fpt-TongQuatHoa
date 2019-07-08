@@ -51,6 +51,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CreateFeatureClassPointRemo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemovePointOnLine", "ArcObject\RemovePointOnLine\RemovePointOnLine.csproj", "{F7F00403-9A44-40F2-854A-85D3556510FF}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RepresentationRemoveOverride", "ArcPy\RepresentationRemoveOverride\RepresentationRemoveOverride.pyproj", "{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +165,10 @@ Global
 		{F7F00403-9A44-40F2-854A-85D3556510FF}.Release|Any CPU.ActiveCfg = Release|x86
 		{F7F00403-9A44-40F2-854A-85D3556510FF}.Release|x86.ActiveCfg = Release|x86
 		{F7F00403-9A44-40F2-854A-85D3556510FF}.Release|x86.Build.0 = Release|x86
+		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,5 +196,6 @@ Global
 		{A45BFD19-4590-4A8C-8851-C58BA56C9AD1} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
 		{3AB07AC6-62CD-47FC-87C5-74D8DCFAD6C7} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{F7F00403-9A44-40F2-854A-85D3556510FF} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
+		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC} = {75503257-EE32-41CE-A29E-3C12C6274155}
 	EndGlobalSection
 EndGlobal
