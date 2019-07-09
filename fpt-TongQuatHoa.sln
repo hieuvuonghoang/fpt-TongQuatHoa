@@ -53,6 +53,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemovePointOnLine", "ArcObj
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RepresentationRemoveOverride", "ArcPy\RepresentationRemoveOverride\RepresentationRemoveOverride.pyproj", "{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tkinter", "Tkinter", "{73F466AE-54C3-4FF4-9E00-719F4565268B}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GUI", "GUI\GUI.pyproj", "{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +173,10 @@ Global
 		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +205,6 @@ Global
 		{3AB07AC6-62CD-47FC-87C5-74D8DCFAD6C7} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{F7F00403-9A44-40F2-854A-85D3556510FF} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
 		{A5387C88-A8B2-4255-B4DF-9558E5C91FAC} = {75503257-EE32-41CE-A29E-3C12C6274155}
+		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B} = {73F466AE-54C3-4FF4-9E00-719F4565268B}
 	EndGlobalSection
 EndGlobal

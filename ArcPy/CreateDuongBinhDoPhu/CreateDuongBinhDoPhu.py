@@ -10,10 +10,7 @@ from arcpy.sa import *
 
 class CreateDuongBinhDoPhu:
 
-    def __init__(self, contourInterval, baseContour, zFactor):
-        self.contourInterval = contourInterval
-        self.baseContour = baseContour
-        self.zFactor = zFactor
+    def __init__(self):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.fDDiaHinh = "DiaHinh"
         self.fCDuongBinhDo = "DuongBinhDo"
@@ -22,24 +19,15 @@ class CreateDuongBinhDoPhu:
         self.pathDiaHinh = os.path.join(self.pathProcessGDB, self.fDDiaHinh)
         self.pathDuongBinhDoProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDDiaHinh), self.fCDuongBinhDo)
         self.pathDuongBinhDoPhuProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDDiaHinh), self.fCDuongBinhDoPhu)
+        self.duongBinhDoPhuTemp = os.path.join(self.pathProcessGDB, "OutContours")
         pass
 
     def Execute(self):
         arcpy.env.overwriteOutput = True
         arcpy.env.workspace = self.pathProcessGDB
-        self.RunContourTool()
         self.InitFeatureDuongBinhDoPhu()
         self.InsertDuongBinhDoPhu()
-        #self.DeleteTempFeatureClass()
-        pass
-
-    def RunContourTool(self):
-        self.duongBinhDoPhuTemp = os.path.join(self.pathProcessGDB, "outcontours")
-        Contour(in_raster = self.pathRaster,
-                out_polyline_features = self.duongBinhDoPhuTemp,
-                contour_interval = self.contourInterval,
-                base_contour = self.baseContour,
-                z_factor = self.zFactor)
+        self.DeleteTempFeatureClass()
         pass
 
     def InitFeatureDuongBinhDoPhu(self):
@@ -104,8 +92,7 @@ class RunTime:
 
 if __name__ == "__main__":
     runTime = RunTime()
-    print "Contour Interval = {0}\nBase Contour = {1}\nZFactor = {2}".format(sys.argv[1], sys.argv[2], sys.argv[3])
-    createDuongBinhDoPhu = CreateDuongBinhDoPhu(sys.argv[1], sys.argv[2], sys.argv[3])
+    createDuongBinhDoPhu = CreateDuongBinhDoPhu()
     print "Running..."
     createDuongBinhDoPhu.Execute()
     print "Success!!!"

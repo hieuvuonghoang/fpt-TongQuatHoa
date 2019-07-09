@@ -791,6 +791,16 @@
               {
                 "ruleID": "3",
                 "nameRule": "48-2-Đường QL lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 2"
+              },
+                            {
+                "ruleID": "4",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 3"
+              },
+              {
+                "ruleID": "3",
+                "nameRule": "48-2-Đường QL lát nhựa nửa TL",
                 "querySQL": "phanLoaiDuong = 2 AND loaiChatLieuTraiMat = 5"
               },
               {
@@ -856,7 +866,7 @@
               {
                 "ruleID": "0",
                 "nameRule": "null",
-                "querySQL": ""
+                "querySQL": "OBJECTID IS NOT NULL"
               },
               {
                 "ruleID": "1",
@@ -1016,7 +1026,7 @@
               {
                 "ruleID": "1",
                 "nameRule": "4-c-Nhà phi tỷ lệ",
-                "querySQL": "doiTuong = 2"
+                "querySQL": "OBJECTID IS NOT NULL"
               }
             ]
           }

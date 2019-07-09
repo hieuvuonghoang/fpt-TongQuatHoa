@@ -216,6 +216,7 @@ class SnapTools:
         outputIntersect = "in_memory\\outputIntersect"
         arcpy.Intersect_analysis(in_features = [self.doanTimDuongBoInMemoryDissolve, fCPolygon],
                                  out_feature_class = outputIntersect,
+                                 cluster_tolerance = "0 Meters",
                                  output_type = "LINE")
         outputErase = "in_memory\\outputErase"
         arcpy.Erase_analysis(in_features = outputIntersect,
