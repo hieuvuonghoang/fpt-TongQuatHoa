@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>b04da927-0680-4537-b2a9-8c5cd71b7ea7</ProjectGuid>
+    <ProjectGuid>ab76a8c7-2f47-41a8-ae79-046c84b69cb4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DuongBoNuocDemo.py</StartupFile>
+    <StartupFile>DoanTimDuongBoRepresentation.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Simplify</Name>
-    <RootNamespace>Simplify</RootNamespace>
+    <Name>DoanTimDuongBoRepresentation</Name>
+    <RootNamespace>DoanTimDuongBoRepresentation</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,30 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DuongBoNuoc.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DuongBoNuocDemo.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DuongDiaGioi.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RanhGioiPhuBeMat.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoveFeatureRanhGioiPhuBeMat.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Simplify.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ConfigSimplifyPolygon.json" />
-    <Content Include="Run.bat" />
-    <Content Include="RunDuongBoNuoc.bat" />
-    <Content Include="RunDuongDiaGioi.bat" />
-    <Content Include="RunRanhGioiPhuBeMat.bat" />
-    <Content Include="RunRemoveFeatureRanhGioiPhuBeMat.bat" />
+    <Compile Include="DoanTimDuongBoRepresentation.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

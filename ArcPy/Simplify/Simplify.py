@@ -17,12 +17,14 @@ class SimplifyPolygon:
         else:
             print "Not Found: " + pathFileConfig + "?\n Create FileConfig..."
             self.CreateFileConfig(pathFileConfig)
+        pass
 
     def Excute(self):
         arcpy.env.overwriteOutput = True
         self.MergeTools()
         self.SimplifyTools()
         self.UpdateShapeAfterSimplify()
+        pass
 
     def CreateFileConfig(self, pathFile):
         for fcDataSetTemp in arcpy.Describe(self.pathProcessGDB).children:
@@ -37,12 +39,14 @@ class SimplifyPolygon:
         file = open(pathFile, "w")
         file.write(textConfig)
         file.close()
+        pass
 
     def ReadFileConfig(self, pathFile):
         file = open(pathFile, "r")
         textConfig = file.read()
         file.close()
         self.configTools.InitFromDict(json.loads(textConfig))
+        pass
 
     def MergeTools(self):
         inFeatureClassMerges = []
@@ -82,6 +86,7 @@ class SimplifyPolygon:
                                output = self.outputMerge)
         arcpy.MakeFeatureLayer_management(in_features = self.outputMerge,
                                           out_layer = self.outputMergeLayer)
+        pass
 
     def SimplifyTools(self):
         self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
@@ -92,6 +97,7 @@ class SimplifyPolygon:
                                             minimum_area = "#",
                                             error_option = "RESOLVE_ERRORS",
                                             collapsed_point_option = "NO_KEEP")
+        pass
 
     def UpdateShapeAfterSimplify(self):
         outputSimplifyPolygonLayer = "FeatureClassSimplifyPolygonLayer"
@@ -113,6 +119,7 @@ class SimplifyPolygon:
                                               out_feature_class = outTableTemp)
                 updateShapeByOID = UpdateShapeByOID(sFC = outTableTemp, dFC = os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass), fID_XXX = fieldName)
                 updateShapeByOID.Excute()
+        pass
 
     def GetFieldFID(self, featureClass, fieldType):
         return "FID_" + featureClass, fieldType
