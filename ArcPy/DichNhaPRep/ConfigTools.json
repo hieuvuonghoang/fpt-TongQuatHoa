@@ -1,0 +1,19 @@
+[
+  {
+    "featureDataSet": "ThuyHe", 
+    "listFeature": [
+      {
+        "featureClassName": "MatNuocTinh",
+        "representationName": "MatNuocTinh_Rep"
+      },
+      {
+        "featureClassName": "SongSuoiA",
+        "representationName": "SongSuoiA_Rep"
+      },
+      {
+        "featureClassName": "SongSuoiL",
+        "representationName": "SongSuoiL_Rep"
+      }
+    ]
+  }
+]

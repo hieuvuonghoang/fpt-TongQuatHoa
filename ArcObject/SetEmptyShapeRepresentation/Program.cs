@@ -19,9 +19,9 @@ namespace SetEmptyShapeRepresentation
             //ESRI License Initializer generated code.
             m_AOLicenseInitializer.InitializeApplication(new esriLicenseProductCode[] { esriLicenseProductCode.esriLicenseProductCodeBasic, esriLicenseProductCode.esriLicenseProductCodeStandard, esriLicenseProductCode.esriLicenseProductCodeAdvanced },
             new esriLicenseExtensionCode[] { });
-            //Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
-            //SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
-            SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "DoanTimDuongBo", "DoanTimDuongBo_Rep", "");
+            Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
+            SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
+            //SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "DoanTimDuongBo", "DoanTimDuongBo_Rep", "");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
@@ -55,7 +55,8 @@ namespace SetEmptyShapeRepresentation
                 //IPointCollection iPointCollection = iRepresentation.Shape as IPointCollection;
                 //iPointCollection.RemovePoints(0, 1);
                 //iPointCollection.RemovePoints(iPointCollection.PointCount - 1, 1);
-                iRepresentation.Shape = iFeature.Shape;
+                //iRepresentation.Shape = iFeature.Shape;
+                iRepresentation.Shape.SetEmpty();
                 iRepresentation.UpdateFeature();
                 iFeature.Store();
             }
