@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a6d7ce60-cdad-46b7-8b6b-3086452c5c26</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DichNhaPRep.py</StartupFile>
+    <StartupFile>ResolveBuildingConflict.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,9 +22,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DichNhaPRep.py" />
+    <Compile Include="ResolveBuildingConflict.py" />
+    <Compile Include="ResolveConflictNhaP.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigTools.json" />
     <Content Include="Run.bat" />
   </ItemGroup>
   <PropertyGroup>

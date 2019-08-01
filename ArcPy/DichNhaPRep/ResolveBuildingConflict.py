@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- 
 import os
 import sys
-import time
 import json
 import arcpy
 import codecs
-import datetime
 import subprocess
 
-class DichNhaPRep:
+class ResolveBuildingConflict:
 
     def __init__(self, distanceAlign, distanceNhaP, buildingGap, minimumSize):
         # Set distance
@@ -42,11 +40,8 @@ class DichNhaPRep:
         arcpy.env.referenceScale = "50000"
         #
         self.MakeFeatureLayerAndSetLayerRepresentation()
-        self.AlignMarkerToStrokeOrFill()
         self.AddField()
         self.ResolveBuildingConflict()
-        self.CallToolSetEmptyShape()
-        self.DeleteField()
         pass
 
     def MakeFeatureLayerAndSetLayerRepresentation(self):
@@ -64,13 +59,6 @@ class DichNhaPRep:
                                                  representation = self.repNhaP)
         pass
 
-    def AlignMarkerToStrokeOrFill(self):
-        arcpy.AlignMarkerToStrokeOrFill_cartography(in_point_features = self.nhaPFinalLayer,
-                                                    in_line_or_polygon_features = self.doanTimDuongBoFinalLayer,
-                                                    search_distance = self.distanceAlign,
-                                                    marker_orientation = "PERPENDICULAR")
-        pass
-
     def AddField(self):
         arcpy.AddField_management(in_table = self.nhaPFinalLayer,
                                   field_name = self.invisibilityField,
@@ -79,63 +67,13 @@ class DichNhaPRep:
 
     def ResolveBuildingConflict(self):
         arcpy.ResolveBuildingConflicts_cartography(in_buildings = self.nhaPFinalLayer,
-                                                   in_barriers = [[self.doanTimDuongBoFinalLayer, "False", self.distanceNhaP]],
+                                                   in_barriers = [[self.doanTimDuongBoFinalLayer, "True", self.distanceNhaP]],
                                                    invisibility_field = self.invisibilityField,
                                                    building_gap = self.buildingGap,
                                                    minimum_size = self.minimumSize)
         pass
 
-    def DeleteField(self):
-        arcpy.DeleteField_management(in_table = self.nhaPFinalLayer,
-                                     drop_field = [self.invisibilityField])
-        pass
-
-    def CallToolSetEmptyShape(self):
-        #args [] = {pathGDB, featureClassName, representationName, whereClause}
-        subprocess.call(["SetEmptyShapeRepresentation.exe", r"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "invisibility_field = 1"])
-        pass
-
-class RunTime:
-
-    def __init__(self):
-        self.startTime = time.time()
-        print "Start time: {}".format(datetime.datetime.now())
-        pass
-
-    def GetTotalRunTime(self):
-        self.totalRunTime = int(time.time() - self.startTime)
-        self.ConvertTime()
-        self.strHours = ""
-        self.strMinute = ""
-        self.strSeconds = ""
-        if self.hours / 10 == 0:
-            self.strHours = "0" + str(self.hours)
-        else:
-            self.strHours = str(self.hours)
-        if self.minute / 10 == 0:
-            self.strMinute = "0" + str(self.minute)
-        else:
-            self.strMinute = str(self.minute)
-        if self.seconds / 10 == 0:
-            self.strSeconds = "0" + str(self.seconds)
-        else:
-            self.strSeconds = str(self.seconds)
-        print "Total time: {0}:{1}:{2}".format(self.strHours, self.strMinute, self.strSeconds)
-        pass
-
-    def ConvertTime(self):
-        self.hours = self.totalRunTime / (60 * 60)
-        self.totalRunTime = self.totalRunTime - (self.hours * 60 * 60)
-        self.minute = self.totalRunTime / 60
-        self.totalRunTime = self.totalRunTime - (self.minute * 60)
-        self.seconds = self.totalRunTime
-        pass
-
 if __name__ == "__main__":
-    runTime = RunTime()
-    dichNhaPRep = DichNhaPRep(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    print "Running..."
-    dichNhaPRep.Execute()
-    print "Success!!!"
-    runTime.GetTotalRunTime()
+    resolveBuildingConflict = ResolveBuildingConflict(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    resolveBuildingConflict.Execute()
     pass
