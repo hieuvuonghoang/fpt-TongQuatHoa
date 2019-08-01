@@ -1,4 +1,4 @@
-@echo off
+@echo off 
 title DichNhaP Representation
 
 :: Runs your command
