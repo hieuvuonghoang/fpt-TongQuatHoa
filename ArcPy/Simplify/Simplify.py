@@ -8,9 +8,14 @@ import datetime
 
 class SimplifyPolygon:
 
-    def __init__(self, pathFileConfig):
+    def __init__(self, pathFileConfig, algorithm, tolerance, minimum_area, error_option, collapsed_point_option):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
+        self.algorithm = algorithm
+        self.tolerance = tolerance
+        self.minimum_area = minimum_area
+        self.error_option = error_option
+        self.collapsed_point_option = collapsed_point_option
         self.configTools = ConfigTools()
         if os.path.isfile(pathFileConfig):
             self.ReadFileConfig(pathFileConfig)
@@ -21,8 +26,11 @@ class SimplifyPolygon:
 
     def Excute(self):
         arcpy.env.overwriteOutput = True
+        print "MergeTools"
         self.MergeTools()
+        print "SimplifyTools"
         self.SimplifyTools()
+        print "UpdateShapeAfterSimplify"
         self.UpdateShapeAfterSimplify()
         pass
 
@@ -92,11 +100,11 @@ class SimplifyPolygon:
         self.outputSimplifyPolygon = "in_memory\\FeatureClassSimplifyPolygon"
         arcpy.SimplifyPolygon_cartography (in_features = self.outputMergeLayer,
                                             out_feature_class = self.outputSimplifyPolygon,
-                                            algorithm = "BEND_SIMPLIFY",
-                                            tolerance = "50 Meters",
-                                            minimum_area = "#",
-                                            error_option = "RESOLVE_ERRORS",
-                                            collapsed_point_option = "NO_KEEP")
+                                            algorithm = self.algorithm,
+                                            tolerance = self.tolerance,
+                                            minimum_area = self.minimum_area,
+                                            error_option = self.error_option,
+                                            collapsed_point_option = self.collapsed_point_option)
         pass
 
     def UpdateShapeAfterSimplify(self):
@@ -123,11 +131,6 @@ class SimplifyPolygon:
 
     def GetFieldFID(self, featureClass, fieldType):
         return "FID_" + featureClass, fieldType
-
-    def SimplifyPolygonVersion4(self):
-        pass
-
-    def SimplifyPolygonVersion6(self):
         pass
 
 class UpdateShapeByOID:
@@ -244,7 +247,7 @@ class RunTime:
 
 if __name__ == '__main__':
     runTime = RunTime()
-    simplifyPolygon = SimplifyPolygon(sys.argv[1])
+    simplifyPolygon = SimplifyPolygon(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
     print "Running..."
     simplifyPolygon.Excute()
     print "Success!!!"
