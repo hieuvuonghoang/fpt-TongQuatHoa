@@ -4,7 +4,7 @@
   "listPolygon": [
    {
     "featureClass": "PhuBeMat",
-    "runSimplify": true
+    "runSimplify": false
    }
   ]
  }, 

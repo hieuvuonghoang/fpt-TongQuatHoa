@@ -33,8 +33,8 @@ class DuongBoNuoc:
         arcpy.env.overwriteOutput = True
         self.CreateFeaturePointRemove()
         self.RemovePoint()
-        self.SelectLineSnap()
-        self.SnapDuongBoNuoc()
+        #self.SelectLineSnap()
+        #self.SnapDuongBoNuoc()
 
     def CreateFeaturePointRemove(self):
         # Using Merge Tool

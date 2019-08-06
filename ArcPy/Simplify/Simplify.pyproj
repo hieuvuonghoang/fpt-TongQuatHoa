@@ -31,6 +31,9 @@
     <Compile Include="DuongDiaGioi.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GenFeatureClass.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RanhGioiPhuBeMat.py">
       <SubType>Code</SubType>
     </Compile>
@@ -41,11 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigSimplifyPolygon.json" />
-    <Content Include="Run.bat" />
+    <Content Include="RunDemo.bat" />
     <Content Include="RunDuongBoNuoc.bat" />
     <Content Include="RunDuongDiaGioi.bat" />
     <Content Include="RunRanhGioiPhuBeMat.bat" />
     <Content Include="RunRemoveFeatureRanhGioiPhuBeMat.bat" />
+    <Content Include="RunSimplify.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

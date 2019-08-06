@@ -1,0 +1,152 @@
+﻿[
+    {
+    "nameFeatureDataset": "GiaoThong",
+    "listFeatureClass": [
+      {
+        "nameFeatureClass": "DoanTimDuongBo",
+        "listRepresentation": [
+          {
+            "nameRepresentation": "DoanTimDuongBo_Rep",
+            "listRule": [
+              {
+                "ruleID": "0",
+                "nameRule": "null",
+                "querySQL": ""
+              },
+              {
+                "ruleID": "1",
+                "nameRule": "47-a-3-Tim đường cao tốc TL",
+                "querySQL": "phanLoaiDuong = 11"
+              },
+              {
+                "ruleID": "2",
+                "nameRule": "47-b-Đường cao tốc nửaTL",
+                "querySQL": "phanLoaiDuong = 1"
+              },
+              {
+                "ruleID": "3",
+                "nameRule": "48-2-Đường QL lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 2"
+              },
+                            {
+                "ruleID": "4",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 3"
+              },
+              {
+                "ruleID": "3",
+                "nameRule": "48-2-Đường QL lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 2 AND loaiChatLieuTraiMat = 5"
+              },
+              {
+                "ruleID": "4",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL",
+                "querySQL": "phanLoaiDuong = 3 AND loaiChatLieuTraiMat = 5"
+              },
+              {
+                "ruleID": "5",
+                "nameRule": "50-b-Đường ô tô khác",
+                "querySQL": "phanLoaiDuong = 4"
+              },
+              {
+                "ruleID": "6",
+                "nameRule": "51-Đường ô tô đang làm nửa TL",
+                "querySQL": "phanLoaiDuong = 5"
+              },
+              {
+                "ruleID": "7",
+                "nameRule": "52-Đường nhỏ",
+                "querySQL": "phanLoaiDuong = 6"
+              },
+              {
+                "ruleID": "8",
+                "nameRule": "53-Đường mòn",
+                "querySQL": "phanLoaiDuong = 7"
+              },
+              {
+                "ruleID": "9",
+                "nameRule": "54-Đường chia lô",
+                "querySQL": "phanLoaiDuong = 8"
+              },
+              {
+                "ruleID": "10",
+                "nameRule": "55-a-Đường phố chính",
+                "querySQL": "phanLoaiDuong = 9"
+              },
+              {
+                "ruleID": "11",
+                "nameRule": "55-b-Đường phố phụ, ngõ phố",
+                "querySQL": "phanLoaiDuong = 10"
+              },
+              {
+                "ruleID": "12",
+                "nameRule": "65-2-b-Đường ô tô khác đắp cao",
+                "querySQL": "phanLoaiDuong = 4 AND loaiKetCau = 9"
+              },
+              {
+                "ruleID": "13",
+                "nameRule": "8-2-Đường QL lát nhựa nửa TL đắp cao 2 bên",
+                "querySQL": "phanLoaiDuong = 2 AND loaiChatLieuTraiMat = 5 AND loaiKetCau = 9"
+              },
+              {
+                "ruleID": "14",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL đắp cao 2 bên",
+                "querySQL": "phanLoaiDuong = 3 AND loaiChatLieuTraiMat = 5 AND loaiKetCau = 9"
+              }
+            ]
+          },
+          {
+            "nameRepresentation": "DoanTimDuongBo_Nen",
+            "listRule": [
+              {
+                "ruleID": "0",
+                "nameRule": "null",
+                "querySQL": "OBJECTID IS NOT NULL"
+              },
+              {
+                "ruleID": "1",
+                "nameRule": "47-b-Đường cao tốc nửaTL_Nền",
+                "querySQL": "phanLoaiDuong = 1"
+              },
+              {
+                "ruleID": "2",
+                "nameRule": "48-2-Đường QL lát nhựa nửa TL_Nền",
+                "querySQL": "phanLoaiDuong = 2 AND loaiChatLieuTraiMat = 5"
+              },
+              {
+                "ruleID": "3",
+                "nameRule": "49-Tỉnh lộ lát nhựa nửa TL_Nền",
+                "querySQL": "phanLoaiDuong = 3 AND loaiChatLieuTraiMat = 5"
+              },
+              {
+                "ruleID": "4",
+                "nameRule": "50-b-Đường ô tô khác_Nền",
+                "querySQL": "phanLoaiDuong = 4"
+              },
+              {
+                "ruleID": "5",
+                "nameRule": "51-Đường ô tô đang làm nửa TL_Nền",
+                "querySQL": "phanLoaiDuong = 5"
+              },
+              {
+                "ruleID": "6",
+                "nameRule": "54-Đường chia lô_Nền",
+                "querySQL": "phanLoaiDuong = 8"
+              },
+              {
+                "ruleID": "7",
+                "nameRule": "55-a-Đường phố chính_Nền",
+                "querySQL": "phanLoaiDuong = 9"
+              },
+              {
+                "ruleID": "8",
+                "nameRule": "55-b-Đường phố phụ, ngõ phố_Nền",
+                "querySQL": "phanLoaiDuong = 10"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

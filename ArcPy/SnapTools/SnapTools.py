@@ -97,7 +97,7 @@ class SnapTools:
         self.DissolveDoanTimDuongBo()
 
         # Copy
-        self.CopyFromProcessToFinal()
+        #self.CopyFromProcessToFinal()
 
         # Snap FeatureClass Point
         ## Snap vs FeatureClassPointSnapA (Point = Line Intersect Line)

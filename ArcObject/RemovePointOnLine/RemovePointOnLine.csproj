@@ -52,22 +52,29 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.6.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\ESRI.ArcGIS.DataSourcesGDB\v4.0_10.6.0.0__8fc3cc631e44ad86\ESRI.ArcGIS.DataSourcesGDB.dll</HintPath>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.6.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\ESRI.ArcGIS.Geodatabase\v4.0_10.6.0.0__8fc3cc631e44ad86\ESRI.ArcGIS.Geodatabase.dll</HintPath>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.6.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\ESRI.ArcGIS.Geometry\v4.0_10.6.0.0__8fc3cc631e44ad86\ESRI.ArcGIS.Geometry.dll</HintPath>
     </Reference>
     <Reference Include="ESRI.ArcGIS.System, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ESRI.ArcGIS.Version, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
