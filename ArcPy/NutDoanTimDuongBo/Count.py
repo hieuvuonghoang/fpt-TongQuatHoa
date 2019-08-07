@@ -24,11 +24,21 @@ class Count:
         self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
                                           out_layer = self.doanTimDuongBoFinalLayer)
-        #ArcHydroTools.GenerateFNodeTNode(self.doanTimDuongBoFinalLayer)
-        #self.NumberMax()
-        #self.UpdateFromNodeAndToNode()
+        self.Intersect()
+        ArcHydroTools.GenerateFNodeTNode(self.doanTimDuongBoFinalLayer)
+        self.NumberMax()
+        self.UpdateFromNodeAndToNode()
         self.CreateFeatureClassPoint()
-        self.RemovePoints()
+        #self.RemovePoints()
+        pass
+
+    def Intersect(self):
+        self.pointIntersect = os.path.join(self.pathProcessGDB, "PointIntersect")
+        arcpy.Intersect_analysis (in_features = self.doanTimDuongBoFinalLayer,
+                                  out_feature_class = self.pointIntersect,
+                                  join_attributes = "ONLY_FID",
+                                  cluster_tolerance = "0 Meters",
+                                  output_type = "POINT")
         pass
 
     def NumberMax(self):
@@ -83,33 +93,51 @@ class Count:
         pass
 
     def CreateFeatureClassPoint(self):
-        self.pointStart = "in_memory\\pointStart"
-        self.pointEnd = "in_memory\\pointEnd"
+        self.pointBoth_Ends = "in_memory\\pointBoth_Ends"
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
                                                 selection_type = "NEW_SELECTION",
-                                                where_clause = self.field_FromNode + " <> 0")
+                                                where_clause = self.field_FromNode + " = 0 and " + self.field_ToNode + " = 0")
         arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
-                                                 out_feature_class = self.pointStart,
-                                                 point_location = "START")
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
-                                                selection_type = "NEW_SELECTION",
-                                                where_clause = self.field_ToNode + " <> 0")
-        arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
-                                                 out_feature_class = self.pointEnd,
-                                                 point_location = "END")
+                                                 out_feature_class = self.pointBoth_Ends,
+                                                 point_location = "BOTH_ENDS")
+        sr = arcpy.SpatialReference(self.pathDoanTimDuongBoFinal)
         self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
         arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
                                             out_name = "PointTemp",
                                             geometry_type = "POINT",
-                                            spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
-        with arcpy.da.SearchCursor(self.pointStart, ["Shape@"]) as sCur:
+                                            spatial_reference = sr)
+        with arcpy.da.SearchCursor(self.pointBoth_Ends, ["Shape@"]) as sCur:
             with arcpy.da.InsertCursor(self.pointTemp, ["Shape@"]) as iCur:
                 for row in sCur:
                     iCur.insertRow((row[0], ))
-        with arcpy.da.SearchCursor(self.pointEnd, ["Shape@"]) as sCur:
-            with arcpy.da.InsertCursor(self.pointTemp, ["Shape@"]) as iCur:
-                for row in sCur:
-                    iCur.insertRow((row[0], ))
+        #self.pointStart = "in_memory\\pointStart"
+        #self.pointEnd = "in_memory\\pointEnd"
+        #arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
+        #                                        selection_type = "NEW_SELECTION",
+        #                                        where_clause = self.field_FromNode + " <> 0")
+        #arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
+        #                                         out_feature_class = self.pointStart,
+        #                                         point_location = "START")
+        #arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
+        #                                        selection_type = "NEW_SELECTION",
+        #                                        where_clause = self.field_ToNode + " <> 0")
+        #arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
+        #                                         out_feature_class = self.pointEnd,
+        #                                         point_location = "END")
+        #sr = arcpy.SpatialReference(self.pathDoanTimDuongBoFinal)
+        #self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
+        #arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
+        #                                    out_name = "PointTemp",
+        #                                    geometry_type = "POINT",
+        #                                    spatial_reference = sr)
+        #with arcpy.da.SearchCursor(self.pointStart, ["Shape@"]) as sCur:
+        #    with arcpy.da.InsertCursor(self.pointTemp, ["Shape@"]) as iCur:
+        #        for row in sCur:
+        #            iCur.insertRow((row[0], ))
+        #with arcpy.da.SearchCursor(self.pointEnd, ["Shape@"]) as sCur:
+        #    with arcpy.da.InsertCursor(self.pointTemp, ["Shape@"]) as iCur:
+        #        for row in sCur:
+        #            iCur.insertRow((row[0], ))
         pass
 
     def RemovePoints(self):
