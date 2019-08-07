@@ -24,9 +24,9 @@ class Count:
         self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
                                           out_layer = self.doanTimDuongBoFinalLayer)
-        ArcHydroTools.GenerateFNodeTNode(self.doanTimDuongBoFinalLayer)
-        self.NumberMax()
-        self.UpdateFromNodeAndToNode()
+        #ArcHydroTools.GenerateFNodeTNode(self.doanTimDuongBoFinalLayer)
+        #self.NumberMax()
+        #self.UpdateFromNodeAndToNode()
         self.CreateFeatureClassPoint()
         self.RemovePoints()
         pass
@@ -97,12 +97,11 @@ class Count:
         arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
                                                  out_feature_class = self.pointEnd,
                                                  point_location = "END")
-        sr = arcpy.SpatialReference(self.pathDoanTimDuongBoFinal)
         self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
         arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
                                             out_name = "PointTemp",
                                             geometry_type = "POINT",
-                                            spatial_reference = sr)
+                                            spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
         with arcpy.da.SearchCursor(self.pointStart, ["Shape@"]) as sCur:
             with arcpy.da.InsertCursor(self.pointTemp, ["Shape@"]) as iCur:
                 for row in sCur:
