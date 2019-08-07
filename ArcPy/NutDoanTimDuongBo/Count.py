@@ -29,11 +29,12 @@ class Count:
         self.NumberMax()
         self.UpdateFromNodeAndToNode()
         self.CreateFeatureClassPoint()
-        #self.RemovePoints()
+        self.Erase()
         pass
 
     def Intersect(self):
-        self.pointIntersect = os.path.join(self.pathProcessGDB, "PointIntersect")
+        #self.pointIntersect = os.path.join(self.pathProcessGDB, "PointIntersect")
+        self.pointIntersect = "in_memory\\PointIntersect"
         arcpy.Intersect_analysis (in_features = self.doanTimDuongBoFinalLayer,
                                   out_feature_class = self.pointIntersect,
                                   join_attributes = "ONLY_FID",
@@ -107,7 +108,8 @@ class Count:
         arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
                                                  out_feature_class = self.pointEnd,
                                                  point_location = "END")
-        self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
+        #self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
+        self.pointTemp = "in_memory\\PointTemp"
         arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
                                             out_name = "PointTemp",
                                             geometry_type = "POINT",
@@ -168,42 +170,12 @@ class Count:
         #            iCur.insertRow((row[0], ))
         pass
 
-    def RemovePoints(self):
-        self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
-        self.tempTableA = "in_memory\\tempTableA"
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
-                                                selection_type = "CLEAR_SELECTION")
-        arcpy.GenerateNearTable_analysis(in_features = self.pointTemp,
-                                         near_features = self.doanTimDuongBoFinalLayer,
-                                         out_table = self.tempTableA,
-                                         search_radius = "0 Meters",
-                                         closest = "ALL",
-                                         closest_count = "0");
-        self.tempTableB = "in_memory\\tempTableB"
-        arcpy.Statistics_analysis(in_table = self.tempTableA,
-                            out_table = self.tempTableB,
-                            statistics_fields = [["OBJECTID", "COUNT"]],
-                            case_field = ["IN_FID"])
-        self.tempTableC = "in_memory\\tempTableC"
-        arcpy.TableSelect_analysis(in_table = self.tempTableB,
-                                   out_table = self.tempTableC,
-                                   where_clause = "FREQUENCY = 1")
-        self.pointTempLayer = "pointTempLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pointTemp,
-                                          out_layer = self.pointTempLayer)
-        arcpy.AddJoin_management(in_layer_or_view = self.pointTempLayer,
-                                 in_field = "OBJECTID",
-                                 join_table = self.tempTableC,
-                                 join_field = "IN_FID")
-        sqlQuery = "tempTableC." + str("IN_FID") + " IS NOT NULL"
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.pointTempLayer,
-                                                selection_type = "NEW_SELECTION",
-                                                where_clause = sqlQuery)
-        arcpy.RemoveJoin_management(in_layer_or_view = self.pointTempLayer,
-                                    join_name = "tempTableC")
-        with arcpy.da.UpdateCursor(self.pointTempLayer, ["OID@"]) as cursor:
-            for row in cursor:
-                cursor.deleteRow()
+    def Erase(self):
+        self.nodeTemp = os.path.join(self.pathProcessGDB, "NodeTemp")
+        arcpy.Erase_analysis(in_features = self.pointIntersect,
+                             erase_features =  self.pointTemp,
+                             out_feature_class = self.nodeTemp,
+                             cluster_tolerance = "0 Meters")
         pass
 
 class RunTime:
