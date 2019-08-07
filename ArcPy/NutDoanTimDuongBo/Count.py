@@ -98,19 +98,19 @@ class Count:
         self.pointEnd = "in_memory\\pointEnd"
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
                                                 selection_type = "NEW_SELECTION",
-                                                where_clause = self.field_FromNode + " = 0")
+                                                where_clause = self.field_FromNode + " = 0 and " + self.field_ToNode + " <> 0")
         arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
                                                  out_feature_class = self.pointStart,
                                                  point_location = "START")
         arcpy.SelectLayerByAttribute_management(in_layer_or_view = self.doanTimDuongBoFinalLayer,
                                                 selection_type = "NEW_SELECTION",
-                                                where_clause = self.field_ToNode + " = 0")
+                                                where_clause = self.field_ToNode + " = 0 and " + self.field_FromNode + " <> 0")
         arcpy.FeatureVerticesToPoints_management(in_features = self.doanTimDuongBoFinalLayer,
                                                  out_feature_class = self.pointEnd,
                                                  point_location = "END")
         #self.pointTemp = os.path.join(self.pathProcessGDB, "PointTemp")
         self.pointTemp = "in_memory\\PointTemp"
-        arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
+        arcpy.CreateFeatureclass_management(out_path = "in_memory",
                                             out_name = "PointTemp",
                                             geometry_type = "POINT",
                                             spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
