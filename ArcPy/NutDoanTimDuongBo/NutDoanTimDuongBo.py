@@ -14,6 +14,7 @@ class NutDoanTimDuongBo:
 
    def Execute(self):
        arcpy.env.overwriteOutput = True
+
        ArcHydroTools.GenerateFNodeTNode(self.pathDoanTimDuongBoFinal)
        pass
 
