@@ -3,7 +3,7 @@ title NutDoanTimDuongBo
 
 :: Runs your command
 ::set pathfileNutDoanTimDuongBo=%~dp0%NutDoanTimDuongBo.py
-set pathfileNutDoanTimDuongBo=%~dp0%Count.py
+set pathfileNutDoanTimDuongBo=%~dp0%NutDoanTimDuongBo.py
 c:
 cd %python27%
 echo.%pathfileNutDoanTimDuongBo%
