@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>651b30cf-3f44-4896-bffd-2c8169d5166f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>NutDoanTimDuongBo.py</StartupFile>
+    <StartupFile>CreateNodeLine.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,10 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Count.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NutDoanTimDuongBo.py" />
+    <Compile Include="CreateNodeLine.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />

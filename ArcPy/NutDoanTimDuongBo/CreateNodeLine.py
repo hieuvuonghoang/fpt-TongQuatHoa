@@ -7,7 +7,7 @@ import arcpy
 import hashlib
 import datetime
 
-class NutDoanTimDuongBo:
+class CreateNodeLine:
 
    def __init__(self):
        self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
@@ -315,9 +315,9 @@ class RunTime:
 
 if __name__ == "__main__":
     runTime = RunTime()
-    nutDoanTimDuongBo = NutDoanTimDuongBo()
+    createNodeLine = CreateNodeLine()
     print "Running..."
-    nutDoanTimDuongBo.Execute()
+    createNodeLine.Execute()
     print "Success!!!"
     runTime.GetTotalRunTime()
     pass
