@@ -6,8 +6,6 @@ import json
 import arcpy
 import hashlib
 import datetime
-import ArcHydroTools
-
 
 class NutDoanTimDuongBo:
 
@@ -16,7 +14,13 @@ class NutDoanTimDuongBo:
        self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
        self.fDGiaoThong = "GiaoThong"
        self.fCDoanTimDuongBo = "DoanTimDuongBo"
+       self.fCDoanDuongSat = "DoanDuongSat"
+       self.fCNutMangDuongBo = "NutMangDuongBo"
+       self.fCNutDuongSat = "NutDuongSat"
        self.pathDoanTimDuongBoFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
+       self.pathDoanDuongSatFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanDuongSat)
+       self.pathNutMangDuongBoFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCNutMangDuongBo)
+       self.pathNutDuongSatFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCNutDuongSat)
        pass
 
    def Execute(self):
@@ -28,7 +32,16 @@ class NutDoanTimDuongBo:
                                          out_layer = doanTimDuongBoFinalLayer)
        fCNodeA, fCNodeB = self.CreateFeaturePointIntersectLine(doanTimDuongBoFinalLayer)
        fCNodeC = self.CreatePointRemove(doanTimDuongBoFinalLayer)
-       self.CreateFeaturePoint(doanTimDuongBoFinalLayer, fCNodeA, fCNodeB, fCNodeC)
+       fCNodeD = self.CreateFeaturePoint(doanTimDuongBoFinalLayer, fCNodeA, fCNodeB, fCNodeC)
+       self.UpdateNode(doanTimDuongBoFinalLayer, self.pathNutMangDuongBoFinal, fCNodeD, "HA10", self.fCDoanTimDuongBo)
+       #
+       doanDuongSatFinalLayer = "doanDuongSatFinalLayer"
+       arcpy.MakeFeatureLayer_management(in_features = self.pathDoanDuongSatFinal,
+                                         out_layer = doanDuongSatFinalLayer)
+       fCNodeA, fCNodeB = self.CreateFeaturePointIntersectLine(doanDuongSatFinalLayer)
+       fCNodeC = self.CreatePointRemove(doanDuongSatFinalLayer)
+       fCNodeD = self.CreateFeaturePoint(doanDuongSatFinalLayer, fCNodeA, fCNodeB, fCNodeC)
+       self.UpdateNode(doanDuongSatFinalLayer, self.pathNutDuongSatFinal, fCNodeD, "HB04", self.fCDoanDuongSat)
        pass
 
    def CreateFeaturePointIntersectLine(self, lineLayer):
@@ -134,214 +147,6 @@ class NutDoanTimDuongBo:
        return fCNodeA, fCNodeB
        pass
 
-   def ProcessFromToNode(self, lineLayer):
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "CLEAR_SELECTION")
-       #
-       ArcHydroTools.GenerateFNodeTNode(lineLayer)
-       #
-       tableTempFromNode = "in_memory\\tableTempFromNode"
-       arcpy.Statistics_analysis(in_table = lineLayer,
-                                 out_table = tableTempFromNode,
-                                 statistics_fields = [["OBJECTID", "COUNT"]],
-                                 case_field = "FROM_NODE")
-       tableTempToNode = "in_memory\\tableTempToNode"
-       arcpy.Statistics_analysis(in_table = lineLayer,
-                                 out_table = tableTempToNode,
-                                 statistics_fields = [["OBJECTID", "COUNT"]],
-                                 case_field = "TO_NODE")
-       #
-       tableTempProessNode = "in_memory\\tableTempProessNode"
-       #tableTempProessNode = os.path.join(self.pathProcessGDB, "tableTempProessNode")
-       arcpy.CreateTable_management(out_path = self.pathProcessGDB,
-                                    out_name = "tableTempProessNode")
-       arcpy.AddField_management(in_table = tableTempProessNode,
-                                 field_name = "FROM_NODE",
-                                 field_type = "LONG")
-       arcpy.AddField_management(in_table = tableTempProessNode,
-                                 field_name = "FROM_NODE_COUNT",
-                                 field_type = "LONG")
-       arcpy.AddField_management(in_table = tableTempProessNode,
-                                 field_name = "TO_NODE",
-                                 field_type = "LONG")
-       arcpy.AddField_management(in_table = tableTempProessNode,
-                                 field_name = "TO_NODE_COUNT",
-                                 field_type = "LONG")
-       # Insert Data tableTempProessNode
-       ##
-       with arcpy.da.SearchCursor(tableTempFromNode, ["FROM_NODE", "FREQUENCY"]) as cursorA:
-           with arcpy.da.SearchCursor(tableTempToNode, ["TO_NODE", "FREQUENCY"]) as cursorB:
-               with arcpy.da.InsertCursor(tableTempProessNode, ["FROM_NODE", "FROM_NODE_COUNT", "TO_NODE", "TO_NODE_COUNT"]) as cursorC:
-                   for rowA in cursorA:
-                       cursorB.reset()
-                       findRowA = False
-                       toNodeCount = 0
-                       for rowB in cursorB:
-                           if rowA[0] == rowB[0]:
-                               findRowA = True
-                               toNodeCount = rowB[1]
-                               break
-                       if (findRowA == True and rowA[1] == 1 and toNodeCount == 1):
-                           cursorC.insertRow((rowA[0], rowA[1], rowA[0], toNodeCount))
-                       elif (findRowA == False and rowA[1] == 2):
-                            cursorC.insertRow((rowA[0], rowA[1], 0, 0))
-       ##
-       with arcpy.da.SearchCursor(tableTempFromNode, ["FROM_NODE", "FREQUENCY"]) as cursorA:
-           with arcpy.da.SearchCursor(tableTempToNode, ["TO_NODE", "FREQUENCY"]) as cursorB:
-               with arcpy.da.InsertCursor(tableTempProessNode, ["FROM_NODE", "FROM_NODE_COUNT", "TO_NODE", "TO_NODE_COUNT"]) as cursorC:
-                   for rowB in cursorB:
-                       cursorA.reset()
-                       findRowB = False
-                       for rowA in cursorA:
-                           if rowB[0] == rowA[0]:
-                               findRowB = True
-                               break
-                       if (findRowB == False and rowB[1] == 2):
-                            cursorC.insertRow((0, 0, rowB[0], rowB[1]))
-       #
-       tempTableFinalFromNode = "in_memory\\tempTableFinalFromNode"
-       arcpy.TableSelect_analysis(in_table = tableTempProessNode,
-                                  out_table = tempTableFinalFromNode,
-                                  where_clause = "FROM_NODE <> 0 AND TO_NODE = 0")
-       tempTableFinalFromNodeToNode = "in_memory\\tempTableFinalFromNodeToNode"
-       arcpy.TableSelect_analysis(in_table = tableTempProessNode,
-                                  out_table = tempTableFinalFromNodeToNode,
-                                  where_clause = "FROM_NODE <> 0 AND TO_NODE <> 0")
-       tempTableFinalToNode = "in_memory\\tempTableFinalToNode"
-       arcpy.TableSelect_analysis(in_table = tableTempProessNode,
-                                  out_table = tempTableFinalToNode,
-                                  where_clause = "FROM_NODE = 0 AND TO_NODE <> 0")
-       # FromNode
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "CLEAR_SELECTION")
-       arcpy.AddJoin_management(in_layer_or_view = lineLayer,
-                                in_field = "FROM_NODE",
-                                join_table = tempTableFinalFromNode,
-                                join_field = "FROM_NODE")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableFinalFromNode.FROM_NODE IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = lineLayer,
-                                   join_name = "tempTableFinalFromNode")
-       fCTempA = "in_memory\\fCTempA"
-       arcpy.CopyFeatures_management(in_features = lineLayer,
-                                     out_feature_class = fCTempA)
-       fCTempALayer = "fCTempALayer"
-       arcpy.MakeFeatureLayer_management(in_features = fCTempA,
-                                         out_layer = fCTempALayer)
-       tempTableFromNodeID = "in_memory\\tempTableFromNodeID"
-       arcpy.Statistics_analysis(in_table = fCTempALayer,
-                                 out_table = tempTableFromNodeID,
-                                 statistics_fields = [["OBJECTID", "FIRST"]],
-                                 case_field = ["FROM_NODE"])
-       arcpy.AddJoin_management(in_layer_or_view = fCTempALayer,
-                                in_field = "OBJECTID",
-                                join_table = tempTableFromNodeID,
-                                join_field = "FIRST_OBJECTID")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = fCTempALayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableFromNodeID.FIRST_OBJECTID IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = fCTempALayer,
-                                   join_name = "tempTableFromNodeID")
-       fCPointFromNode = "in_memory\\fCPointFromNode"
-       arcpy.FeatureVerticesToPoints_management(in_features = fCTempALayer,
-                                                out_feature_class = fCPointFromNode,
-                                                point_location = "START")
-       #
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "CLEAR_SELECTION")
-       arcpy.AddJoin_management(in_layer_or_view = lineLayer,
-                                in_field = "FROM_NODE",
-                                join_table = tempTableFinalFromNodeToNode,
-                                join_field = "FROM_NODE")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableFinalFromNodeToNode.FROM_NODE IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = lineLayer,
-                                   join_name = "tempTableFinalFromNodeToNode")
-       fCTempB = "in_memory\\fCTempB"
-       arcpy.CopyFeatures_management(in_features = lineLayer,
-                                     out_feature_class = fCTempB)
-       fCTempBLayer = "fCTempBLayer"
-       arcpy.MakeFeatureLayer_management(in_features = fCTempB,
-                                         out_layer = fCTempBLayer)
-       tempTableFromNodeToNodeID = "in_memory\\tempTableFromNodeToNodeID"
-       arcpy.Statistics_analysis(in_table = fCTempBLayer,
-                                 out_table = tempTableFromNodeToNodeID,
-                                 statistics_fields = [["OBJECTID", "FIRST"]],
-                                 case_field = ["FROM_NODE"])
-       arcpy.AddJoin_management(in_layer_or_view = fCTempBLayer,
-                                in_field = "OBJECTID",
-                                join_table = tempTableFromNodeToNodeID,
-                                join_field = "FIRST_OBJECTID")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = fCTempBLayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableFromNodeToNodeID.FIRST_OBJECTID IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = fCTempBLayer,
-                                   join_name = "tempTableFromNodeToNodeID")
-       fCPointFromNodeToNode = "in_memory\\fCPointFromNodeToNode"
-       arcpy.FeatureVerticesToPoints_management(in_features = fCTempBLayer,
-                                                out_feature_class = fCPointFromNodeToNode,
-                                                point_location = "START")
-       #
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "CLEAR_SELECTION")
-       arcpy.AddJoin_management(in_layer_or_view = lineLayer,
-                                in_field = "TO_NODE",
-                                join_table = tempTableFinalToNode,
-                                join_field = "TO_NODE")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableFinalToNode.TO_NODE IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = lineLayer,
-                                   join_name = "tempTableFinalToNode")
-       fCTempC = "in_memory\\fCTempC"
-       arcpy.CopyFeatures_management(in_features = lineLayer,
-                                     out_feature_class = fCTempC)
-       fCTempCLayer = "fCTempCLayer"
-       arcpy.MakeFeatureLayer_management(in_features = fCTempC,
-                                         out_layer = fCTempCLayer)
-       tempTableToNodeID = "in_memory\\tempTableToNodeID"
-       arcpy.Statistics_analysis(in_table = fCTempCLayer,
-                                 out_table = tempTableToNodeID,
-                                 statistics_fields = [["OBJECTID", "FIRST"]],
-                                 case_field = ["TO_NODE"])
-       arcpy.AddJoin_management(in_layer_or_view = fCTempCLayer,
-                                in_field = "OBJECTID",
-                                join_table = tempTableToNodeID,
-                                join_field = "FIRST_OBJECTID")
-       arcpy.SelectLayerByAttribute_management(in_layer_or_view = fCTempCLayer,
-                                               selection_type = "NEW_SELECTION",
-                                               where_clause = "tempTableToNodeID.FIRST_OBJECTID IS NOT NULL")
-       arcpy.RemoveJoin_management(in_layer_or_view = fCTempCLayer,
-                                   join_name = "tempTableToNodeID")
-       fCPointToNode = "in_memory\\fCPointToNode"
-       arcpy.FeatureVerticesToPoints_management(in_features = fCTempCLayer,
-                                                out_feature_class = fCPointToNode,
-                                                point_location = "END")
-       #
-       fCNode = "in_memory\\fCNode"
-       #fCNode = os.path.join(self.pathProcessGDB, "fCNode")
-       arcpy.CreateFeatureclass_management(out_path = "in_memory",
-                                           out_name = "fCNode",
-                                           geometry_type = "POINT",
-                                           spatial_reference = arcpy.Describe(lineLayer).spatialReference)
-       with arcpy.da.SearchCursor(fCPointFromNode, ["Shape@"]) as cursorA:
-           with arcpy.da.InsertCursor(fCNode, ["Shape@"]) as cursorB:
-               for rowA in cursorA:
-                   cursorB.insertRow((rowA[0], ))
-       with arcpy.da.SearchCursor(fCPointFromNodeToNode, ["Shape@"]) as cursorA:
-           with arcpy.da.InsertCursor(fCNode, ["Shape@"]) as cursorB:
-               for rowA in cursorA:
-                   cursorB.insertRow((rowA[0], ))
-       with arcpy.da.SearchCursor(fCPointToNode, ["Shape@"]) as cursorA:
-           with arcpy.da.InsertCursor(fCNode, ["Shape@"]) as cursorB:
-               for rowA in cursorA:
-                   cursorB.insertRow((rowA[0], ))
-       #
-       return fCNode
-       pass
-
    def CreateFeaturePoint(self, lineLayer, fCNodeA, fCNodeB, fCNodeC):
        #
        fCNodeD = "in_memory\\fCNodeD"
@@ -350,8 +155,9 @@ class NutDoanTimDuongBo:
                             out_feature_class = fCNodeD,
                             cluster_tolerance = "0 Meters")
        #
-       fCNodeE = os.path.join(self.pathProcessGDB, "fCNodeE")
-       arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
+       fCNodeE = "in_memory\\fCNodeE"
+       #fCNodeE = os.path.join(self.pathProcessGDB, fCNameClassPoint)
+       arcpy.CreateFeatureclass_management(out_path = "in_memory",
                                            out_name = "fCNodeE",
                                            geometry_type = "POINT",
                                            spatial_reference = arcpy.Describe(lineLayer).spatialReference)
@@ -364,6 +170,8 @@ class NutDoanTimDuongBo:
            with arcpy.da.InsertCursor(fCNodeE, ["Shape@"]) as cursorB:
                for rowA in cursorA:
                    cursorB.insertRow((rowA[0], ))
+       #
+       return fCNodeE
        pass
 
    def CreatePointRemove(self, lineLayer):
@@ -416,6 +224,57 @@ class NutDoanTimDuongBo:
                                      out_feature_class = fCPointBothEndsFinal)
        #
        return fCPointBothEndsFinal
+       pass
+
+   def UpdateNode(self, lineLayer, fCNodeA, fCNodeB, maDoiTuong, fCLineName):
+       #
+       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
+                                               selection_type = "CLEAR_SELECTION")
+       #
+       #tableTempNear = os.path.join(self.pathProcessGDB, "tableTempNear")
+       tableTempNear = "in_memory\\tableTempNear"
+       arcpy.GenerateNearTable_analysis(in_features = fCNodeB,
+                                        near_features = lineLayer,
+                                        out_table = tableTempNear,
+                                        search_radius = "0 Meters")
+       #
+       arcpy.AddJoin_management(in_layer_or_view = lineLayer,
+                                in_field = "OBJECTID",
+                                join_table = tableTempNear,
+                                join_field = "NEAR_FID")
+       arcpy.SelectLayerByAttribute_management(in_layer_or_view = lineLayer,
+                                               selection_type = "NEW_SELECTION",
+                                               where_clause = "NEAR_FID IS NOT NULL")
+       fCTempA = "in_memory\\fCTempA"
+       #fCTempA = os.path.join(self.pathProcessGDB, "fCTempA")
+       arcpy.CopyFeatures_management(in_features = lineLayer,
+                                     out_feature_class = fCTempA)
+       arcpy.RemoveJoin_management(in_layer_or_view = lineLayer,
+                                   join_name = "tableTempNear")
+       #
+       tableTempA = "in_memory\\tableTempA"
+       #tableTempA = os.path.join(self.pathProcessGDB, "tableTempA")
+       arcpy.TableSelect_analysis(in_table = fCTempA,
+                                  out_table = tableTempA,
+                                  where_clause = "OBJECTID IS NOT NULL")
+       #
+       arcpy.DeleteRows_management(in_rows = fCNodeA)
+       #
+       with arcpy.da.SearchCursor(tableTempNear, ["IN_FID", "NEAR_FID"]) as cursorTempNear:
+           with arcpy.da.SearchCursor(fCNodeB, ["OID@", "Shape@"]) as cursorNodeB:
+               with arcpy.da.SearchCursor(tableTempA, ["OID@", fCLineName + "_ngayThuNhan", fCLineName + "_ngayCapNhat", fCLineName + "_nguonDuLieu", fCLineName + "_maTrinhBay", fCLineName + "_tenManh", fCLineName + "_soPhienHieuManhBanDo", "tableTempNear_NEAR_FID"]) as cursorTempA:
+                   with arcpy.da.InsertCursor(fCNodeA, ["Shape@", "ngayThuNhan", "ngayCapNhat", "nguonDuLieu", "maTrinhBay", "tenManh", "soPhienHieuManhBanDo", "maDoiTuong", "maNhanDang"]) as cursorNodeA:
+                       for rowTempNear in cursorTempNear:
+                           cursorNodeB.reset()
+                           for rowNodeB in cursorNodeB:
+                               if rowTempNear[0] == rowNodeB[0]:
+                                   cursorTempA.reset()
+                                   for rowTempA in cursorTempA:
+                                       if rowTempA[7] == rowTempNear[1]:
+                                           cursorNodeA.insertRow((rowNodeB[1], rowTempA[1], rowTempA[2], rowTempA[3], rowTempA[4], rowTempA[5], rowTempA[6], maDoiTuong, "Auto"))
+                                           break
+                                   break
+       
        pass
 
 class RunTime:
