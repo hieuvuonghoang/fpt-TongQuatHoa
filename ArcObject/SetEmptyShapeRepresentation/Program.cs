@@ -22,8 +22,7 @@ namespace SetEmptyShapeRepresentation
             new esriLicenseExtensionCode[] { });
             //Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
             //SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
-            SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "OBJECTID = 3202");
-            Console.ReadKey();
+            SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "CauGiaoThongP", "CauGiaoThongP_Rep", "");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
@@ -51,7 +50,7 @@ namespace SetEmptyShapeRepresentation
                 IRepresentationRule iRepresentationRule = iRepresentationRules.Rule[iRepresentation.RuleID];
                 IGraphicAttributes iGraphicAttributes = iRepresentationRule.Layer[0] as IGraphicAttributes;
                 //var angle = iRepresentation.Value[iGraphicAttributes, iGraphicAttributes.IDByName["Angle"]];
-                iRepresentation.Value[iGraphicAttributes, iGraphicAttributes.IDByName["Angle"]] = 45.0d;
+                iRepresentation.Value[iGraphicAttributes, iGraphicAttributes.IDByName["Angle"]] = iFeature.Value[iFeatureCursor.FindField("ANGLE")];
                 iRepresentation.UpdateFeature();
                 iFeature.Store();
             }
