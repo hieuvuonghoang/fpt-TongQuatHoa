@@ -6,6 +6,7 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.Geometry;
+using ESRI.ArcGIS.Controls;
 
 namespace SetEmptyShapeRepresentation
 {
@@ -19,9 +20,10 @@ namespace SetEmptyShapeRepresentation
             //ESRI License Initializer generated code.
             m_AOLicenseInitializer.InitializeApplication(new esriLicenseProductCode[] { esriLicenseProductCode.esriLicenseProductCodeBasic, esriLicenseProductCode.esriLicenseProductCodeStandard, esriLicenseProductCode.esriLicenseProductCodeAdvanced },
             new esriLicenseExtensionCode[] { });
-            Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
-            SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
-            //SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "invisibility_field = 1");
+            //Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
+            //SetEmptyShapeRepresentation(args[0], args[1], args[2], args[3]);
+            SetEmptyShapeRepresentation(@"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "OBJECTID = 3202");
+            Console.ReadKey();
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
@@ -45,7 +47,11 @@ namespace SetEmptyShapeRepresentation
             while ((iFeature = iFeatureCursor.NextFeature()) != null)
             {
                 IRepresentation iRepresentation = iRepresentationClass.GetRepresentation(iFeature, iMapContext);
-                iRepresentation.Shape.SetEmpty();
+                IRepresentationRules iRepresentationRules = iRepresentationClass.RepresentationRules;
+                IRepresentationRule iRepresentationRule = iRepresentationRules.Rule[iRepresentation.RuleID];
+                IGraphicAttributes iGraphicAttributes = iRepresentationRule.Layer[0] as IGraphicAttributes;
+                //var angle = iRepresentation.Value[iGraphicAttributes, iGraphicAttributes.IDByName["Angle"]];
+                iRepresentation.Value[iGraphicAttributes, iGraphicAttributes.IDByName["Angle"]] = 45.0d;
                 iRepresentation.UpdateFeature();
                 iFeature.Store();
             }

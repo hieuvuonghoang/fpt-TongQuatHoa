@@ -2,7 +2,7 @@
 title NutDoanTimDuongBo
 
 :: Runs your command
-set pathfile=%~dp0%CreateNodeLine.py.py
+set pathfile=%~dp0%CreateNodeLine.py
 c:
 cd %python27%
 echo.%pathfile%
