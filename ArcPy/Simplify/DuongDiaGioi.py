@@ -28,7 +28,7 @@ class DuongDiaGioi:
         # Copy Feature Class
         arcpy.CopyFeatures_management(in_features = self.pathDuongDiaGioiProcess,
                                       out_feature_class = self.pathDuongDiaGioiFinal)
-        # doiTuong = 3 (C?p xã)
+        # doiTuong = 3 (C?p x?)
         self.CreateFCPointRemove("3")
         self.RemovePoint("doiTuong = 3")
         self.SnapDuongDiaGioi("3")

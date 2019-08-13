@@ -70,6 +70,7 @@ class DemoCreateFeatureClass:
         #
         with arcpy.da.UpdateCursor(pointLayer, ["OID@", "ANGLE"]) as cursorA:
             for rowA in cursorA:
+                rowA[1] = 0
                 #
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = pointLayer,
                                                         selection_type = "NEW_SELECTION",
@@ -93,15 +94,12 @@ class DemoCreateFeatureClass:
                 arcpy.Sort_management(in_dataset = tableNearTemp,
                                       out_dataset = tableNearSortTemp,
                                       sort_field = [["NEAR_DIST", "ASCENDING"]])
-                tableNearSortSelectTemp = "in_memory\\tableNearSortSelectTemp"
-                arcpy.TableSelect_analysis(in_table = tableNearSortTemp,
-                                           out_table = tableNearSortSelectTemp,
-                                           where_clause = "OBJECTID = 2")
-                with arcpy.da.SearchCursor(tableNearSortSelectTemp, ["NEAR_ANGLE"]) as cursorB:
+                with arcpy.da.SearchCursor(tableNearSortTemp, ["NEAR_DIST", "NEAR_ANGLE"]) as cursorB:
                     for rowB in cursorB:
-                        rowA[1] = rowB[0] - angleTemp
-                        cursorA.updateRow(rowA)
-                        break
+                        if rowB[0] >= 5:
+                            rowA[1] = rowB[1] - angleTemp
+                            break
+                cursorA.updateRow(rowA)
 
         pass
 

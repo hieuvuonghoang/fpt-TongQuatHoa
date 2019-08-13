@@ -24,6 +24,11 @@
   <ItemGroup>
     <Compile Include="GeneralizeSharedFeatures.py" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Run.bat">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
