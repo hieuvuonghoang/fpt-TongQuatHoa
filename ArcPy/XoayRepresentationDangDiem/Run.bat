@@ -1,5 +1,5 @@
 @echo off
-title XoayRepresentation
+title XoayRepresentationDangDiem
 
 :: Runs your command
 set pathfile=%~dp0%XoayRepresentationDangDiem.py
