@@ -6,7 +6,7 @@
     <ProjectGuid>de4d13b7-8987-4bb0-a073-74856f782f9d</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>XoayCongThuyLoiPCauGiaoThongP.py</StartupFile>
+    <StartupFile>DemoCreateFeatureClass.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

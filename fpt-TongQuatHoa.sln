@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArcObject", "ArcObject", "{5400632E-3796-4DC8-9B2D-CF63A2DADCCB}"
 EndProject
@@ -35,7 +35,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SnapCauGiaoThong", "ArcPy\S
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DemoTime", "Test\DemoTime\DemoTime.pyproj", "{5BEC5ACE-63F5-4899-896B-4DEBD9260835}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayRepresentation", "ArcPy\XoayRepresentation\XoayRepresentation.pyproj", "{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XoayRepresentationDangDiem", "ArcPy\XoayRepresentation\XoayRepresentationDangDiem.pyproj", "{FE21C9D6-EC56-4B4B-8983-07ADFE590D08}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SnapTools", "ArcPy\SnapTools\SnapTools.pyproj", "{DBDA4C96-6CB1-41E2-85B5-E7F5346BA82F}"
 EndProject
@@ -60,6 +60,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DoanTimDuongBoRepresentation", "ArcPy\DoanTimDuongBoRepresentation\DoanTimDuongBoRepresentation.pyproj", "{AB76A8C7-2F47-41A8-AE79-046C84B69CB4}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NutDoanTimDuongBo", "ArcPy\NutDoanTimDuongBo\NutDoanTimDuongBo.pyproj", "{651B30CF-3F44-4896-BFFD-2C8169D5166F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetAngleRepresentationPoint", "ArcObject\SetAngleRepresentationPoint\SetAngleRepresentationPoint.csproj", "{E937E589-1189-4EC6-967D-A4ADD42CAC73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,6 +191,12 @@ Global
 		{651B30CF-3F44-4896-BFFD-2C8169D5166F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{651B30CF-3F44-4896-BFFD-2C8169D5166F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{651B30CF-3F44-4896-BFFD-2C8169D5166F}.Release|x86.ActiveCfg = Release|Any CPU
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Debug|x86.ActiveCfg = Debug|x86
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Debug|x86.Build.0 = Debug|x86
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Release|Any CPU.ActiveCfg = Release|x86
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Release|x86.ActiveCfg = Release|x86
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -220,5 +228,6 @@ Global
 		{1A68ACC5-DAE0-4C5C-B3D8-B27FB0719A0B} = {73F466AE-54C3-4FF4-9E00-719F4565268B}
 		{AB76A8C7-2F47-41A8-AE79-046C84B69CB4} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{651B30CF-3F44-4896-BFFD-2C8169D5166F} = {75503257-EE32-41CE-A29E-3C12C6274155}
+		{E937E589-1189-4EC6-967D-A4ADD42CAC73} = {5400632E-3796-4DC8-9B2D-CF63A2DADCCB}
 	EndGlobalSection
 EndGlobal

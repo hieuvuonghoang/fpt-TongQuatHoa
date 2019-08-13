@@ -7,7 +7,7 @@ import arcpy
 import codecs
 import datetime
 
-class XoayRepresentation:
+class XoayRepresentationDangDiem:
 
     def __init__(self, pathFileConfig, distance):
         self.distance = distance
@@ -284,9 +284,9 @@ class RunTime:
 if __name__ == "__main__":
     runTime = RunTime()
     print "Path File Config: {0}\nDistance: {1}".format(sys.argv[1], sys.argv[2])
-    xoayRepresentation = XoayRepresentation(sys.argv[1], sys.argv[2])
+    XoayRepresentationDangDiem = XoayRepresentationDangDiem(sys.argv[1], sys.argv[2])
     print "Running..."
-    xoayRepresentation.Execute()
+    XoayRepresentationDangDiem.Execute()
     print "Success!!!"
     runTime.GetTotalRunTime()
     pass
