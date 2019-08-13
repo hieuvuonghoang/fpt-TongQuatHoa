@@ -7,7 +7,7 @@ import arcpy
 import datetime
 import subprocess
 
-class DemoCreateFeatureClass:
+class XoayRepresentationDangDiem:
 
     def __init__(self, pathFileConfig):
         self.pathFileConfig = pathFileConfig
@@ -281,9 +281,9 @@ class RunTime:
 if __name__ == '__main__':
     runTime = RunTime()
     print "Path File Config: {0}".format(sys.argv[1])
-    demoCreateFeatureClass = DemoCreateFeatureClass(sys.argv[1])
+    xoayRepresentationDangDiem = XoayRepresentationDangDiem(sys.argv[1])
     print "Running..."
-    demoCreateFeatureClass.Execute()
+    xoayRepresentationDangDiem.Execute()
     print "Success!!!"
     runTime.GetTotalRunTime()
     pass
