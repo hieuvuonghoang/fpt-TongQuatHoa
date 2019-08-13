@@ -21,13 +21,15 @@ class ResolveConflictNhaP:
         self.fDDanCuCoSoHaTang = "DanCuCoSoHaTang"
         # Feature Class Name
         self.fCNhaP = "NhaP"
+        # Representation Name
+        self.nhaPRepName = self.fCNhaP + "_Rep1"
         # Path Feature Class
         ## Path Final
         self.pathNhaPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDDanCuCoSoHaTang), self.fCNhaP)
-        # Representation Name
-        self.repNhaP = "NhaP_Rep1"
         # Field Name
         self.invisibilityField = "invisibility_field"
+        #
+        self.dirPathArcObject = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), "Release"), "SetEmptyShapeRepresentation.exe")
         pass
 
     def Execute(self):
@@ -40,7 +42,7 @@ class ResolveConflictNhaP:
                                           out_layer = self.nhaPFinalLayer)
         # SetLayerRepresentation
         arcpy.SetLayerRepresentation_cartography(in_layer = self.nhaPFinalLayer,
-                                                 representation = self.repNhaP)
+                                                 representation = self.nhaPRepName)
 
         # Read File Config
         with open(self.pathFileConfig) as json_file:
@@ -103,7 +105,8 @@ class ResolveConflictNhaP:
 
     def CallToolSetEmptyShape(self):
         #args [] = {pathGDB, featureClassName, representationName, whereClause}
-        subprocess.call(["SetEmptyShapeRepresentation.exe", self.pathFinalGDB, "NhaP", "NhaP_Rep1", self.invisibilityField + " = 1"])
+        print self.dirPathArcObject
+        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCNhaP, self.nhaPRepName, self.invisibilityField + " = 1"])
         pass
 
     def DeleteField(self):
