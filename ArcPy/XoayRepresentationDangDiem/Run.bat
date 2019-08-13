@@ -7,7 +7,7 @@ set pathfileconfig=%~dp0%ConfigTools.json
 echo.%pathfile%
 c:
 cd %python27%
-python %pathfile% %pathfileconfig% "50 Meters"
+python %pathfile% %pathfileconfig%
 
 :: Presses any key
 pause

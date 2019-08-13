@@ -111,7 +111,7 @@ class DemoCreateFeatureClass:
         arcpy.MakeFeatureLayer_management(in_features = self.pathCauGiaoThongPFinal,
                                           out_layer = cauGiaoThongPFinalLayer)
         doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.doanTimDuongBoFinalLayer,
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
                                           out_layer = doanTimDuongBoFinalLayer)
         # Generate Near Table
         outTableTempA = "in_memory\\OutTabelTempA"
@@ -177,10 +177,10 @@ class DemoCreateFeatureClass:
     def UpdateRuleIDCongGiaoThong(self):
         #
         congGiaoThongPFinalLayer = "congGiaoThongPFinalLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathCauGiaoThongPFinal,
+        arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
                                           out_layer = congGiaoThongPFinalLayer)
         doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.doanTimDuongBoFinalLayer,
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
                                           out_layer = doanTimDuongBoFinalLayer)
         # Generate Near Table
         outTableTempA = "in_memory\\OutTabelTempA"
