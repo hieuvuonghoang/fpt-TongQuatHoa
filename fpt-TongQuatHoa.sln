@@ -67,6 +67,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Production", "Production", 
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GeneralizeSharedFeatures", "ArcPy\GeneralizeSharedFeatures\GeneralizeSharedFeatures.pyproj", "{2B98999F-A442-4894-937D-11974ED62DC7}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SimplifyProduction", "ArcPy\SimplifyProduction\SimplifyProduction.pyproj", "{106CF343-D03D-44B2-9E9D-B89F165695B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +207,10 @@ Global
 		{2B98999F-A442-4894-937D-11974ED62DC7}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{2B98999F-A442-4894-937D-11974ED62DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B98999F-A442-4894-937D-11974ED62DC7}.Release|x86.ActiveCfg = Release|Any CPU
+		{106CF343-D03D-44B2-9E9D-B89F165695B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106CF343-D03D-44B2-9E9D-B89F165695B1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{106CF343-D03D-44B2-9E9D-B89F165695B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106CF343-D03D-44B2-9E9D-B89F165695B1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,5 +245,6 @@ Global
 		{FE21C9D6-EC56-4B4B-8983-07ADFE590D08} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{CDF56F2F-EF9E-4278-AA4F-70BECCACE17B} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{2B98999F-A442-4894-937D-11974ED62DC7} = {CDF56F2F-EF9E-4278-AA4F-70BECCACE17B}
+		{106CF343-D03D-44B2-9E9D-B89F165695B1} = {CDF56F2F-EF9E-4278-AA4F-70BECCACE17B}
 	EndGlobalSection
 EndGlobal

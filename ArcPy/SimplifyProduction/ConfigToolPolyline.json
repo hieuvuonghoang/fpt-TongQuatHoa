@@ -190,7 +190,7 @@
   "listPolygon": [
    {
     "featureClass": "RanhGioiPhuBeMat", 
-    "runSimplify": true
+    "runSimplify": false
    }
   ]
  }

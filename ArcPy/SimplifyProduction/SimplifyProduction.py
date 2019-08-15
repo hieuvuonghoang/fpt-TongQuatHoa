@@ -5,6 +5,9 @@ import time
 import json
 import arcpy
 import datetime
+# All Polygon to point
+# All Polyline to point
+# 
 
 class SimplifyProduction:
 
@@ -77,7 +80,7 @@ class SimplifyProduction:
 
     def MakeFeatureLayerPolyline(self):
         configTools = ConfigTools()
-        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolygon))
+        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolyline))
         arrPolylineLayer = []
         for featureDataSetTemp in configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
