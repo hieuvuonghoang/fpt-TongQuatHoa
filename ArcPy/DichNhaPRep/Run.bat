@@ -13,4 +13,4 @@ echo.%pathfileResolveConflictNhaP%
 python %pathfileResolveConflictNhaP% %pathfileConfig% "0 Meters" "0 Meters"
 
 :: Presses any key
-pause
+::pause

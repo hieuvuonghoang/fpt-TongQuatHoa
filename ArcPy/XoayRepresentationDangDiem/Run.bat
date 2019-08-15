@@ -10,4 +10,4 @@ cd %python27%
 python %pathfile% %pathfileconfig%
 
 :: Presses any key
-pause
+::pause

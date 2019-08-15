@@ -1,0 +1,197 @@
+[
+ {
+  "featureDataSet": "GiaoThong", 
+  "listPolygon": [
+   {
+    "featureClass": "DoanTimDuongBo_Goc", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "HamDiBoL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongCapTreo", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BenBaiL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CauDiBoL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DoanDuongSat", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongNoiBoL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "HamGiaoThongL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "RanhGioiDuongBo", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "TaluyGiaoThong", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DoanTimDuongBo", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CauGiaoThongL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CongGiaoThongL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DoanVuotSongSuoiL", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "DanCuCoSoHaTang", 
+  "listPolygon": [
+   {
+    "featureClass": "NhaL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongDayTaiDien", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongOngDan", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "RanhGioiTuongRao", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "DiaHinh", 
+  "listPolygon": [
+   {
+    "featureClass": "DuongBinhDo_Goc", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "NetChiDoc", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "DiaHinhDacBietL", 
+    "runSimplify": false
+   }, 
+   {
+    "featureClass": "DuongBinhDo", 
+    "runSimplify": false
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "BienGioiDiaGioi", 
+  "listPolygon": [
+   {
+    "featureClass": "DuongBienGioi", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongCoSoLanhHai", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongDiaGioi", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "MatNa", 
+  "listPolygon": [
+   {
+    "featureClass": "gachtinhchatcau", 
+    "runSimplify": false
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "ThuyHe", 
+  "listPolygon": [
+   {
+    "featureClass": "DuongBoNuoc", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "RanhGioiBai", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BienDoiDongChayL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "BoKeBoCap", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "CongThuyLoiL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DapL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DeL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "KenhMuongL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "MangDanNuocL", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "TaluyCongTrinhThuyLoi", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "RanhGioiNuocMatQuyUoc", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "DuongMepNuoc", 
+    "runSimplify": true
+   }, 
+   {
+    "featureClass": "SongSuoiL", 
+    "runSimplify": true
+   }
+  ]
+ }, 
+ {
+  "featureDataSet": "PhuBeMat", 
+  "listPolygon": [
+   {
+    "featureClass": "RanhGioiPhuBeMat", 
+    "runSimplify": true
+   }
+  ]
+ }
+]

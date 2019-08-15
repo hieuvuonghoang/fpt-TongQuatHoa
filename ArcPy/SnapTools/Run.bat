@@ -9,4 +9,4 @@ cd %python27%
 python %pathfile% "50 Meters"
 
 :: Presses any key
-pause
+::pause

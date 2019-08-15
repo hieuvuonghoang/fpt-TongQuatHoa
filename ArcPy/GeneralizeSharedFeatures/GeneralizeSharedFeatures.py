@@ -47,12 +47,12 @@ class GeneralizeSharedFeatures:
         ##BEZIER_INTERPOLATION ?Fits Bezier curves between vertices. The resulting line passes through the vertices of the input line. This algorithm does not require a tolerance. Bezier curves will be approximated when the output is a shapefile.
 
         arcpy.GeneralizeSharedFeatures_production(Input_Features = duongBinhDoFinalLayer,
-                                                  Generalize_Operation = "SIMPLIFY",
+                                                  Generalize_Operation = "SIMPLIFY_SMOOTH",
                                                   Simplify_Tolerance = "50 Meters",
-                                                  #Smooth_Tolerance = "50 Meters",
+                                                  Smooth_Tolerance = "50 Meters",
                                                   Topology_Feature_Classes = [],
-                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
-                                                  #Smoothing_Algorithm = "PAEK")
+                                                  Simplification_Algorithm = "BEND_SIMPLIFY",
+                                                  Smoothing_Algorithm = "PAEK")
         pass
 
 class RunTime:

@@ -9,4 +9,4 @@ echo.%pathfile%
 python %pathfile%
 
 :: Presses any key
-pause
+::pause
