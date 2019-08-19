@@ -6,12 +6,14 @@ import json
 import arcpy
 import codecs
 import datetime
+import subprocess
 
 class RepresentationUpdateRuleID:
     
     def __init__(self, pathFileConfig):
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.pathFileConfig = pathFileConfig
+        self.dirPathArcObject = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), "Release"), "SetEmptyShapeRepresentation.exe")
         pass
 
     def ReadFile(self):
@@ -37,6 +39,10 @@ class RepresentationUpdateRuleID:
                     if child.datasetType == "RepresentationClass":
                         for elemRepresentation in elemFeatureClass["listRepresentation"]:
                             if child.name == elemRepresentation["nameRepresentation"]:
+                                with arcpy.da.UpdateCursor(outLayer, [child.ruleIDFieldName]) as cursor:
+                                    for row in cursor:
+                                        row[0] = None
+                                        cursor.updateRow(row)
                                 for elemRule in elemRepresentation["listRule"]:
                                     if elemRule["querySQL"] == "":
                                         continue
@@ -47,6 +53,7 @@ class RepresentationUpdateRuleID:
                                                                     field = child.ruleIDFieldName,
                                                                     expression = elemRule["ruleID"],
                                                                     expression_type = "PYTHON_9.3")
+                                #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, elemFeatureClass["nameFeatureClass"], elemRepresentation["nameRepresentation"], child.ruleIDFieldName + " IS NULL"])
                                 break 
         pass
 

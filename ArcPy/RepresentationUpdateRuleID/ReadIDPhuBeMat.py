@@ -20,24 +20,25 @@ class ReadIDPhuBeMat:
         phuBeMatFinalLayer = "phuBeMatFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathFCPhuBeMatFinal,
                                           out_layer = phuBeMatFinalLayer)
-        #with arcpy.da.UpdateCursor(phuBeMatFinalLayer, ["PhuBeMat_Rep_ID"]) as cursor:
-        #    for row in cursor:
-        #        row[0] = None
-        #        cursor.updateRow(row)
-        arrListRuleIDPhuBeMatCay = range(0, 5)
-        arrListRuleIDPhuBeMatCay.append(-1)
-        for ruleID in arrListRuleIDPhuBeMatCay:
-            print "... {0} ".format(str(ruleID))
-            querySQL = "PhuBeMat_Rep_ID = " + str(ruleID)
-            #querySQL = "PhuBeMat_Nen_ID = " + str(ruleID)
-            arcpy.SelectLayerByAttribute_management(in_layer_or_view = phuBeMatFinalLayer,
-                                                    selection_type = "CLEAR_SELECTION")
-            arcpy.SelectLayerByAttribute_management(in_layer_or_view = phuBeMatFinalLayer,
-                                                    selection_type = "NEW_SELECTION",
-                                                    where_clause = querySQL)
-            with arcpy.da.SearchCursor(phuBeMatFinalLayer, ["loaiPhuBeMat", "doiTuong", "phanLoaiVung"]) as cursor:
-                for row in cursor:
-                    print "\t... loaiPhuBeMat: {0}, doiTuong: {1}, phanLoaiVung: {2}".format(str(row[0]), str(row[1]), str(row[2]))
+        with arcpy.da.UpdateCursor(phuBeMatFinalLayer, ["PhuBeMat_Nen_ID", "PhuBeMat_Rep_ID"]) as cursor:
+            for row in cursor:
+                row[0] = None
+                row[1] = None
+                cursor.updateRow(row)
+        #arrListRuleIDPhuBeMatCay = range(0, 5)
+        #arrListRuleIDPhuBeMatCay.append(-1)
+        #for ruleID in arrListRuleIDPhuBeMatCay:
+        #    print "... {0} ".format(str(ruleID))
+        #    querySQL = "PhuBeMat_Rep_ID = " + str(ruleID)
+        #    #querySQL = "PhuBeMat_Nen_ID = " + str(ruleID)
+        #    arcpy.SelectLayerByAttribute_management(in_layer_or_view = phuBeMatFinalLayer,
+        #                                            selection_type = "CLEAR_SELECTION")
+        #    arcpy.SelectLayerByAttribute_management(in_layer_or_view = phuBeMatFinalLayer,
+        #                                            selection_type = "NEW_SELECTION",
+        #                                            where_clause = querySQL)
+        #    with arcpy.da.SearchCursor(phuBeMatFinalLayer, ["loaiPhuBeMat", "doiTuong", "phanLoaiVung"]) as cursor:
+        #        for row in cursor:
+        #            print "\t... loaiPhuBeMat: {0}, doiTuong: {1}, phanLoaiVung: {2}".format(str(row[0]), str(row[1]), str(row[2]))
         pass
 
 class RunTime:

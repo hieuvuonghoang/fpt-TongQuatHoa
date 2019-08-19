@@ -2766,12 +2766,12 @@
               {
                 "ruleID": "7",
                 "nameRule": "114-b-Cây ăn quả lâu năm",
-                "querySQL": ""
+                "querySQL": "(phanLoaiVung = 15)"
               },
               {
                 "ruleID": "8",
                 "nameRule": "cây ưa mặn, chua phèn dưới nước",
-                "querySQL": ""
+                "querySQL": "(loaiPhuBeMat = 9)"
               },
               {
                 "ruleID": "9",
@@ -2786,17 +2786,17 @@
               {
                 "ruleID": "11",
                 "nameRule": "cây hỗn hợp",
-                "querySQL": ""
+                "querySQL": "(loaiPhuBeMat = 6)"
               },
               {
                 "ruleID": "12",
                 "nameRule": "cây tre nứa",
-                "querySQL": ""
+                "querySQL": "(loaiPhuBeMat = 10)"
               },
               {
                 "ruleID": "13",
                 "nameRule": "cây dừa cọ",
-                "querySQL": ""
+                "querySQL": "(loaiPhuBeMat = 4)"
               },
               {
                 "ruleID": "14",
@@ -2816,17 +2816,17 @@
               {
                 "ruleID": "1",
                 "nameRule": "72-b-Nền sông suối, ao hồ",
-                "querySQL": "doiTuong = 10"
+                "querySQL": ""
               },
               {
                 "ruleID": "2",
                 "nameRule": "113-1-Nền rừng phát triển",
-                "querySQL": "doiTuong = 7"
+                "querySQL": "(phanLoaiVung = 1) OR (phanLoaiVung = 2) OR (phanLoaiVung = 3) OR (phanLoaiVung = 4) OR (phanLoaiVung = 5) OR (phanLoaiVung = 6)"
               },
               {
                 "ruleID": "3",
                 "nameRule": "113-2-Nền rừng tái sinh",
-                "querySQL": ""
+                "querySQL": "(phanLoaiVung = 8) OR (phanLoaiVung = 9) OR (phanLoaiVung = 11) OR (phanLoaiVung = 12) OR (phanLoaiVung = 13)"
               },
               {
                 "ruleID": "4",
