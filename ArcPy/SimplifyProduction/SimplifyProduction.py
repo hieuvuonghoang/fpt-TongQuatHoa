@@ -16,23 +16,23 @@ class SimplifyProduction:
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.pathFileConfigPolygon = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigToolPolygon.json")
         self.pathFileConfigPolyline = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigToolPolyline.json")
-        
         pass
 
     def Execute(self):
         arcpy.env.workspace = self.pathFinalGDB
         arcpy.env.overwriteOutput = True
         #self.ScanFeatureClassIsPolygon()
-        outputMerge = self.MergePolygon()
-        outputMergeLayer = "outputMergeLayer"
-        arcpy.MakeFeatureLayer_management(in_features = outputMerge,
-                                          out_layer = outputMergeLayer)
-        arrPolylineLayer = self.MakeFeatureLayerPolyline()
-        arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
-                                                  Generalize_Operation = "SIMPLIFY",
-                                                  Simplify_Tolerance = "50 Meters",
-                                                  Topology_Feature_Classes = arrPolylineLayer,
-                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
+        # outputMerge = self.MergePolygon()
+        # outputMergeLayer = "outputMergeLayer"
+        # arcpy.MakeFeatureLayer_management(in_features = outputMerge,
+                                          # out_layer = outputMergeLayer)
+        # arrPolygonLayer = self.MakeFeatureLayerPolygon()
+        # arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
+                                                  # Generalize_Operation = "SIMPLIFY",
+                                                  # Simplify_Tolerance = "50 Meters",
+                                                  # Topology_Feature_Classes = arrPolylineLayer,
+                                                  # Simplification_Algorithm = "BEND_SIMPLIFY")
+        self.MakeFeatureLayerPolygon()
         pass
 
     def MergePolygon(self):
@@ -78,9 +78,9 @@ class SimplifyProduction:
         #                                  out_layer = outputMergeLayer)
         pass
 
-    def MakeFeatureLayerPolyline(self):
+    def MakeFeatureLayerPolygon(self):
         configTools = ConfigTools()
-        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolyline))
+        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolygon))
         arrPolylineLayer = []
         for featureDataSetTemp in configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
@@ -93,6 +93,11 @@ class SimplifyProduction:
                 featureLayer = featureClassTemp.featureClass + "Layer"
                 arcpy.MakeFeatureLayer_management(in_features = pathFc,
                                           out_layer = featureLayer)
+                arcpy.GeneralizeSharedFeatures_production(Input_Features = featureLayer,
+                                                  Generalize_Operation = "SIMPLIFY",
+                                                  Simplify_Tolerance = "50 Meters",
+                                                  Topology_Feature_Classes = [],
+                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
                 arrPolylineLayer.append(featureLayer)
         return arrPolylineLayer
         pass

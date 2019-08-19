@@ -2736,72 +2736,72 @@
               {
                 "ruleID": "1",
                 "nameRule": "116-Ruộng lúa",
-                "querySQL": "phanLoaiVung = 17"
+                "querySQL": "(loaiPhuBeMat = 1 AND doiTuong = 5 AND phanLoaiVung = 17)"
               },
               {
                 "ruleID": "2",
                 "nameRule": "117-Rau, màu, cây công nghiệp ngắn ngày",
-                "querySQL": "phanLoaiVung = 18"
+                "querySQL": "(loaiPhuBeMat = 2 AND doiTuong = 5 and phanLoaiVung = 18)"
               },
               {
                 "ruleID": "3",
                 "nameRule": "115-a-Cây bụi",
-                "querySQL": "phanLoaiVung = 16"
+                "querySQL": "(loaiPhuBeMat = 5 AND doiTuong = 8 AND phanLoaiVung = 16)"
               },
               {
                 "ruleID": "4",
                 "nameRule": "121-Vùng đất trống",
-                "querySQL": "doiTuong = 3 AND phanLoaiVung IS NULL"
+                "querySQL": "(loaiPhuBeMat IS NULL AND doiTuong = 3 AND phanLoaiVung IS NULL) OR (loaiPhuBeMat IS NULL AND doiTuong = 3 AND phanLoaiVung = 17)"
               },
               {
                 "ruleID": "5",
                 "nameRule": "118-b-Cỏ không ngập nước",
-                "querySQL": "phanLoaiVung = 20"
+                "querySQL": "(loaiPhuBeMat IS NULL AND doiTuong = 6 AND phanLoaiVung = 20)"
               },
               {
                 "ruleID": "6",
                 "nameRule": "114-a-Cây công nghiệp lâu năm",
-                "querySQL": "phanLoaiVung = 14"
+                "querySQL": "(loaiPhuBeMat = 3 AND doiTuong = 5 AND phanLoaiVung = 14)"
               },
               {
                 "ruleID": "7",
                 "nameRule": "114-b-Cây ăn quả lâu năm",
-                "querySQL": "phanLoaiVung = 15"
+                "querySQL": ""
               },
               {
                 "ruleID": "8",
                 "nameRule": "cây ưa mặn, chua phèn dưới nước",
-                "querySQL": "phanLoaiVung = 7"
+                "querySQL": ""
               },
               {
                 "ruleID": "9",
                 "nameRule": "cây lá rộng",
-                "querySQL": "phanLoaiVung = 1"
+                "querySQL": "(loaiPhuBeMat = 8 AND doiTuong = 7 AND phanLoaiVung = 1) OR (loaiPhuBeMat = 8 AND doiTuong = 7 AND phanLoaiVung = 8)"
               },
               {
                 "ruleID": "10",
                 "nameRule": "cây lá kim",
-                "querySQL": "phanLoaiVung = 2"
+                "querySQL": "(loaiPhuBeMat = 7 AND doiTuong = 7 AND phanLoaiVung = 9)"
               },
               {
                 "ruleID": "11",
                 "nameRule": "cây hỗn hợp",
-                "querySQL": "phanLoaiVung = 3 OR loaiPhuBeMat=6"
+                "querySQL": ""
               },
               {
                 "ruleID": "12",
                 "nameRule": "cây tre nứa",
-                "querySQL": "phanLoaiVung = 4"
+                "querySQL": ""
               },
               {
                 "ruleID": "13",
                 "nameRule": "cây dừa cọ",
-                "querySQL": "phanLoaiVung = 5"
+                "querySQL": ""
               },
               {
                 "ruleID": "14",
                 "nameRule": "cây ưa mặn",
-                "querySQL": "phanLoaiVung = 13"
+                "querySQL": ""
               }
             ]
           },

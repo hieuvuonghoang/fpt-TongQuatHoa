@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d35e0cff-e903-4ddc-97c0-e5931ee96aba</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>RepresentationUpdateRuleID.py</StartupFile>
+    <StartupFile>ReadIDPhuBeMat.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,11 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ReadIDPhuBeMat.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RepresentationUpdateRuleID.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigTools - Copy.json" />
     <Content Include="ConfigTools.json" />
     <Content Include="Run.bat" />
+    <Content Include="RunRuleID.bat">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
