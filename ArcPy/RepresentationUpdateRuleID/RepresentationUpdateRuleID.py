@@ -39,7 +39,7 @@ class RepresentationUpdateRuleID:
                     if child.datasetType == "RepresentationClass":
                         for elemRepresentation in elemFeatureClass["listRepresentation"]:
                             if child.name == elemRepresentation["nameRepresentation"]:
-                                with arcpy.da.UpdateCursor(outLayer, [child.ruleIDFieldName]) as cursor:
+                                with arcpy.da.UpdateCursor(pathFeatureClass, [child.ruleIDFieldName]) as cursor:
                                     for row in cursor:
                                         row[0] = None
                                         cursor.updateRow(row)
