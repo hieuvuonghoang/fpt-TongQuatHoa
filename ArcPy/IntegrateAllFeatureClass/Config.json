@@ -206,35 +206,35 @@
         "listPolygon": [
             {
                 "featureClass": "MatNaDen", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaLo", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaNau", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaCay", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaDiaGioi", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaKhung", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNaDayDien", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "MatNa_DiemDoCao", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }
         ], 
         "listPolyline": [
