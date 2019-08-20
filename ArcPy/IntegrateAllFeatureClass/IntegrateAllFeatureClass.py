@@ -22,137 +22,275 @@ class IntegrateAllFeatureClass:
         pass
 
     def Execute(self):
+        # Init Workspace
         arcpy.env.overwriteOutput = True
         self.ReadFileConfig()
-        #arrLayerPolygon, arrLayerPolyline = self.MakeFeatureLayer()
-        #self.Integrate(arrLayerPolyline, arrLayerPolygon)
-        #self.Integrate(arrLayerPolygon, arrLayerPolyline)
-        #self.MergePolygon()
-        #self.SimplifyAllPolygon()
-        #self.ExportPolygonAfterSimplify()
-        #self.PolygonToMultiPoint()
-        self.ErasePoint()
+
+        # Integrate
+        arrLayerPolygon, arrLayerPolyline = self.MakeFeatureLayer()
+        self.Integrate(arrLayerPolyline, arrLayerPolygon)
+        self.Integrate(arrLayerPolygon, arrLayerPolyline)
+
+        # PolyLine
+        inFC_SimplifyAllPolyline = self.MergeFeatureClass("Polyline")
+        inFC_ExportFC = self.SimplifyAllPolyline(inFC_SimplifyAllPolyline)
+        self.ExportFeatureClassAfterSimplify("Polyline", inFC_ExportFC)
+        self.FeatureClassSimplifyToMultiPoint("Polyline")
+        self.ErasePoint("Polyline")
+
+        # Polygon
+        inFC_SimplifyAllPolygon = self.MergeFeatureClass("Polygon")
+        inFC_ExportFC = self.SimplifyAllPolygon(inFC_SimplifyAllPolygon)
+        self.ExportFeatureClassAfterSimplify("Polygon", inFC_ExportFC)
+        self.FeatureClassSimplifyToMultiPoint("Polygon")
+        self.ErasePoint("Polygon")
         pass
 
-    def ErasePoint(self):
-        for tempConfig in self.configTools.listConfig:
-            for tempPolygon in tempConfig.listPolygon:
-                if (tempPolygon.runFeatureClass == False):
-                    continue
-                pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_AllPoint")
-                pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_Simplify_AllPoint")
-                pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_PointRemove")
-                arcpy.Erase_analysis(in_features = pathInFeature,
-                                     erase_features = pathEraseFeature,
-                                     out_feature_class = pathOutEraseFeature,
-                                     cluster_tolerance = "0 Meters")
+    def ErasePoint(self, option):
+        if option == "Polygon":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolygon in tempConfig.listPolygon:
+                    if (tempPolygon.runFeatureClass == False):
+                        continue
+                    tempPolygon.SetFeatureClassAllPoint()
+                    tempPolygon.SetFeatureClassSimplifyAllPoint()
+                    tempPolygon.SetFeatureClassPointRemove()
+                    pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
+                    pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
+                    pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassPointRemove)
+                    print pathOutEraseFeature
+                    arcpy.Erase_analysis(in_features = pathInFeature,
+                                         erase_features = pathEraseFeature,
+                                         out_feature_class = pathOutEraseFeature,
+                                         cluster_tolerance = "0 Meters")
+        elif option == "Polyline":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolyline in tempConfig.listPolyline:
+                    if (tempPolyline.runFeatureClass == False):
+                        continue
+                    tempPolyline.SetFeatureClassAllPoint()
+                    tempPolyline.SetFeatureClassSimplifyAllPoint()
+                    tempPolyline.SetFeatureClassPointRemove()
+                    pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
+                    pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
+                    pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassPointRemove)
+                    print pathOutEraseFeature
+                    arcpy.Erase_analysis(in_features = pathInFeature,
+                                         erase_features = pathEraseFeature,
+                                         out_feature_class = pathOutEraseFeature,
+                                         cluster_tolerance = "0 Meters")
         pass
 
-    def PolygonToMultiPoint(self):
-        for tempConfig in self.configTools.listConfig:
-            for tempPolygon in tempConfig.listPolygon:
-                if (tempPolygon.runFeatureClass == False):
-                    continue
-                pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_Simplify")
-                pathFc = "in_memory\\FeatureClassTemp"
-                arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
-                                                         out_feature_class = pathFc,
-                                                         point_location = "ALL")
-                fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
-                pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_Simplify_AllPoint")
-                arcpy.Dissolve_management(in_features = pathFc,
-                                          out_feature_class = pathDissolve,
-                                          dissolve_field = [fieldFID])
+    def FeatureClassSimplifyToMultiPoint(self, option):
+        if option == "Polygon":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolygon in tempConfig.listPolygon:
+                    if (tempPolygon.runFeatureClass == False):
+                        continue
+                    tempPolygon.SetFeatureClassSimplify()
+                    pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplify)
+                    pathFc = "in_memory\\FeatureClassTemp"
+                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
+                                                             out_feature_class = pathFc,
+                                                             point_location = "ALL")
+                    fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
+                    tempPolygon.SetFeatureClassSimplifyAllPoint()
+                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
+                    print pathDissolve
+                    arcpy.Dissolve_management(in_features = pathFc,
+                                              out_feature_class = pathDissolve,
+                                              dissolve_field = [fieldFID])
+        elif option == "Polyline":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolyline in tempConfig.listPolyline:
+                    if (tempPolyline.runFeatureClass == False):
+                        continue
+                    tempPolyline.SetFeatureClassSimplify()
+                    pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplify)
+                    pathFc = "in_memory\\FeatureClassTemp"
+                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
+                                                             out_feature_class = pathFc,
+                                                             point_location = "ALL")
+                    fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
+                    tempPolyline.SetFeatureClassSimplifyAllPoint()
+                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
+                    print pathDissolve
+                    arcpy.Dissolve_management(in_features = pathFc,
+                                              out_feature_class = pathDissolve,
+                                              dissolve_field = [fieldFID])
         pass
 
-    def SimplifyAllPolygon(self):
-        self.outPutSimplify = os.path.join(self.pathProcessGDB, "FeatureClassMerge_Simplify")
-        arcpy.SimplifyPolygon_cartography(in_features = self.outPutMerge,
-                                          out_feature_class = self.outPutSimplify,
+    def SimplifyAllPolyline(self, inFC_SimplifyAllPolyline):
+        outPutSimplify = os.path.join(self.pathProcessGDB, "AllPolyline_Simplify")
+        arcpy.SimplifyLine_cartography(in_features = inFC_SimplifyAllPolyline,
+                                       out_feature_class = outPutSimplify,
+                                       algorithm = "BEND_SIMPLIFY",
+                                       tolerance = "50 Meters",
+                                       collapsed_point_option = "NO_KEEP")
+        return outPutSimplify
+        pass
+
+    def SimplifyAllPolygon(self, inFC_SimplifyAllPolygon):
+        outPutSimplify = os.path.join(self.pathProcessGDB, "AllPolygon_Simplify")
+        arcpy.SimplifyPolygon_cartography(in_features = inFC_SimplifyAllPolygon,
+                                          out_feature_class = outPutSimplify,
                                           algorithm = "BEND_SIMPLIFY",
                                           tolerance = "50 Meters",
                                           error_option = "RESOLVE_ERRORS",
                                           collapsed_point_option = "NO_KEEP")
+        return outPutSimplify
         pass
 
-    def ExportPolygonAfterSimplify(self):
+    def ExportFeatureClassAfterSimplify(self, option, inFC_ExportFC):
         outMergeSimplifyLayer = "outMergeSimplifyLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.outPutSimplify,
+        arcpy.MakeFeatureLayer_management(in_features = inFC_ExportFC,
                                           out_layer = outMergeSimplifyLayer)
-        for tempConfig in self.configTools.listConfig:
-            for tempPolygon in tempConfig.listPolygon:
-                if tempPolygon.runFeatureClass == False:
-                    continue
-                # Create Feature Class
-                pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
-                outPath = os.path.join(self.pathProcessGDB, tempConfig.featureDataSet)
-                outName = tempPolygon.featureClass + "_Simplify"
-                pathFcSimplify = os.path.join(outPath, outName)
-                arcpy.CreateFeatureclass_management(out_path = outPath,
-                                                    out_name = outName,
-                                                    geometry_type = "Polygon",
-                                                    spatial_reference = arcpy.Describe(pathFcOrigin).spatialReference)
-                fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
-                arcpy.AddField_management(pathFcSimplify, fieldFID, fieldType)
-                # Select
-                arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
-                                                        selection_type = "CLEAR_SELECTION")
-                arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
-                                                        selection_type = "NEW_SELECTION",
-                                                        where_clause = fieldFID + " IS NOT NULL")
-                with arcpy.da.SearchCursor(outMergeSimplifyLayer, ["Shape@", fieldFID]) as cursorSearch:
-                    with arcpy.da.InsertCursor(pathFcSimplify, ["Shape@", fieldFID]) as cursorInsert:
-                        for rowSearch in cursorSearch:
-                            cursorInsert.insertRow((rowSearch[0], rowSearch[1]))
+        if option == "Polygon":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolygon in tempConfig.listPolygon:
+                    if tempPolygon.runFeatureClass == False:
+                        continue
+                    # Create Feature Class
+                    tempPolygon.SetFeatureClassSimplify()
+                    pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
+                    outPath = os.path.join(self.pathProcessGDB, tempConfig.featureDataSet)
+                    outName = tempPolygon.featureClassSimplify
+                    pathFcSimplify = os.path.join(outPath, outName)
+                    arcpy.CreateFeatureclass_management(out_path = outPath,
+                                                        out_name = outName,
+                                                        geometry_type = "Polygon",
+                                                        spatial_reference = arcpy.Describe(pathFcOrigin).spatialReference)
+                    fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
+                    arcpy.AddField_management(pathFcSimplify, fieldFID, fieldType)
+                    # Select
+                    arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
+                                                            selection_type = "CLEAR_SELECTION")
+                    arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
+                                                            selection_type = "NEW_SELECTION",
+                                                            where_clause = fieldFID + " IS NOT NULL")
+                    print pathFcSimplify
+                    with arcpy.da.SearchCursor(outMergeSimplifyLayer, ["Shape@", fieldFID]) as cursorSearch:
+                        with arcpy.da.InsertCursor(pathFcSimplify, ["Shape@", fieldFID]) as cursorInsert:
+                            for rowSearch in cursorSearch:
+                                cursorInsert.insertRow((rowSearch[0], rowSearch[1]))
+        elif option == "Polyline":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolyline in tempConfig.listPolyline:
+                    if tempPolyline.runFeatureClass == False:
+                        continue
+                    # Create Feature Class
+                    tempPolyline.SetFeatureClassSimplify()
+                    pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
+                    outPath = os.path.join(self.pathProcessGDB, tempConfig.featureDataSet)
+                    outName = tempPolyline.featureClassSimplify
+                    pathFcSimplify = os.path.join(outPath, outName)
+                    arcpy.CreateFeatureclass_management(out_path = outPath,
+                                                        out_name = outName,
+                                                        geometry_type = "Polyline",
+                                                        spatial_reference = arcpy.Describe(pathFcOrigin).spatialReference)
+                    fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
+                    arcpy.AddField_management(pathFcSimplify, fieldFID, fieldType)
+                    # Select
+                    arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
+                                                            selection_type = "CLEAR_SELECTION")
+                    arcpy.SelectLayerByAttribute_management(in_layer_or_view = outMergeSimplifyLayer,
+                                                            selection_type = "NEW_SELECTION",
+                                                            where_clause = fieldFID + " IS NOT NULL")
+                    print pathFcSimplify
+                    with arcpy.da.SearchCursor(outMergeSimplifyLayer, ["Shape@", fieldFID]) as cursorSearch:
+                        with arcpy.da.InsertCursor(pathFcSimplify, ["Shape@", fieldFID]) as cursorInsert:
+                            for rowSearch in cursorSearch:
+                                cursorInsert.insertRow((rowSearch[0], rowSearch[1]))
         pass
 
-    def MergePolygon(self):
+    def MergeFeatureClass(self, option):
         inFeatureClassMerges = []
-        for tempConfig in self.configTools.listConfig:
-            for tempPolygon in tempConfig.listPolygon:
-                if tempPolygon.runFeatureClass == False:
-                    continue
-                # Add Field FID_XXX For Feature Class
-                pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
-                print pathFc
-                fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
-                arcpy.AddField_management(pathFc, fieldFID, fieldType)
-                # Update Field FID_XXX
-                with arcpy.da.UpdateCursor(pathFc, ['OID@', fieldFID]) as cursor:
-                    for row in cursor:
-                        row[1] = row[0]
-                        cursor.updateRow(row)
-                # Copy FeatureClass to in_memory
-                tempPolygon.SetFeatureClassInMemory()
-                arcpy.CopyFeatures_management(in_features = pathFc, out_feature_class = tempPolygon.featureClassInMemory)
-                # FeatureClassTemp Delete Field Not FID_XXX, OBJECTID, Shape
-                fields = arcpy.ListFields(tempPolygon.featureClassInMemory)
-                fieldsDelete = []
-                for fieldTemp in fields:
-                    if fieldTemp.name != fieldFID and fieldTemp.type != "OID" and fieldTemp.type != "Geometry":
-                        fieldsDelete.append(fieldTemp.name)
-                arcpy.DeleteField_management(in_table = tempPolygon.featureClassInMemory, drop_field = fieldsDelete)
-                # Feature Vertices To Point
-                outPutFVToPoint = "in_memory\\outPutFVToPoint"
-                arcpy.FeatureVerticesToPoints_management(in_features = tempPolygon.featureClassInMemory,
-                                                         out_feature_class = outPutFVToPoint,
-                                                         point_location = "ALL")
-                pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_AllPoint")
-                arcpy.Dissolve_management(in_features = outPutFVToPoint,
-                                          out_feature_class = pathDissolve,
-                                          dissolve_field = [fieldFID])
-                # FeatureClass Delete Field FID_XXX
-                arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
-                # Maker Layer
-                inFeatureClassMerges.append(tempPolygon.featureClassInMemory)
-        # Merge
-        #self.outputMergeLayer = "FeatureClassMergeLayer"
-        #self.outputMerge = "in_memory\\FeatureClassMerge"
-        outputMerge = os.path.join(self.pathProcessGDB, "FeatureClassMerge")
-        arcpy.Merge_management(inputs = inFeatureClassMerges,
-                               output = outputMerge)
-        #arcpy.MakeFeatureLayer_management(in_features = self.outputMerge,
-        #                                  out_layer = self.outputMergeLayer
+        if option == "Polygon":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolygon in tempConfig.listPolygon:
+                    if tempPolygon.runFeatureClass == False:
+                        continue
+                    # Add Field FID_XXX For Feature Class
+                    pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
+                    print pathFc
+                    fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
+                    arcpy.AddField_management(pathFc, fieldFID, fieldType)
+                    # Update Field FID_XXX
+                    with arcpy.da.UpdateCursor(pathFc, ['OID@', fieldFID]) as cursor:
+                        for row in cursor:
+                            row[1] = row[0]
+                            cursor.updateRow(row)
+                    # Copy FeatureClass to in_memory
+                    tempPolygon.SetFeatureClassInMemory()
+                    arcpy.CopyFeatures_management(in_features = pathFc, out_feature_class = tempPolygon.featureClassInMemory)
+                    # FeatureClassTemp Delete Field Not FID_XXX, OBJECTID, Shape
+                    fields = arcpy.ListFields(tempPolygon.featureClassInMemory)
+                    fieldsDelete = []
+                    for fieldTemp in fields:
+                        if fieldTemp.name != fieldFID and fieldTemp.type != "OID" and fieldTemp.type != "Geometry":
+                            fieldsDelete.append(fieldTemp.name)
+                    arcpy.DeleteField_management(in_table = tempPolygon.featureClassInMemory, drop_field = fieldsDelete)
+                    # Feature Vertices To Point
+                    outPutFVToPoint = "in_memory\\outPutFVToPoint"
+                    arcpy.FeatureVerticesToPoints_management(in_features = tempPolygon.featureClassInMemory,
+                                                             out_feature_class = outPutFVToPoint,
+                                                             point_location = "ALL")
+                    tempPolygon.SetFeatureClassAllPoint()
+                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
+                    arcpy.Dissolve_management(in_features = outPutFVToPoint,
+                                              out_feature_class = pathDissolve,
+                                              dissolve_field = [fieldFID])
+                    # FeatureClass Delete Field FID_XXX
+                    arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
+                    # Maker Layer
+                    inFeatureClassMerges.append(tempPolygon.featureClassInMemory)
+            # Merge
+            outputMerge = os.path.join(self.pathProcessGDB, "PolygonMerge")
+            arcpy.Merge_management(inputs = inFeatureClassMerges,
+                                   output = outputMerge)
+        elif option == "Polyline":
+            for tempConfig in self.configTools.listConfig:
+                for tempPolyline in tempConfig.listPolyline:
+                    if tempPolyline.runFeatureClass == False:
+                        continue
+                    # Add Field FID_XXX For Feature Class
+                    pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
+                    print pathFc
+                    fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
+                    arcpy.AddField_management(pathFc, fieldFID, fieldType)
+                    # Update Field FID_XXX
+                    with arcpy.da.UpdateCursor(pathFc, ['OID@', fieldFID]) as cursor:
+                        for row in cursor:
+                            row[1] = row[0]
+                            cursor.updateRow(row)
+                    # Copy FeatureClass to in_memory
+                    tempPolyline.SetFeatureClassInMemory()
+                    arcpy.CopyFeatures_management(in_features = pathFc, out_feature_class = tempPolyline.featureClassInMemory)
+                    # FeatureClassTemp Delete Field Not FID_XXX, OBJECTID, Shape
+                    fields = arcpy.ListFields(tempPolyline.featureClassInMemory)
+                    fieldsDelete = []
+                    for fieldTemp in fields:
+                        if fieldTemp.name != fieldFID and fieldTemp.type != "OID" and fieldTemp.type != "Geometry":
+                            fieldsDelete.append(fieldTemp.name)
+                    arcpy.DeleteField_management(in_table = tempPolyline.featureClassInMemory, drop_field = fieldsDelete)
+                    # Feature Vertices To Point
+                    outPutFVToPoint = "in_memory\\outPutFVToPoint"
+                    arcpy.FeatureVerticesToPoints_management(in_features = tempPolyline.featureClassInMemory,
+                                                             out_feature_class = outPutFVToPoint,
+                                                             point_location = "ALL")
+                    tempPolyline.SetFeatureClassAllPoint()
+                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
+                    arcpy.Dissolve_management(in_features = outPutFVToPoint,
+                                              out_feature_class = pathDissolve,
+                                              dissolve_field = [fieldFID])
+                    # FeatureClass Delete Field FID_XXX
+                    arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
+                    # Maker Layer
+                    inFeatureClassMerges.append(tempPolyline.featureClassInMemory)
+            # Merge
+            outputMerge = os.path.join(self.pathProcessGDB, "PolylineMerge")
+            arcpy.Merge_management(inputs = inFeatureClassMerges,
+                                   output = outputMerge)
         return outputMerge
         pass
 
@@ -187,74 +325,6 @@ class IntegrateAllFeatureClass:
             arrInput.append([item, "2"])
         arcpy.Integrate_management(in_features = arrInput,
                                    cluster_tolerance = "0 Meters")
-        pass
-
-    def GeneralizeSharedFeatures(self):
-        outputMerge = self.MergePolyLine()
-        outputMergeLayer = "outputMergeLayer"
-        arcpy.MakeFeatureLayer_management(in_features = outputMerge,
-                                          out_layer = outputMergeLayer)
-        arrPolygonLayer = self.MakeFeatureLayerPolygon()
-        arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
-                                                  Generalize_Operation = "SIMPLIFY",
-                                                  Simplify_Tolerance = "50 Meters",
-                                                  Topology_Feature_Classes = arrPolygonLayer,
-                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
-        pass
-
-    def MergePolyLine(self):
-        inFeatureClassMerges = []
-        for tempConfig in self.configTools.listConfig:
-            for tempPolyline in tempConfig.listPolyline:
-                if tempPolyline.runFeatureClass == False:
-                    continue
-                # Add Field FID_XXX For Feature Class
-                pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
-                fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
-                arcpy.AddField_management(pathFc, fieldFID, fieldType)
-                # Update Field FID_XXX
-                with arcpy.da.UpdateCursor(pathFc, ['OID@', fieldFID]) as cursor:
-                    for row in cursor:
-                        row[1] = row[0]
-                        cursor.updateRow(row)
-                # Copy FeatureClass to in_memory
-                tempPolyline.SetFeatureClassInMemory()
-                arcpy.CopyFeatures_management(in_features = pathFc, out_feature_class = tempPolyline.featureClassInMemory)
-                # FeatureClassTemp Delete Field Not FID_XXX, OBJECTID, Shape
-                fields = arcpy.ListFields(tempPolyline.featureClassInMemory)
-                fieldsDelete = []
-                for fieldTemp in fields:
-                    if fieldTemp.name != fieldFID and fieldTemp.type != "OID" and fieldTemp.type != "Geometry":
-                        fieldsDelete.append(fieldTemp.name)
-                arcpy.DeleteField_management(in_table = tempPolyline.featureClassInMemory, drop_field = fieldsDelete)
-                # FeatureClass Delete Field FID_XXX
-                arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
-                # Maker Layer
-                inFeatureClassMerges.append(tempPolyline.featureClassInMemory)
-        # Merge
-        #self.outputMergeLayer = "FeatureClassMergeLayer"
-        #self.outputMerge = "in_memory\\FeatureClassMerge"
-        outputMerge = os.path.join(self.pathProcessGDB, "FeatureClassMerge")
-        arcpy.Merge_management(inputs = inFeatureClassMerges,
-                               output = outputMerge)
-        #arcpy.MakeFeatureLayer_management(in_features = self.outputMerge,
-        #                                  out_layer = self.outputMergeLayer
-        return outputMerge
-        pass
-
-    def MakeFeatureLayerPolygon(self):
-        arrPolylineLayer = []
-        for tempConfig in self.configTools.listConfig:
-            for tempPolygon in tempConfig.listPolygon:
-                if tempPolygon.runFeatureClass == False:
-                    continue
-                pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
-                featureLayer = tempPolygon.featureClass + "Layer"
-                print featureLayer
-                arcpy.MakeFeatureLayer_management(in_features = pathFc,
-                                          out_layer = featureLayer)
-                arrPolylineLayer.append(featureLayer)
-        return arrPolylineLayer
         pass
 
     def GetFieldFID(self, featureClass, fieldType):
@@ -351,6 +421,18 @@ class ElemList:
 
     def SetFeatureLayer(self):
         self.featureLayer = self.featureClass + "Layer"
+
+    def SetFeatureClassAllPoint(self):
+        self.featureClassAllPoint = self.featureClass + "_AllPoint"
+
+    def SetFeatureClassSimplify(self):
+        self.featureClassSimplify = self.featureClass + "_Simplify"
+
+    def SetFeatureClassSimplifyAllPoint(self):
+        self.featureClassSimplifyAllPoint = self.featureClass + "_Simplify_AllPoint"
+
+    def SetFeatureClassPointRemove(self):
+        self.featureClassPointRemove = self.featureClass + "_PointRemove"
 
 class RunTime:
 
