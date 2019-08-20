@@ -54,7 +54,7 @@ class RepresentationUpdateRuleID:
                                                                     expression = elemRule["ruleID"],
                                                                     expression_type = "PYTHON_9.3")
                                 #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, elemFeatureClass["nameFeatureClass"], elemRepresentation["nameRepresentation"], child.ruleIDFieldName + " IS NULL"])
-                                break 
+                                break
         pass
 
 class RunTime:

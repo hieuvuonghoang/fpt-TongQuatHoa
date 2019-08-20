@@ -22,17 +22,17 @@ class SimplifyProduction:
         arcpy.env.workspace = self.pathFinalGDB
         arcpy.env.overwriteOutput = True
         #self.ScanFeatureClassIsPolygon()
-        # outputMerge = self.MergePolygon()
-        # outputMergeLayer = "outputMergeLayer"
-        # arcpy.MakeFeatureLayer_management(in_features = outputMerge,
+        outputMerge = self.MergePolygon()
+        outputMergeLayer = "outputMergeLayer"
+        arcpy.MakeFeatureLayer_management(in_features = outputMerge,
                                           # out_layer = outputMergeLayer)
-        # arrPolygonLayer = self.MakeFeatureLayerPolygon()
-        # arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
-                                                  # Generalize_Operation = "SIMPLIFY",
-                                                  # Simplify_Tolerance = "50 Meters",
-                                                  # Topology_Feature_Classes = arrPolylineLayer,
-                                                  # Simplification_Algorithm = "BEND_SIMPLIFY")
-        self.MakeFeatureLayerPolygon()
+        arrPolygonLayer = self.MakeFeatureLayerPolygon()
+        arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
+                                                  Generalize_Operation = "SIMPLIFY",
+                                                  Simplify_Tolerance = "50 Meters",
+                                                  Topology_Feature_Classes = arrPolylineLayer,
+                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
+        # self.MakeFeatureLayerPolygon()
         pass
 
     def MergePolygon(self):

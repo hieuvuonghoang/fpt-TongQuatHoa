@@ -1,0 +1,373 @@
+[
+    {
+        "featureDataSet": "GiaoThong", 
+        "listPolygon": [
+            {
+                "featureClass": "CongGiaoThongA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BenBaiA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CauGiaoThongA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongNoiBoA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "HamGiaoThongA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatDuongBo", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "DoanTimDuongBo_Goc", 
+                "runFeatureClass": false
+            }, 
+            {
+                "featureClass": "HamDiBoL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongCapTreo", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BenBaiL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CauDiBoL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CauGiaoThongL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DoanDuongSat", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DoanTimDuongBo", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DoanVuotSongSuoiL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongNoiBoL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "HamGiaoThongL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "RanhGioiDuongBo", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "TaluyGiaoThong", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CongGiaoThongL", 
+                "runFeatureClass": true
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "DanCuCoSoHaTang", 
+        "listPolygon": [
+            {
+                "featureClass": "DiemDanCuA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "KhuChucNangA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "NhaA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "TramDienA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "TramQuanTracA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CongTrinhKienTrucDacBietA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "TramThuPhatSongA", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "NhaL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongDayTaiDien", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongOngDan", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "RanhGioiTuongRao", 
+                "runFeatureClass": true
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "DiaHinh", 
+        "listPolygon": [
+            {
+                "featureClass": "DiaHinhDacBietA", 
+                "runFeatureClass": false
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "DuongBinhDo_Goc", 
+                "runFeatureClass": false
+            }, 
+            {
+                "featureClass": "NetChiDoc", 
+                "runFeatureClass": false
+            }, 
+            {
+                "featureClass": "DiaHinhDacBietL", 
+                "runFeatureClass": false
+            }, 
+            {
+                "featureClass": "DuongBinhDo", 
+                "runFeatureClass": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "BienGioiDiaGioi", 
+        "listPolygon": [
+            {
+                "featureClass": "DiaPhan", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "VungBien", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "DuongBienGioi", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongCoSoLanhHai", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongDiaGioi", 
+                "runFeatureClass": true
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "QuanSu", 
+        "listPolygon": [
+            {
+                "featureClass": "QuanSuA", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": []
+    }, 
+    {
+        "featureDataSet": "MatNa", 
+        "listPolygon": [
+            {
+                "featureClass": "MatNaDen", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaLo", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaNau", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaCay", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaDiaGioi", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaKhung", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNaDayDien", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNa_DiemDoCao", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "gachtinhchatcau", 
+                "runFeatureClass": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "ThuyHe", 
+        "listPolygon": [
+            {
+                "featureClass": "BaiCanBaiNgamA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BienA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BienDoiDongChayA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DaoA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DapA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DeA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "KenhMuongA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MangDanNuocA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatBoKenhMuongA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MatNuocTinh", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "SongSuoiA", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DamLay", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BaiBoiA", 
+                "runFeatureClass": true
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "RanhGioiBai", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BienDoiDongChayL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "BoKeBoCap", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DapL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DeL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "KenhMuongL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "MangDanNuocL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "SongSuoiL", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "TaluyCongTrinhThuyLoi", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "RanhGioiNuocMatQuyUoc", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongBoNuoc", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "DuongMepNuoc", 
+                "runFeatureClass": true
+            }, 
+            {
+                "featureClass": "CongThuyLoiL", 
+                "runFeatureClass": true
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "PhuBeMat", 
+        "listPolygon": [
+            {
+                "featureClass": "PhuBeMat", 
+                "runFeatureClass": false
+            }
+        ], 
+        "listPolyline": [
+            {
+                "featureClass": "RanhGioiPhuBeMat", 
+                "runFeatureClass": false
+            }
+        ]
+    }
+]
