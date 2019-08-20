@@ -23,14 +23,29 @@ class IntegrateAllFeatureClass:
 
     def Execute(self):
         arcpy.env.overwriteOutput = True
-        #self.ReadFileConfig()
+        self.ReadFileConfig()
         #arrLayerPolygon, arrLayerPolyline = self.MakeFeatureLayer()
         #self.Integrate(arrLayerPolyline, arrLayerPolygon)
         #self.Integrate(arrLayerPolygon, arrLayerPolyline)
         #self.MergePolygon()
         #self.SimplifyAllPolygon()
         #self.ExportPolygonAfterSimplify()
-        self.PolygonToMultiPoint()
+        #self.PolygonToMultiPoint()
+        self.ErasePoint()
+        pass
+
+    def ErasePoint(self):
+        for tempConfig in self.configTools.listConfig:
+            for tempPolygon in tempConfig.listPolygon:
+                if (tempPolygon.runFeatureClass == False):
+                    continue
+                pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_AllPoint")
+                pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_Simplify_AllPoint")
+                pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_PointRemove")
+                arcpy.Erase_analysis(in_features = pathInFeature,
+                                     erase_features = pathEraseFeature,
+                                     out_feature_class = pathOutEraseFeature,
+                                     cluster_tolerance = "0 Meters")
         pass
 
     def PolygonToMultiPoint(self):
@@ -44,7 +59,7 @@ class IntegrateAllFeatureClass:
                                                          out_feature_class = pathFc,
                                                          point_location = "ALL")
                 fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
-                pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_AllPoint")
+                pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_Simplify_AllPoint")
                 arcpy.Dissolve_management(in_features = pathFc,
                                           out_feature_class = pathDissolve,
                                           dissolve_field = [fieldFID])
@@ -117,6 +132,15 @@ class IntegrateAllFeatureClass:
                     if fieldTemp.name != fieldFID and fieldTemp.type != "OID" and fieldTemp.type != "Geometry":
                         fieldsDelete.append(fieldTemp.name)
                 arcpy.DeleteField_management(in_table = tempPolygon.featureClassInMemory, drop_field = fieldsDelete)
+                # Feature Vertices To Point
+                outPutFVToPoint = "in_memory\\outPutFVToPoint"
+                arcpy.FeatureVerticesToPoints_management(in_features = tempPolygon.featureClassInMemory,
+                                                         out_feature_class = outPutFVToPoint,
+                                                         point_location = "ALL")
+                pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass + "_AllPoint")
+                arcpy.Dissolve_management(in_features = outPutFVToPoint,
+                                          out_feature_class = pathDissolve,
+                                          dissolve_field = [fieldFID])
                 # FeatureClass Delete Field FID_XXX
                 arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
                 # Maker Layer
