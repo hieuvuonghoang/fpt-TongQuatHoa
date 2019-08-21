@@ -33,6 +33,7 @@ class IntegrateAllFeatureClass:
         arcpy.env.overwriteOutput = True
 
         ## Integrate
+        #print "# Integrate"
         #arrLayerPolygon, arrLayerPolyline = self.MakeFeatureLayer()
         #self.Integrate(arrLayerPolyline, arrLayerPolygon)
         #self.Integrate(arrLayerPolygon, arrLayerPolyline)
@@ -41,6 +42,7 @@ class IntegrateAllFeatureClass:
         #arcpy.Delete_management(in_data = "in_memory")
 
         ## PolyLine
+        #print "# PolyLine"
         #inFC_SimplifyAllPolyline = self.MergeFeatureClass("Polyline")
         #inFC_ExportFC = self.SimplifyAllPolyline(inFC_SimplifyAllPolyline)
         #self.ExportFeatureClassAfterSimplify("Polyline", inFC_ExportFC)
@@ -51,6 +53,7 @@ class IntegrateAllFeatureClass:
         #arcpy.Delete_management(in_data = "in_memory")
 
         ## Polygon
+        #print "# Polygon"
         #inFC_SimplifyAllPolygon = self.MergeFeatureClass("Polygon")
         #inFC_ExportFC = self.SimplifyAllPolygon(inFC_SimplifyAllPolygon)
         #self.ExportFeatureClassAfterSimplify("Polygon", inFC_ExportFC)
@@ -59,10 +62,12 @@ class IntegrateAllFeatureClass:
 
         ## Clean InMemory
         #arcpy.Delete_management(in_data = "in_memory")
-        self.CreateFeaturePointRemoveOne()
+
+        # CreateFeaturePointRemoveOne
+        self.ProcessFeatureClassPointRemove()
         pass
 
-    def CreateFeaturePointRemoveOne(self):
+    def ProcessFeatureClassPointRemove(self):
         for elemConfigTopo in self.configTopoTools.listConfig:
             featureDataSetPolyLine = elemConfigTopo.featureDataSet
             for elemPolyline in elemConfigTopo.listPolyline:
@@ -72,35 +77,42 @@ class IntegrateAllFeatureClass:
                     for elemPolygon in elemPolygonTopo.listPolygon:
                         featureClassPolygon = FeatureClass(elemPolygon.featureClass)
                         if elemPolygon.processTopo == True:
-                            self.CreateFeaturePointRemoveOneSub(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine)
+                            self.ProcessFeatureClassPointRemoveSubOne(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine)
+                            self.ProcessFeatureClassPointRemoveSubTwo(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine)
                             pass
         pass
 
-    def CreateFeaturePointRemoveOneSub(self, featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine):
+    # Xu ly nhung Point ma PolyLine da Remove, nhung de du quan he Topo voi Polygon thi nhung Point do can duoc giu lai
+    def ProcessFeatureClassPointRemoveSubOne(self, featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine):
         # Make Feature Layer
         featureClassPolygon.SetFeatureClassSimplify()
         inFCPolygonSimplify = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolygon, featureClassPolygon.featureClassSimplify))
         inFCPolygonSimplifyLayer = "inFCPolygonSimplifyLayer"
+        print inFCPolygonSimplify
         arcpy.MakeFeatureLayer_management(in_features = inFCPolygonSimplify,
                                           out_layer = inFCPolygonSimplifyLayer)
         featureClassPolyLine.SetFeatureClassPointRemove()
         inFCPolylinePointRemove = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassPointRemove))
         inFCPolylinePointRemoveLayer = "inFCPolylinePointRemoveLayer"
+        print inFCPolylinePointRemove
         arcpy.MakeFeatureLayer_management(in_features = inFCPolylinePointRemove,
                                           out_layer = inFCPolylinePointRemoveLayer)
         # Polygon To Polyline
         outFCPolygonToPolyline = "in_memory\\outFCPolygonToPolyline"
-        arcpy.PolygonToLine_management(in_features = inFCPolygonSimplifyLayer,
-                                       out_feature_class = outFCPolygonToPolyline)
+        arcpy.FeatureToLine_management(in_features = inFCPolygonSimplifyLayer,
+                                       out_feature_class = outFCPolygonToPolyline,
+                                       cluster_tolerance = "0.00000 Meters")
+        #arcpy.PolygonToLine_management(in_features = inFCPolygonSimplifyLayer,
+        #                               out_feature_class = outFCPolygonToPolyline)
         # Make Feature Layer
         outFCPolygonToPolylineLayer = "outFCPolygonToPolylineLayer"
         arcpy.MakeFeatureLayer_management(in_features = outFCPolygonToPolyline,
                                           out_layer = outFCPolygonToPolylineLayer)
         # Select By Location
         arcpy.SelectLayerByLocation_management(in_layer = inFCPolylinePointRemoveLayer,
-                                               overlap_type = "WITHIN",
+                                               overlap_type = "INTERSECT",
                                                select_features = outFCPolygonToPolylineLayer,
-                                               search_distance = "0 Meters",
+                                               search_distance = "0.00000 Meters",
                                                selection_type = "NEW_SELECTION")
         # Copy Feature Class
         outFCCopy = "in_memory\\outFCCopy"
@@ -108,10 +120,67 @@ class IntegrateAllFeatureClass:
                                       out_feature_class = outFCCopy)
         # Erase
         featureClassPolyLine.SetFeatureClassPointRemoveOne()
-        outErase = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassPointRemoveOne))
+        outErase = "in_memory\\outErase"
+        #outErase = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassPointRemoveOne))
         arcpy.Erase_analysis(in_features = inFCPolylinePointRemove,
                              erase_features = outFCCopy,
                              out_feature_class = outErase)
+        # Copy Override
+        arcpy.CopyFeatures_management(in_features = outErase,
+                                      out_feature_class = inFCPolylinePointRemove)
+        # Clean InMemory
+        arcpy.Delete_management("in_memory")
+        pass
+
+    # Xu ly nhung Point ma Polyline da khong Remove, nhung de du quan he Topo voi Polygon thi nhung Point do can duoc Remove
+    def ProcessFeatureClassPointRemoveSubTwo(self, featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine):
+        # Make Feature Layer
+        featureClassPolyLine.SetFeatureClassSimplify()
+        inFCPolylineSimplify = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassSimplify))
+        inFCPolylineSimplifyLayer = "inFCPolylineSimplifyLayer"
+        print inFCPolylineSimplify
+        arcpy.MakeFeatureLayer_management(in_features = inFCPolylineSimplify,
+                                          out_layer = inFCPolylineSimplifyLayer)
+        featureClassPolygon.SetFeatureClassPointRemove()
+        inFCPolygonPointRemove = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolygon, featureClassPolygon.featureClassPointRemove))
+        inFCPolygonPointRemoveLayer = "inFCPolygonPointRemoveLayer"
+        print inFCPolygonPointRemove
+        arcpy.MakeFeatureLayer_management(in_features = inFCPolygonPointRemove,
+                                          out_layer = inFCPolygonPointRemoveLayer)
+        # Select By Location
+        arcpy.SelectLayerByLocation_management(in_layer = inFCPolygonPointRemoveLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = inFCPolylineSimplifyLayer,
+                                               search_distance = "0.00000 Meters",
+                                               selection_type = "NEW_SELECTION")
+        # Copy Feature Class
+        outFCCopy = "in_memory\\outFCCopy"
+        arcpy.CopyFeatures_management(in_features = inFCPolygonPointRemoveLayer,
+                                      out_feature_class = outFCCopy)
+        # Make Feature Layer
+        outFCCopyLayer = "outFCCopyLayer"
+        arcpy.MakeFeatureLayer_management(in_features = outFCCopy,
+                                          out_layer = outFCCopyLayer)
+        featureClassPolyLine.SetFeatureClassSimplifyAllPoint()
+        inFCPolylineSimplifyAllPoint = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassSimplifyAllPoint))
+        inFCPolylineSimplifyAllPointLayer = "inFCPolylineSimplifyAllPointLayer"
+        print inFCPolylineSimplifyAllPoint
+        arcpy.MakeFeatureLayer_management(in_features = inFCPolylineSimplifyAllPoint,
+                                          out_layer = inFCPolylineSimplifyAllPointLayer)
+        # Select Feature
+        arcpy.SelectLayerByLocation_management(in_layer = inFCPolylineSimplifyAllPointLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = outFCCopyLayer,
+                                               search_distance = "0.00000 Meters",
+                                               selection_type = "NEW_SELECTION")
+        # Insert Cursor
+        fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
+        featureClassPolyLine.SetFeatureClassPointRemove()
+        inFCPolylineSimplifyPointRemove = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassPointRemove))
+        with arcpy.da.SearchCursor(inFCPolylineSimplifyAllPointLayer, ["Shape@", fieldName]) as cursorA:
+            with arcpy.da.InsertCursor(inFCPolylineSimplifyPointRemove, ["Shape@", fieldName]) as cursorB:
+                for rowA in cursorA:
+                    cursorB.insertRow((rowA[0], rowA[1]))
         # Clean InMemory
         arcpy.Delete_management("in_memory")
         pass
@@ -132,7 +201,7 @@ class IntegrateAllFeatureClass:
                     arcpy.Erase_analysis(in_features = pathInFeature,
                                          erase_features = pathEraseFeature,
                                          out_feature_class = pathOutEraseFeature,
-                                         cluster_tolerance = "0 Meters")
+                                         cluster_tolerance = "0.00000 Meters")
         elif option == "Polyline":
             for tempConfig in self.configTools.listConfig:
                 for tempPolyline in tempConfig.listPolyline:
@@ -148,7 +217,7 @@ class IntegrateAllFeatureClass:
                     arcpy.Erase_analysis(in_features = pathInFeature,
                                          erase_features = pathEraseFeature,
                                          out_feature_class = pathOutEraseFeature,
-                                         cluster_tolerance = "0 Meters")
+                                         cluster_tolerance = "0.00000 Meters")
         pass
 
     def FeatureClassSimplifyToMultiPoint(self, option):
@@ -159,17 +228,18 @@ class IntegrateAllFeatureClass:
                         continue
                     tempPolygon.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplify)
-                    pathFc = "in_memory\\FeatureClassTemp"
-                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
-                                                             out_feature_class = pathFc,
-                                                             point_location = "ALL")
-                    fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
                     tempPolygon.SetFeatureClassSimplifyAllPoint()
-                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
-                    print pathDissolve
-                    arcpy.Dissolve_management(in_features = pathFc,
-                                              out_feature_class = pathDissolve,
-                                              dissolve_field = [fieldFID])
+                    pathOutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
+                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
+                                                             out_feature_class = pathOutFVToPoint,
+                                                             point_location = "ALL")
+                    #fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
+                    #tempPolygon.SetFeatureClassSimplifyAllPoint()
+                    #pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
+                    #print pathDissolve
+                    #arcpy.Dissolve_management(in_features = pathFc,
+                    #                          out_feature_class = pathDissolve,
+                    #                          dissolve_field = [fieldFID])
         elif option == "Polyline":
             for tempConfig in self.configTools.listConfig:
                 for tempPolyline in tempConfig.listPolyline:
@@ -177,17 +247,18 @@ class IntegrateAllFeatureClass:
                         continue
                     tempPolyline.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplify)
-                    pathFc = "in_memory\\FeatureClassTemp"
-                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
-                                                             out_feature_class = pathFc,
-                                                             point_location = "ALL")
-                    fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
                     tempPolyline.SetFeatureClassSimplifyAllPoint()
-                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
-                    print pathDissolve
-                    arcpy.Dissolve_management(in_features = pathFc,
-                                              out_feature_class = pathDissolve,
-                                              dissolve_field = [fieldFID])
+                    pathOutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
+                    arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
+                                                             out_feature_class = pathOutFVToPoint,
+                                                             point_location = "ALL")
+                    #fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
+                    #tempPolyline.SetFeatureClassSimplifyAllPoint()
+                    #pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
+                    #print pathDissolve
+                    #arcpy.Dissolve_management(in_features = pathFc,
+                    #                          out_feature_class = pathDissolve,
+                    #                          dissolve_field = [fieldFID])
         pass
 
     def SimplifyAllPolyline(self, inFC_SimplifyAllPolyline):
@@ -301,15 +372,16 @@ class IntegrateAllFeatureClass:
                             fieldsDelete.append(fieldTemp.name)
                     arcpy.DeleteField_management(in_table = tempPolygon.featureClassInMemory, drop_field = fieldsDelete)
                     # Feature Vertices To Point
-                    outPutFVToPoint = "in_memory\\outPutFVToPoint"
+                    tempPolygon.SetFeatureClassAllPoint()
+                    outPutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
                     arcpy.FeatureVerticesToPoints_management(in_features = tempPolygon.featureClassInMemory,
                                                              out_feature_class = outPutFVToPoint,
                                                              point_location = "ALL")
-                    tempPolygon.SetFeatureClassAllPoint()
-                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
-                    arcpy.Dissolve_management(in_features = outPutFVToPoint,
-                                              out_feature_class = pathDissolve,
-                                              dissolve_field = [fieldFID])
+                    #tempPolygon.SetFeatureClassAllPoint()
+                    #pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
+                    #arcpy.Dissolve_management(in_features = outPutFVToPoint,
+                    #                          out_feature_class = pathDissolve,
+                    #                          dissolve_field = [fieldFID])
                     # FeatureClass Delete Field FID_XXX
                     arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
                     # Maker Layer
@@ -344,15 +416,16 @@ class IntegrateAllFeatureClass:
                             fieldsDelete.append(fieldTemp.name)
                     arcpy.DeleteField_management(in_table = tempPolyline.featureClassInMemory, drop_field = fieldsDelete)
                     # Feature Vertices To Point
-                    outPutFVToPoint = "in_memory\\outPutFVToPoint"
+                    tempPolyline.SetFeatureClassAllPoint()
+                    outPutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
                     arcpy.FeatureVerticesToPoints_management(in_features = tempPolyline.featureClassInMemory,
                                                              out_feature_class = outPutFVToPoint,
                                                              point_location = "ALL")
-                    tempPolyline.SetFeatureClassAllPoint()
-                    pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
-                    arcpy.Dissolve_management(in_features = outPutFVToPoint,
-                                              out_feature_class = pathDissolve,
-                                              dissolve_field = [fieldFID])
+                    #tempPolyline.SetFeatureClassAllPoint()
+                    #pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
+                    #arcpy.Dissolve_management(in_features = outPutFVToPoint,
+                    #                          out_feature_class = pathDissolve,
+                    #                          dissolve_field = [fieldFID])
                     # FeatureClass Delete Field FID_XXX
                     arcpy.DeleteField_management(in_table = pathFc, drop_field = fieldFID)
                     # Maker Layer
@@ -394,11 +467,15 @@ class IntegrateAllFeatureClass:
         for item in arrTwo:
             arrInput.append([item, "2"])
         arcpy.Integrate_management(in_features = arrInput,
-                                   cluster_tolerance = "0 Meters")
+                                   cluster_tolerance = "0.00000 Meters")
         pass
 
     def GetFieldFID(self, featureClass, fieldType):
         return "FID_" + featureClass, fieldType
+        pass
+
+    def GetFieldFID(self, featureClass):
+        return "FID_" + featureClass
         pass
 
     def CreateFileConfigTopo(self):
