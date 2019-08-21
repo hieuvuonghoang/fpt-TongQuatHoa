@@ -63,7 +63,7 @@ class IntegrateAllFeatureClass:
         ## Clean InMemory
         #arcpy.Delete_management(in_data = "in_memory")
 
-        # CreateFeaturePointRemoveOne
+        ## CreateFeaturePointRemoveOne
         #print "# CreateFeaturePointRemoveOne"
         #self.ProcessFeatureClassPointRemove()
         pathFc = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove")
