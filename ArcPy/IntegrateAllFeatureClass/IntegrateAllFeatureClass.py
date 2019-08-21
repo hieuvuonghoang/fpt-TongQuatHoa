@@ -64,7 +64,14 @@ class IntegrateAllFeatureClass:
         #arcpy.Delete_management(in_data = "in_memory")
 
         # CreateFeaturePointRemoveOne
-        self.ProcessFeatureClassPointRemove()
+        #print "# CreateFeaturePointRemoveOne"
+        #self.ProcessFeatureClassPointRemove()
+        pathFc = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove")
+        pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove_Dissolve")
+        print pathDissolve
+        arcpy.Dissolve_management(in_features = pathFc,
+                                  out_feature_class = pathDissolve,
+                                  dissolve_field = ["FID_DuongBoNuoc"])
         pass
 
     def ProcessFeatureClassPointRemove(self):
@@ -164,7 +171,6 @@ class IntegrateAllFeatureClass:
         featureClassPolyLine.SetFeatureClassSimplifyAllPoint()
         inFCPolylineSimplifyAllPoint = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassSimplifyAllPoint))
         inFCPolylineSimplifyAllPointLayer = "inFCPolylineSimplifyAllPointLayer"
-        print inFCPolylineSimplifyAllPoint
         arcpy.MakeFeatureLayer_management(in_features = inFCPolylineSimplifyAllPoint,
                                           out_layer = inFCPolylineSimplifyAllPointLayer)
         # Select Feature
@@ -174,7 +180,7 @@ class IntegrateAllFeatureClass:
                                                search_distance = "0.00000 Meters",
                                                selection_type = "NEW_SELECTION")
         # Insert Cursor
-        fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
+        fieldName, fieldType = self.GetFieldFID(featureClassPolyLine.featureClass, "")
         featureClassPolyLine.SetFeatureClassPointRemove()
         inFCPolylineSimplifyPointRemove = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassPointRemove))
         with arcpy.da.SearchCursor(inFCPolylineSimplifyAllPointLayer, ["Shape@", fieldName]) as cursorA:
@@ -472,10 +478,6 @@ class IntegrateAllFeatureClass:
 
     def GetFieldFID(self, featureClass, fieldType):
         return "FID_" + featureClass, fieldType
-        pass
-
-    def GetFieldFID(self, featureClass):
-        return "FID_" + featureClass
         pass
 
     def CreateFileConfigTopo(self):
