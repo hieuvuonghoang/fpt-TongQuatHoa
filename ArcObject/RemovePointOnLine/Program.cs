@@ -18,50 +18,47 @@ namespace RemovePointOnLine
             //ESRI License Initializer generated code.
             m_AOLicenseInitializer.InitializeApplication(new esriLicenseProductCode[] { esriLicenseProductCode.esriLicenseProductCodeBasic, esriLicenseProductCode.esriLicenseProductCodeStandard, esriLicenseProductCode.esriLicenseProductCodeAdvanced },
             new esriLicenseExtensionCode[] { });
-            Console.WriteLine("{0}, {1}, {2}, {3}, {4}", args[0], args[1], args[2], args[3], args[4]);
-            Run(args[0], args[1], args[2], args[3], args[4]);
+            Execute(@"C:\Generalize_25_50\50K_Process.gdb", "DuongBoNuoc_PointRemove_Dissolve");
             //Run(@"C:\Generalize_25_50\50K_Final.gdb", "RanhGioiPhuBeMat", "", @"C:\Generalize_25_50\50K_Process.gdb", "RanhGioiPhuBeMatPointRemove");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
             m_AOLicenseInitializer.ShutdownApplication();
         }
-        private static void Run(string pathFinalGDB, string fCLineName, string whereClause, string pathProcessGDB, string fCPointRemoveName)
+        private static void Execute(string pathGDB, string fCClassName)
         {
-            IWorkspaceFactory iWorkspaceFactory = new FileGDBWorkspaceFactoryClass();
-            IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathFinalGDB, 0);
-            IFeatureWorkspace iFeatureWorkspace = iWorkspace as IFeatureWorkspace;
-            IFeatureClass featureClassLine = iFeatureWorkspace.OpenFeatureClass(fCLineName);
-            IFeatureClass featureClassPointRemove = GetFeatureClassPointRemove(pathProcessGDB, fCPointRemoveName);
+            //
+            IFeatureClass featureClass = GetFeatureClass(pathGDB, fCClassName);
             IQueryFilter iQueryFilter = new QueryFilter();
-            iQueryFilter.WhereClause = whereClause;
-            IFeatureCursor iFeatureCursor = featureClassLine.Search(iQueryFilter, true);
+            iQueryFilter.WhereClause = "";
+            IFeatureCursor iFeatureCursor = featureClass.Search(iQueryFilter, true);
+            int fIDField = iFeatureCursor.FindField("FID_DuongBoNuoc");
             IFeature iFeature = null;
+            //
+            IFeatureClass fCDuongBoNuoc = GetFeatureClass(pathGDB, "DuongBoNuoc");
+            IFeatureCursor iFeatureCursorDBN = fCDuongBoNuoc.Search(iQueryFilter, true);
+            IFeature iFeatureDBN = null;
             while ((iFeature = iFeatureCursor.NextFeature()) != null)
             {
-                IPointCollection pointCollection = iFeature.Shape as IPointCollection;
-                string querySQL = "ORIG_FID = " + iFeature.OID.ToString();
-                iQueryFilter.WhereClause = querySQL;
-                IFeatureCursor iFeatureCursorPointRemove = featureClassPointRemove.Search(iQueryFilter, true);
-                IFeature iFeaturePointRemve = null;
-                while ((iFeaturePointRemve = iFeatureCursorPointRemove.NextFeature()) != null)
+                IPointCollection pointCollectionRemove = iFeature.Shape as IPointCollection;
+                //Console.WriteLine("{0}", pointCollection.PointCount);
+                while ((iFeatureDBN = iFeatureCursorDBN.NextFeature()) != null)
                 {
-                    IPoint pointTemp = iFeaturePointRemve.Shape as IPoint;
-                    for (int index = 0; index < pointCollection.PointCount; index++)
+                    int test = int.Parse(string.Format("{0}", iFeature.Value[fIDField]));
+                    if (test == iFeatureDBN.OID)
                     {
-                        if (pointCollection.Point[index].X == pointTemp.X && pointCollection.Point[index].Y == pointTemp.Y)
-                        {
-                            pointCollection.RemovePoints(index, 1);
-                            break;
-                        }
+                        IPointCollection pointCollection = iFeatureDBN.Shape as IPointCollection;
+
+                        break;
                     }
-                }
-                iFeature.Store();
+                } 
+                //Console.WriteLine("{0}", iFeature.Value[fIDField]);
+                
             }
         }
-        private static IFeatureClass GetFeatureClassPointRemove(string pathProcessGDB, string featureClassName)
+        private static IFeatureClass GetFeatureClass(string pathGDB, string featureClassName)
         {
             IWorkspaceFactory iWorkspaceFactory = new FileGDBWorkspaceFactoryClass();
-            IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathProcessGDB, 0);
+            IWorkspace iWorkspace = iWorkspaceFactory.OpenFromFile(pathGDB, 0);
             IFeatureWorkspace iFeatureWorkspace = iWorkspace as IFeatureWorkspace;
             IFeatureClass featureClassPointRemove = iFeatureWorkspace.OpenFeatureClass(featureClassName);
             return featureClassPointRemove;
