@@ -65,7 +65,7 @@ class IntegrateAllFeatureClass:
 
         ## CreateFeaturePointRemoveOne
         #print "# CreateFeaturePointRemoveOne"
-        #self.ProcessFeatureClassPointRemove()
+        self.ProcessFeatureClassPointRemove()
         pathFc = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove")
         pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove_Dissolve")
         print pathDissolve

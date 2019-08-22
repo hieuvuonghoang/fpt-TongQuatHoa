@@ -27,8 +27,11 @@ namespace RemovePointOnLine
         private static void Execute()
         {
             string pathGDB = @"C:\Generalize_25_50\50K_Process.gdb";
-            IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DuongBoNuoc_PointRemove_Dissolve");
-            IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DuongBoNuoc");
+            //IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DuongBoNuoc_PointRemove_Dissolve");
+            //IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DuongBoNuoc");
+            //RemovePointOnLine(fCPointRemove, fCPolyline);
+            IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DuongMepNuoc_PointRemove_Dissolve");
+            IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DuongMepNuoc");
             RemovePointOnLine(fCPointRemove, fCPolyline);
         }
         private static void RemovePointOnLine(IFeatureClass fCPointRemove, IFeatureClass fCPolyline)
@@ -37,7 +40,8 @@ namespace RemovePointOnLine
             IFeature iFeaturePointRemove = null;
             IFeatureCursor iFeatureCursorPolyline = fCPolyline.Search(new QueryFilter() { WhereClause = "" }, true);
             IFeature iFeaturePolyline = null;
-            string strFID = "FID_DuongBoNuoc";
+            //string strFID = "FID_DuongBoNuoc";
+            string strFID = "FID_DuongMepNuoc";
             int indexFID = iFeatureCursorPointRemove.FindField(strFID);
             while (((iFeaturePointRemove = iFeatureCursorPointRemove.NextFeature()) != null))
             {
@@ -52,53 +56,61 @@ namespace RemovePointOnLine
                         int iPointCollPolylineCount = iPointCollPolyline.PointCount;
                         bool isRing = false;
                         if ((iPointCollPolyline.Point[0].X == iPointCollPolyline.Point[iPointCollPolylineCount - 1].X) && (iPointCollPolyline.Point[0].Y == iPointCollPolyline.Point[iPointCollPolylineCount - 1].Y))
-                        {
                             isRing = true;
-                        }
-                        bool isRemoveFromPoint = false;
-                        for (int indexPolyline = 0; indexPolyline < iPointCollPolylineCount; indexPolyline++)
+                        int countRemove = 0;
+                        if (isRing)
                         {
-                            if (iPointCollPointRemove.PointCount == 0)
+                            for (int indexPolyline = 0; indexPolyline < iPointCollPolylineCount; indexPolyline++)
                             {
-                                break;
-                            }
-                            IPoint iPointPolyline = iPointCollPolyline.Point[indexPolyline];
-                            for (int indexPointRemove = 0; indexPointRemove < iPointCollPointRemove.PointCount; indexPointRemove++)
-                            {
-                                IPoint iPointPointRemove = iPointCollPointRemove.Point[indexPointRemove];
-                                if ((iPointPolyline.X == iPointPointRemove.X) && (iPointPolyline.Y == iPointPointRemove.Y))
-                                {
-                                    if (indexPolyline == 0)
-                                    {
-                                        isRemoveFromPoint = true;
-                                    }
-                                    if ((indexPolyline != 0) && (indexPolyline != iPointCollPolylineCount))
-                                    {
-                                        iPointCollPointRemove.RemovePoints(indexPointRemove, 1);
-                                    }
-                                    indexRemove.Add(indexPolyline);
+                                if (iPointCollPointRemove.PointCount == 0)
                                     break;
+                                IPoint iPointPolyline = iPointCollPolyline.Point[indexPolyline];
+                                for (int indexPointRemove = 0; indexPointRemove < iPointCollPointRemove.PointCount; indexPointRemove++)
+                                {
+                                    IPoint iPointPointRemove = iPointCollPointRemove.Point[indexPointRemove];
+                                    if ((iPointPolyline.X == iPointPointRemove.X) && (iPointPolyline.Y == iPointPointRemove.Y))
+                                    {
+                                        if (indexPolyline != 0)
+                                            iPointCollPointRemove.RemovePoints(indexPointRemove, 1);
+                                        indexRemove.Add(indexPolyline);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        int countRemove = 0;
-                        if (isRing && isRemoveFromPoint)
-                        {
                             foreach (int index in indexRemove)
                             {
                                 if (index == iPointCollPolylineCount - 1)
                                 {
+                                    iPointCollPolyline.UpdatePoint(iPointCollPolyline.PointCount - 1, iPointCollPolyline.Point[0]);
                                     continue;
                                 }
                                 iPointCollPolyline.RemovePoints(index - countRemove, 1);
                                 countRemove++;
                             }
-                            iPointCollPolyline.UpdatePoint(iPointCollPolyline.PointCount - 1, iPointCollPolyline.Point[0]);
                         }
                         else
                         {
+                            for (int indexPolyline = 0; indexPolyline < iPointCollPolylineCount; indexPolyline++)
+                            {
+                                if (iPointCollPointRemove.PointCount == 0)
+                                    break;
+                                IPoint iPointPolyline = iPointCollPolyline.Point[indexPolyline];
+                                for (int indexPointRemove = 0; indexPointRemove < iPointCollPointRemove.PointCount; indexPointRemove++)
+                                {
+                                    IPoint iPointPointRemove = iPointCollPointRemove.Point[indexPointRemove];
+                                    if ((iPointPolyline.X == iPointPointRemove.X) && (iPointPolyline.Y == iPointPointRemove.Y))
+                                    {
+                                        if ((indexPolyline != 0) && (indexPolyline != iPointCollPolylineCount - 1))
+                                            iPointCollPointRemove.RemovePoints(indexPointRemove, 1);
+                                        indexRemove.Add(indexPolyline);
+                                        break;
+                                    }
+                                }
+                            }
                             foreach (int index in indexRemove)
                             {
+                                if ((index == 0) || (index == iPointCollPolylineCount - 1))
+                                    continue;
                                 iPointCollPolyline.RemovePoints(index - countRemove, 1);
                                 countRemove++;
                             }
