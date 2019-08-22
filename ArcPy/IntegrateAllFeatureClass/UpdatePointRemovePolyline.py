@@ -31,24 +31,28 @@ class UpdatePointRemovePolyline:
             featureDataSetPolyLine = elemConfigTopo.featureDataSet
             for elemPolyline in elemConfigTopo.listPolyline:
                 featureClassPolyLine = FeatureClass(elemPolyline.featureClass)
+                featureClassPolyLine.SetFeatureClassPointRemove()
+                inPathFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemove)
+                if not arcpy.Exists(inPathFC):
+                    continue
+                if int(arcpy.GetCount_management(inPathFC).getOutput(0)) == 0:
+                    continue
+                fCTemp = "in_memory\\fCTemp"
+                arcpy.CopyFeatures_management(in_features = inPathFC,
+                                              out_feature_class = fCTemp)
                 for elemPolygonTopo in elemPolyline.polygonTopos:
                     featureDataSetPolygon = elemPolygonTopo.featureDataSet
                     for elemPolygon in elemPolygonTopo.listPolygon:
                         featureClassPolygon = FeatureClass(elemPolygon.featureClass)
                         if elemPolygon.processTopo == True:
-                            featureClassPolyLine.SetFeatureClassPointRemove()
-                            inPathFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemove)
-                            fCTemp = "in_memory\\fCTemp"
-                            arcpy.CopyFeatures_management(in_features = inPathFC,
-                                                          out_feature_class = fCTemp)
                             self.ProcessFeatureClassPointRemoveSubOne(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine, fCTemp)
                             self.ProcessFeatureClassPointRemoveSubTwo(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine, fCTemp)
-                            featureClassPolyLine.SetFeatureClassPointRemoveDissolve()
-                            outputDissolve = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemoveDissolve)
-                            fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
-                            self.Dissolve(fCTemp, outputDissolve, fieldName)
-                            arcpy.Delete_management("in_memory")
                             pass
+                featureClassPolyLine.SetFeatureClassPointRemoveDissolve()
+                outputDissolve = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemoveDissolve)
+                fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
+                self.Dissolve(fCTemp, outputDissolve, fieldName)
+                arcpy.Delete_management("in_memory")
         pass
 
     def Dissolve(self, fCTemp, outputDissolve, dissolveField):
@@ -95,7 +99,7 @@ class UpdatePointRemovePolyline:
                                       out_feature_class = outFCCopy)
         # Erase
         outErase = "in_memory\\outErase"
-        arcpy.Erase_analysis(in_features = inFCPolylinePointRemove,
+        arcpy.Erase_analysis(in_features = fCTemp,
                              erase_features = outFCCopy,
                              out_feature_class = outErase)
         # Copy Override
@@ -109,13 +113,11 @@ class UpdatePointRemovePolyline:
         featureClassPolyLine.SetFeatureClassSimplify()
         inFCPolylineSimplify = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolyLine, featureClassPolyLine.featureClassSimplify))
         inFCPolylineSimplifyLayer = "inFCPolylineSimplifyLayer"
-        #print inFCPolylineSimplify
         arcpy.MakeFeatureLayer_management(in_features = inFCPolylineSimplify,
                                           out_layer = inFCPolylineSimplifyLayer)
         featureClassPolygon.SetFeatureClassPointRemove()
         inFCPolygonPointRemove = os.path.join(self.pathProcessGDB, os.path.join(featureDataSetPolygon, featureClassPolygon.featureClassPointRemove))
         inFCPolygonPointRemoveLayer = "inFCPolygonPointRemoveLayer"
-        #print inFCPolygonPointRemove
         arcpy.MakeFeatureLayer_management(in_features = inFCPolygonPointRemove,
                                           out_layer = inFCPolygonPointRemoveLayer)
         # Select By Location
