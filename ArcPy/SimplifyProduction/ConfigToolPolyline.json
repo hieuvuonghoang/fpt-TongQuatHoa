@@ -181,7 +181,7 @@
    }, 
    {
     "featureClass": "SongSuoiL", 
-    "runSimplify": false
+    "runSimplify": true
    }
   ]
  }, 

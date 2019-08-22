@@ -19,23 +19,23 @@ class SimplifyProduction:
         pass
 
     def Execute(self):
-        arcpy.env.workspace = self.pathFinalGDB
+        #arcpy.env.workspace = self.pathFinalGDB
         arcpy.env.overwriteOutput = True
-        #self.ScanFeatureClassIsPolygon()
         outputMerge = self.MergePolygon()
-        outputMergeLayer = "outputMergeLayer"
-        arcpy.MakeFeatureLayer_management(in_features = outputMerge,
+        arcpy.Delete_management("in_memory")
+        # outputMergeLayer = "outputMergeLayer"
+        # arcpy.MakeFeatureLayer_management(in_features = outputMerge,
                                           # out_layer = outputMergeLayer)
-        arrPolygonLayer = self.MakeFeatureLayerPolygon()
-        arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMergeLayer,
+        arrPolyline = self.ArrPolyline()
+        arcpy.GeneralizeSharedFeatures_production(Input_Features = outputMerge,
                                                   Generalize_Operation = "SIMPLIFY",
                                                   Simplify_Tolerance = "50 Meters",
-                                                  Topology_Feature_Classes = arrPolylineLayer,
+                                                  Topology_Feature_Classes = arrPolyline,
                                                   Simplification_Algorithm = "BEND_SIMPLIFY")
-        # self.MakeFeatureLayerPolygon()
         pass
 
     def MergePolygon(self):
+        print "# Merge Polygon"
         configTools = ConfigTools()
         configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolygon))
         inFeatureClassMerges = []
@@ -46,7 +46,8 @@ class SimplifyProduction:
                 if featureClassTemp.runSimplify == False:
                     continue
                 # Add Field FID_XXX For Feature Class
-                pathFc = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass)
+                pathFc = os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass)
+                print "   # {0}".format(pathFc)
                 fieldFID, fieldType = self.GetFieldFID(featureClassTemp.featureClass, "LONG")
                 arcpy.AddField_management(pathFc, fieldFID, fieldType)
                 # Update Field FID_XXX
@@ -73,15 +74,13 @@ class SimplifyProduction:
         arcpy.Merge_management(inputs = inFeatureClassMerges,
                                output = outputMerge)
         return outputMerge
-        #outputMergeLayer = "outputMergeLayer"
-        #arcpy.MakeFeatureLayer_management(in_features = outputMerge,
-        #                                  out_layer = outputMergeLayer)
         pass
 
-    def MakeFeatureLayerPolygon(self):
+    def ArrPolyline(self):
+        print "# Make FeatureLayer Polyline"
         configTools = ConfigTools()
-        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolygon))
-        arrPolylineLayer = []
+        configTools.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolyline))
+        arrPolyline = []
         for featureDataSetTemp in configTools.listConfig:
             if len(featureDataSetTemp.listPolygon) == 0:
                 continue
@@ -90,19 +89,12 @@ class SimplifyProduction:
                     continue
                 # Add Field FID_XXX For Feature Class
                 pathFc = os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass)
-                featureLayer = featureClassTemp.featureClass + "Layer"
-                arcpy.MakeFeatureLayer_management(in_features = pathFc,
-                                          out_layer = featureLayer)
-                arcpy.GeneralizeSharedFeatures_production(Input_Features = featureLayer,
-                                                  Generalize_Operation = "SIMPLIFY",
-                                                  Simplify_Tolerance = "50 Meters",
-                                                  Topology_Feature_Classes = [],
-                                                  Simplification_Algorithm = "BEND_SIMPLIFY")
-                arrPolylineLayer.append(featureLayer)
-        return arrPolylineLayer
-        pass
-
-    def ScanFeatureClassIsPolygon(self):
+                print "   # {0}".format(pathFc)
+                # featureLayer = featureClassTemp.featureClass + "Layer"
+                # arcpy.MakeFeatureLayer_management(in_features = pathFc,
+                                          # out_layer = featureLayer)
+                arrPolyline.append(pathFc)
+        return arrPolyline
         pass
 
     def ReadFileConfig(self, pathFile):
