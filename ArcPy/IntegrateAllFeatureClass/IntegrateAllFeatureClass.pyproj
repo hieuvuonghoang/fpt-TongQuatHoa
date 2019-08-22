@@ -22,10 +22,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="InitData.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IntegrateAllFeatureClass.py" />
+    <Compile Include="UpdatePointRemovePolyline.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />
+    <Content Include="RunInitData.bat">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="RunUpdatePointRemovePolyline.bat" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

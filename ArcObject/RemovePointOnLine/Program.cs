@@ -50,6 +50,12 @@ namespace RemovePointOnLine
                         IPointCollection iPointCollPolyline = iFeaturePolyline.Shape as IPointCollection;
                         List<int> indexRemove = new List<int>();
                         int iPointCollPolylineCount = iPointCollPolyline.PointCount;
+                        bool isRing = false;
+                        if ((iPointCollPolyline.Point[0].X == iPointCollPolyline.Point[iPointCollPolylineCount - 1].X) && (iPointCollPolyline.Point[0].Y == iPointCollPolyline.Point[iPointCollPolylineCount - 1].Y))
+                        {
+                            isRing = true;
+                        }
+                        bool isRemoveFromPoint = false;
                         for (int indexPolyline = 0; indexPolyline < iPointCollPolylineCount; indexPolyline++)
                         {
                             if (iPointCollPointRemove.PointCount == 0)
@@ -62,7 +68,11 @@ namespace RemovePointOnLine
                                 IPoint iPointPointRemove = iPointCollPointRemove.Point[indexPointRemove];
                                 if ((iPointPolyline.X == iPointPointRemove.X) && (iPointPolyline.Y == iPointPointRemove.Y))
                                 {
-                                    if ((indexPolyline != 0) || (indexPolyline != iPointCollPolylineCount))
+                                    if (indexPolyline == 0)
+                                    {
+                                        isRemoveFromPoint = true;
+                                    }
+                                    if ((indexPolyline != 0) && (indexPolyline != iPointCollPolylineCount))
                                     {
                                         iPointCollPointRemove.RemovePoints(indexPointRemove, 1);
                                     }
@@ -72,10 +82,26 @@ namespace RemovePointOnLine
                             }
                         }
                         int countRemove = 0;
-                        foreach (int index in indexRemove)
+                        if (isRing && isRemoveFromPoint)
                         {
-                            iPointCollPolyline.RemovePoints(index - countRemove, 1);
-                            countRemove++;
+                            foreach (int index in indexRemove)
+                            {
+                                if (index == iPointCollPolylineCount - 1)
+                                {
+                                    continue;
+                                }
+                                iPointCollPolyline.RemovePoints(index - countRemove, 1);
+                                countRemove++;
+                            }
+                            iPointCollPolyline.UpdatePoint(iPointCollPolyline.PointCount - 1, iPointCollPolyline.Point[0]);
+                        }
+                        else
+                        {
+                            foreach (int index in indexRemove)
+                            {
+                                iPointCollPolyline.RemovePoints(index - countRemove, 1);
+                                countRemove++;
+                            }
                         }
                         if (countRemove > 0)
                         {
