@@ -144,7 +144,7 @@ class InitData:
         pass
 
     def SimplifyAllPolyline(self, inFC_SimplifyAllPolyline):
-        outPutSimplify = "in_memory\\outPutSimplify"
+        outPutSimplify = os.path.join(self.pathProcessGDB, "AllPolyline_Simplify")
         arcpy.SimplifyLine_cartography(in_features = inFC_SimplifyAllPolyline,
                                        out_feature_class = outPutSimplify,
                                        algorithm = "BEND_SIMPLIFY",
@@ -154,7 +154,7 @@ class InitData:
         pass
 
     def SimplifyAllPolygon(self, inFC_SimplifyAllPolygon):
-        outPutSimplify = "in_memory\\outPutSimplify"
+        outPutSimplify = os.path.join(self.pathProcessGDB, "AllPolygon_Simplify")
         arcpy.SimplifyPolygon_cartography(in_features = inFC_SimplifyAllPolygon,
                                           out_feature_class = outPutSimplify,
                                           algorithm = "BEND_SIMPLIFY",
@@ -264,7 +264,7 @@ class InitData:
                     # Maker Layer
                     inFeatureClassMerges.append(tempPolygon.featureClassInMemory)
             # Merge
-            outputMerge = "in_memory\\PolygonMerge"
+            outputMerge = os.path.join(self.pathProcessGDB, "PolygonMerge")
             arcpy.Merge_management(inputs = inFeatureClassMerges,
                                    output = outputMerge)
         elif option == "Polyline":
@@ -303,7 +303,7 @@ class InitData:
                     # Maker Layer
                     inFeatureClassMerges.append(tempPolyline.featureClassInMemory)
             # Merge
-            outputMerge = "in_memory\\PolylineMerge"
+            outputMerge = os.path.join(self.pathProcessGDB, "PolylineMerge")
             arcpy.Merge_management(inputs = inFeatureClassMerges,
                                    output = outputMerge)
         return outputMerge

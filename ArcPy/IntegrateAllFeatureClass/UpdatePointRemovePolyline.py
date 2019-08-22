@@ -22,16 +22,8 @@ class UpdatePointRemovePolyline:
     def Execute(self):
         # Init Workspace
         arcpy.env.overwriteOutput = True
-
-        ## CreateFeaturePointRemoveOne
-        #print "# CreateFeaturePointRemoveOne"
-        #self.ProcessFeatureClassPointRemove()
-        #pathFc = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove")
-        #pathDissolve = os.path.join(os.path.join(self.pathProcessGDB, "ThuyHe"), "DuongBoNuoc_PointRemove_Dissolve")
-        #print pathDissolve
-        #arcpy.Dissolve_management(in_features = pathFc,
-        #                          out_feature_class = pathDissolve,
-        #                          dissolve_field = ["FID_DuongBoNuoc"])
+        # ProcessFeatureClassPointRemove
+        self.ProcessFeatureClassPointRemove()
         pass
 
     def ProcessFeatureClassPointRemove(self):
@@ -102,7 +94,6 @@ class UpdatePointRemovePolyline:
         arcpy.CopyFeatures_management(in_features = inFCPolylinePointRemoveLayer,
                                       out_feature_class = outFCCopy)
         # Erase
-        featureClassPolyLine.SetFeatureClassPointRemoveOne()
         outErase = "in_memory\\outErase"
         arcpy.Erase_analysis(in_features = inFCPolylinePointRemove,
                              erase_features = outFCCopy,
@@ -161,7 +152,7 @@ class UpdatePointRemovePolyline:
         pass
 
     def GetFieldFID(self, featureClass):
-        return "FID_" + featureClass, fieldType
+        return "FID_" + featureClass
         pass
 
     def CreateFileConfigTopo(self):

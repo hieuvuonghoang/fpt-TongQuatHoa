@@ -5993,7 +5993,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6194,7 +6194,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6234,7 +6234,7 @@
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "DamLay", 
