@@ -93,6 +93,10 @@ class InitData:
                     pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassAllPoint)
                     pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
                     pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassPointRemove)
+                    if not arcpy.Exists(pathInFeature):
+                        continue
+                    if not arcpy.Exists(pathEraseFeature):
+                        continue
                     #print pathOutEraseFeature
                     arcpy.Erase_analysis(in_features = pathInFeature,
                                          erase_features = pathEraseFeature,
@@ -109,6 +113,10 @@ class InitData:
                     pathInFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassAllPoint)
                     pathEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
                     pathOutEraseFeature = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassPointRemove)
+                    if not arcpy.Exists(pathInFeature):
+                        continue
+                    if not arcpy.Exists(pathEraseFeature):
+                        continue
                     #print pathOutEraseFeature
                     arcpy.Erase_analysis(in_features = pathInFeature,
                                          erase_features = pathEraseFeature,
@@ -124,6 +132,10 @@ class InitData:
                         continue
                     tempPolygon.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplify)
+                    if not arcpy.Exists(pathFcOrigin):
+                        continue
+                    if int(arcpy.GetCount_management(pathFcOrigin).getOutput(0)) == 0:
+                        continue
                     tempPolygon.SetFeatureClassSimplifyAllPoint()
                     pathOutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplifyAllPoint)
                     arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
@@ -136,6 +148,14 @@ class InitData:
                         continue
                     tempPolyline.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplify)
+                    if not arcpy.Exists(pathFcOrigin):
+                        continue
+                    if int(arcpy.GetCount_management(pathFcOrigin).getOutput(0)) == 0:
+                        continue
+                    if not arcpy.Exists(pathFcOrigin):
+                        continue
+                    if int(arcpy.GetCount_management(pathFcOrigin).getOutput(0)) == 0:
+                        continue
                     tempPolyline.SetFeatureClassSimplifyAllPoint()
                     pathOutFVToPoint = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassSimplifyAllPoint)
                     arcpy.FeatureVerticesToPoints_management(in_features = pathFcOrigin,
@@ -176,6 +196,10 @@ class InitData:
                     # Create Feature Class
                     tempPolygon.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
+                    if not arcpy.Exists(pathFcOrigin):
+                        continue
+                    if int(arcpy.GetCount_management(pathFcOrigin).getOutput(0)) == 0:
+                        continue
                     outPath = os.path.join(self.pathProcessGDB, tempConfig.featureDataSet)
                     outName = tempPolygon.featureClassSimplify
                     pathFcSimplify = os.path.join(outPath, outName)
@@ -204,6 +228,10 @@ class InitData:
                     # Create Feature Class
                     tempPolyline.SetFeatureClassSimplify()
                     pathFcOrigin = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
+                    if not arcpy.Exists(pathFcOrigin):
+                        continue
+                    if int(arcpy.GetCount_management(pathFcOrigin).getOutput(0)) == 0:
+                        continue
                     outPath = os.path.join(self.pathProcessGDB, tempConfig.featureDataSet)
                     outName = tempPolyline.featureClassSimplify
                     pathFcSimplify = os.path.join(outPath, outName)
@@ -235,6 +263,10 @@ class InitData:
                         continue
                     # Add Field FID_XXX For Feature Class
                     pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClass)
+                    if not arcpy.Exists(pathFc):
+                        continue
+                    if int(arcpy.GetCount_management(pathFc).getOutput(0)) == 0:
+                        continue
                     #print pathFc
                     fieldFID, fieldType = self.GetFieldFID(tempPolygon.featureClass, "LONG")
                     arcpy.AddField_management(pathFc, fieldFID, fieldType)
@@ -274,6 +306,10 @@ class InitData:
                         continue
                     # Add Field FID_XXX For Feature Class
                     pathFc = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
+                    if not arcpy.Exists(pathFc):
+                        continue
+                    if int(arcpy.GetCount_management(pathFc).getOutput(0)) == 0:
+                        continue
                     #print pathFc
                     fieldFID, fieldType = self.GetFieldFID(tempPolyline.featureClass, "LONG")
                     arcpy.AddField_management(pathFc, fieldFID, fieldType)
@@ -318,6 +354,10 @@ class InitData:
                     continue
                 tempPolygon.SetFeatureLayer()
                 pathPolygon = os.path.join(pathGDB, os.path.join(tempConfig.featureDataSet, tempPolygon.featureClass))
+                if not arcpy.Exists(pathPolygon):
+                    continue
+                if int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
+                    continue
                 arcpy.MakeFeatureLayer_management(in_features = pathPolygon,
                                                   out_layer = tempPolygon.featureLayer)
                 arrLayerPolygon.append(tempPolygon.featureLayer)
@@ -326,6 +366,10 @@ class InitData:
                     continue
                 tempPolyline.SetFeatureLayer()
                 pathPolyline = os.path.join(pathGDB, os.path.join(tempConfig.featureDataSet, tempPolyline.featureClass))
+                if not arcpy.Exists(pathPolyline):
+                    continue
+                if int(arcpy.GetCount_management(pathPolyline).getOutput(0)) == 0:
+                    continue
                 arcpy.MakeFeatureLayer_management(in_features = pathPolyline,
                                                   out_layer = tempPolyline.featureLayer)
                 arrLayerPolyline.append(tempPolyline.featureLayer)

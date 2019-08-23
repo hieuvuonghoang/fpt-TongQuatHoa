@@ -24,7 +24,7 @@
             }, 
             {
                 "featureClass": "MatDuongBo", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }
         ], 
         "listPolyline": [
@@ -111,11 +111,11 @@
             }, 
             {
                 "featureClass": "CongTrinhKienTrucDacBietA", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }, 
             {
                 "featureClass": "TramThuPhatSongA", 
-                "runFeatureClass": true
+                "runFeatureClass": false
             }
         ], 
         "listPolyline": [

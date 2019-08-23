@@ -9,7 +9,7 @@ import datetime
 class DeleteFeature:
 
     def __init__(self):
-        self.pathProcessGDB = "C:\\QuanSuA\\5651_4_TB.gdb"
+        self.pathProcessGDB = r"D:\TQHBD\5651_4_TB_CSDL_QuanSu.gdb"
         pass
 
     def Execute(self):

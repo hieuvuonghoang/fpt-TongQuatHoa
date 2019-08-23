@@ -1501,7 +1501,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
@@ -5993,7 +5993,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": true
+                                "processTopo": false
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6194,7 +6194,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": true
+                                "processTopo": false
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6234,7 +6234,7 @@
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
-                                "processTopo": true
+                                "processTopo": false
                             }, 
                             {
                                 "featureClass": "DamLay", 
@@ -6345,7 +6345,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
@@ -6747,7 +6747,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 

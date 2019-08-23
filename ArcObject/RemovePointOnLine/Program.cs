@@ -33,6 +33,18 @@ namespace RemovePointOnLine
             IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DuongMepNuoc_PointRemove_Dissolve");
             IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DuongMepNuoc");
             RemovePointOnLine(fCPointRemove, fCPolyline);
+            //IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DuongDiaGioi_PointRemove_Dissolve");
+            //IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DuongDiaGioi");
+            //RemovePointOnLine(fCPointRemove, fCPolyline);
+            //IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "DoanTimDuongBo_PointRemove_Dissolve");
+            //IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "DoanTimDuongBo");
+            //RemovePointOnLine(fCPointRemove, fCPolyline);
+            //IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "KenhMuongL_PointRemove_Dissolve");
+            //IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "KenhMuongL");
+            //RemovePointOnLine(fCPointRemove, fCPolyline);
+            //IFeatureClass fCPointRemove = GetFeatureClass(pathGDB, "SongSuoiL_PointRemove_Dissolve");
+            //IFeatureClass fCPolyline = GetFeatureClass(pathGDB, "SongSuoiL");
+            //RemovePointOnLine(fCPointRemove, fCPolyline);
         }
         private static void RemovePointOnLine(IFeatureClass fCPointRemove, IFeatureClass fCPolyline)
         {
@@ -42,6 +54,10 @@ namespace RemovePointOnLine
             IFeature iFeaturePolyline = null;
             //string strFID = "FID_DuongBoNuoc";
             string strFID = "FID_DuongMepNuoc";
+            //string strFID = "FID_DuongDiaGioi";
+            //string strFID = "FID_DoanTimDuongBo";
+            //string strFID = "FID_KenhMuongL";
+            //string strFID = "FID_SongSuoiL";
             int indexFID = iFeatureCursorPointRemove.FindField(strFID);
             while (((iFeaturePointRemove = iFeatureCursorPointRemove.NextFeature()) != null))
             {
