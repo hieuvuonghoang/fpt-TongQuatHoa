@@ -28,7 +28,7 @@ class FixPointRemove:
         #arcpy.Delete_management("in_memory")
         #
         #self.UpdatePoint()
-        self.CreatePoint(292585.8117, 2347403.0036, 292511.87, 2347387.1542, 292553.5659, 2347399.6376)
+        self.ReturnPoint(292585.8117, 2347403.0036, 292511.87, 2347387.1542, 292553.5659, 2347399.6376)
         pass
 
     def CreatePointRemoveUnique(self):
@@ -185,15 +185,38 @@ class FixPointRemove:
                             pass
         pass
 
-    def CreatePoint(self, xA, yA, xB, yB, xC, yC):
-        a = round((yB - yA) / (xB - xA), 10)
-        b = round(yA - (a * xA), 10)
-        c = -xC - (a*yC);
-        print "x + {}*y + {} = 0".format(str(a), str(c))
-        x = round((xC + (a*yC) - (a*b)) / (a*a + 1), 10)
-        y = round(a*x + b, 10)
-        print "{}, {}".format(x, y)
-        return x, x
+    def ReturnPoint(self, xA, yA, xB, yB, xC, yC):
+        # Duong thang di qua 2 diem A(xA, yA) va B(xB, yB)
+        ## Vecto AB(xB - xA, yB- yA) => VTCP u(xU, yU)
+        xU = round((xB - xA), 10)
+        yU = round((yB - yA), 10)
+        ## VTPT n = (-yU, xU)
+        xN = -yU
+        yN = xU
+        ## PT duong thang di qua A nhan n lam VTPT la: xN(x - xA) + yN(y - yA) = 0 => cA = xN*-xA + yN*-yA
+        cA = round((xN*(-xA) + yN*(-yA)), 10)
+        #print "{}x + {}y + {} = 0".format(str(xN), str(yN), str(cA))
+        # Duong thang di qua C(xC, yC) song song voi AB:
+        ## PT duong thang di qua C(xC, yC) song song voi AB: xU(x - xC) + yU(y - yC) = 0 => cC = xU*(-xC) + yU*(-yC)
+        cC = round((xU*(-xC) + yU*(-yC)), 10)
+        #print "{}x + {}y + {} = 0".format(str(xU), str(yU), str(cC))
+        # Tim D(xD, yD) la giao diem cua hai duong thang:
+        ## x = (-cA - yN*y) / xN
+        ## xU*((-cA - yN*y) / xN) + yU*y + cC = 0 => xU*(-cA - yN*y) + yU*xN*y + cC*xN = 0 => -xU*cA - xU*yN*y + yU*xN*y + cC*xN = 0 => y*(yU*xN - xU*yN) + xU*(-cA) + cC*xN = 0 => y = (xU*cA - cC*xN) / (yU*xN - xU*yN)
+        yD = round((xU*cA - cC*xN) / (yU*xN - xU*yN), 10)
+        xD = round((-cA - yN*yD) / xN, 10)
+        # Tinh khoang cach:
+        # D -> A, D -> B, A -> B
+        dDA = round(math.sqrt(math.pow(xD - xA, 2) + math.pow(yD - yA, 2)), 10)
+        dDB = round(math.sqrt(math.pow(xD - xB, 2) + math.pow(yD - yB, 2)), 10)
+        dAB = round(math.sqrt(math.pow(xA - xB, 2) + math.pow(yA - yB, 2)), 10)
+        #print "{}, {}, {}".format(dDA, dDB, dAB)
+        if dDA + dDB == dAB:
+            return xD, yD
+        elif dDA < dDB:
+            return xA, yA
+        elif dDA > dDB:
+            return xB, yB
         pass
 
     def Fix(self):

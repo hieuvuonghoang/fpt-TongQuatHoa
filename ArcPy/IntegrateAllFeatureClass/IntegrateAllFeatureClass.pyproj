@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>6d3802f2-dff3-48e4-99e5-fca4b0491885</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>IntegrateAllFeatureClass.py</StartupFile>
+    <StartupFile>Demo.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Demo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FixPointRemove.py">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Run.bat" />
+    <Content Include="RunDemo.bat" />
     <Content Include="RunFixPointRemove.bat" />
     <Content Include="RunInitData.bat">
       <SubType>Code</SubType>
