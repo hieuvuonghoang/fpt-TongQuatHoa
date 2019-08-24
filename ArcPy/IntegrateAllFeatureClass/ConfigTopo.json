@@ -5943,7 +5943,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
@@ -5989,19 +5989,19 @@
                         "listPolygon": [
                             {
                                 "featureClass": "BaiCanBaiNgamA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienDoiDongChayA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "DaoA", 
@@ -6013,7 +6013,7 @@
                             }, 
                             {
                                 "featureClass": "DeA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "KenhMuongA", 
@@ -6021,11 +6021,11 @@
                             }, 
                             {
                                 "featureClass": "MangDanNuocA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MatBoKenhMuongA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MatNuocTinh", 
@@ -6037,7 +6037,7 @@
                             }, 
                             {
                                 "featureClass": "DamLay", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 

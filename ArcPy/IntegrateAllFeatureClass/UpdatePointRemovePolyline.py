@@ -48,11 +48,212 @@ class UpdatePointRemovePolyline:
                             self.ProcessFeatureClassPointRemoveSubOne(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine, fCTemp)
                             self.ProcessFeatureClassPointRemoveSubTwo(featureDataSetPolygon, featureClassPolygon, featureDataSetPolyLine, featureClassPolyLine, fCTemp)
                             pass
+
+                # Dissolve
                 featureClassPolyLine.SetFeatureClassPointRemoveDissolve()
                 outputDissolve = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemoveDissolve)
                 fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
                 self.Dissolve(fCTemp, outputDissolve, fieldName)
+                # Add Field
+                arcpy.AddField_management(in_table = outputDissolve,
+                                          field_type = "TEXT",
+                                          field_name = "startPoint",
+                                          field_length = "100")
+                arcpy.AddField_management(in_table = outputDissolve,
+                                          field_type = "TEXT",
+                                          field_name = "endPoint",
+                                          field_length = "100")
+
+                # Xu ly neu diem dau hoac diem cua cua Polyline bi Remove:
+                inPathPolylineFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClass)
+                for elemPolygonTopo in elemPolyline.polygonTopos:
+                    featureDataSetPolygon = elemPolygonTopo.featureDataSet
+                    for elemPolygon in elemPolygonTopo.listPolygon:
+                        featureClassPolygon = FeatureClass(elemPolygon.featureClass)
+                        if elemPolygon.processTopo == True:
+                            ## Diem dau
+                            #print "# Diem dau"
+                            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "START", featureDataSetPolygon, featureClassPolygon, fieldName)
+                            ## Diem cuoi
+                            #print "# Diem cuoi"
+                            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "END", featureDataSetPolygon, featureClassPolygon, fieldName)
+                            pass
                 arcpy.Delete_management("in_memory")
+        pass
+
+    def ProcessPointStartEnd(self, fCTemp, inPathPolylineFC, pathFCDissolve, option, featureDataSetPolygon, featureClassPolygon, fID):
+        fCTempLayer = "fCTempLayer"
+        arcpy.MakeFeatureLayer_management(in_features = fCTemp,
+                                          out_layer = fCTempLayer)
+        # ORIG_FID
+        outPutPoint = "in_memory\\outPutPoint"
+        arcpy.FeatureVerticesToPoints_management(in_features = inPathPolylineFC,
+                                                 out_feature_class = outPutPoint,
+                                                 point_location = option)
+        arcpy.AddField_management(in_table = outPutPoint,
+                                  field_name = "pointStr",
+                                  field_type = "Text",
+                                  field_length = "100")
+        if int(arcpy.GetCount_management(outPutPoint).getOutput(0)) == 0:
+            return
+        outPutPointLayer = "outPutPointLayer"
+        arcpy.MakeFeatureLayer_management(in_features = outPutPoint,
+                                          out_layer = outPutPointLayer)
+        arcpy.SelectLayerByLocation_management(in_layer = outPutPointLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = fCTempLayer,
+                                               search_distance = "0 Meters")
+        if int(arcpy.GetCount_management(outPutPointLayer).getOutput(0)) == 0:
+            return
+        #print "# ProcessPointStartEnd"
+        #
+        pathPolygon = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolygon), featureClassPolygon.featureClass)
+        polygonLayer = "polygonLayer"
+        arcpy.MakeFeatureLayer_management(in_features = pathPolygon,
+                                          out_layer = polygonLayer)
+        featureClassPolygon.SetFeatureClassPointRemove()
+        pathPolygonPointRemove = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolygon), featureClassPolygon.featureClassPointRemove)
+        polygonPointRemoveLayer = "polygonPointRemoveLayer"
+        arcpy.MakeFeatureLayer_management(in_features = pathPolygonPointRemove,
+                                          out_layer = polygonPointRemoveLayer)
+        with arcpy.da.UpdateCursor(outPutPointLayer, ["OID@", "Shape@XY", "ORIG_FID", "pointStr"]) as cursor:
+            for row in cursor:
+                strQuery = "OBJECTID = " + str(row[0])
+                x, y = row[1]
+                #print str(row[2])
+                #print "{}, {}".format(str(x), str(y))
+                arcpy.SelectLayerByAttribute_management(in_layer_or_view = outPutPointLayer,
+                                                        selection_type = "NEW_SELECTION",
+                                                        where_clause = strQuery)
+                arcpy.SelectLayerByLocation_management(in_layer = polygonLayer,
+                                                       overlap_type = "INTERSECT",
+                                                       select_features = outPutPointLayer,
+                                                       search_distance = "0 Meters")
+                if int(arcpy.GetCount_management(polygonLayer).getOutput(0)) == 0:
+                    continue
+                arrPoint = None
+                fIDPolygon = None
+                with arcpy.da.SearchCursor(polygonLayer, ["Shape@", "OID@"]) as cursorPolgonLayer:
+                    for rowPolygonLayer in cursorPolgonLayer:
+                        for part in rowPolygonLayer[0]:
+                            for pnt in part:
+                                if pnt.X == x and pnt.Y == y:
+                                    #print "{}, {}; {}, {}".format(str(x), str(y), str(pnt.X), str(pnt.Y))
+                                    arrPoint = part
+                                    fIDPolygon = rowPolygonLayer[1]
+                                    break
+                if arrPoint == None:
+                    continue
+                #print "Len arrPointPolygon Before Simplify {}".format(str(len(arrPoint)))
+                fieldName = self.GetFieldFID(featureClassPolygon.featureClass)
+                strQuery = str(fieldName) + " = " + str(fIDPolygon)
+                #print strQuery
+                arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonPointRemoveLayer,
+                                                        selection_type = "NEW_SELECTION",
+                                                        where_clause = strQuery)
+                if int(arcpy.GetCount_management(polygonPointRemoveLayer).getOutput(0)) == 0:
+                    continue
+                arrIndexRemove = []
+                with arcpy.da.SearchCursor(polygonPointRemoveLayer, ["Shape@XY"]) as cursorPolygonPointRemove:
+                    for rowPolygonPointRemove in cursorPolygonPointRemove:
+                        xPointRemove, yPointRemove = rowPolygonPointRemove[0]
+                        indexRemove = 0
+                        for pnt in arrPoint:
+                            if xPointRemove == pnt.X and yPointRemove == pnt.Y and xPointRemove != x and yPointRemove != y:
+                                arrIndexRemove.append(indexRemove)
+                                break;
+                            indexRemove += 1
+                if len(arrIndexRemove) == 0:
+                    continue
+                arrIndexRemove.sort()
+                #print arrIndexRemove
+                #print "Leng arr Before Remove: {}".format(str(arrPoint.count))
+                indexRemoveSub = 0
+                for indexRemove in arrIndexRemove:
+                    arrPoint.remove(indexRemove - indexRemoveSub)
+                    indexRemoveSub += 1
+                #print "Leng arr After Remove: {}".format(str(arrPoint.count))
+                indexPnt = 0
+                for pnt in arrPoint:
+                    if x == pnt.X and y == pnt.Y:
+                        break
+                    indexPnt += 1
+                pntBefore = arrPoint.getObject(indexPnt - 1)
+                pntAfter = arrPoint.getObject(indexPnt + 1)
+                #print type(pntBefore)
+                #print type(pntAfter)
+                #print "# {}, {}".format(str(x), str(y))
+                #print "# {}, {}".format(str(pntBefore.X), str(pntBefore.Y))
+                #print "# {}, {}".format(str(pntAfter.X), str(pntAfter.Y))
+                xT, yT = self.CreatePoint(pntBefore.X, pntBefore.Y, pntAfter.X, pntAfter.Y, x, y)
+                row[3] = str(xT) + ", " + str(yT)
+                #print "xT, yT: {}, {}".format(str(xT), str(yT))
+                cursor.updateRow(row)
+        #print "# Option: {}".format(option)
+        arcpy.SelectLayerByLocation_management(in_layer = outPutPointLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = fCTempLayer,
+                                               search_distance = "0 Meters")
+        print "outPutPointLayer: {}".format(str(int(arcpy.GetCount_management(outPutPointLayer).getOutput(0))))
+        with arcpy.da.SearchCursor(outPutPointLayer, ["OID@", "Shape@XY", "ORIG_FID", "pointStr"]) as cursorA:
+            with arcpy.da.UpdateCursor(pathFCDissolve, ["OID@", fID, "startPoint", "endPoint"]) as cursorB:
+                for rowA in cursorA:
+                    #print "# ORIG_FID: {}".format(str(rowA[2]))
+                    cursorB.reset()
+                    for rowB in cursorB:
+                        #print "   # {}: {}".format(fID, str(rowB[1]))
+                        if rowA[2] == rowB[1]:
+                            if option == "START":
+                                #print "# Update START"
+                                rowB[2] = rowA[3]
+                            elif option == "END":
+                                #print "# Update END"
+                                rowB[3] = rowA[3]
+                            cursorB.updateRow(rowB)
+                            break
+        pass
+
+    def CreatePoint(self, xA, yA, xB, yB, xC, yC):
+        # Duong thang di qua 2 diem A(xA, yA) va B(xB, yB)
+        ## Vecto AB(xB - xA, yB- yA) => VTCP u(xU, yU)
+        xU = round((xB - xA), 10)
+        yU = round((yB - yA), 10)
+        ## VTPT n = (-yU, xU)
+        xN = -yU
+        yN = xU
+        ## PT duong thang di qua A nhan n lam VTPT la: xN(x - xA) + yN(y - yA) = 0 => cA = xN*-xA + yN*-yA
+        cA = round((xN*(-xA) + yN*(-yA)), 10)
+        #print "cA: {}".format(cA)
+        #print "{}x + {}y + {} = 0".format(str(xN), str(yN), str(cA))
+        # Duong thang di qua C(xC, yC) song song voi AB:
+        ## PT duong thang di qua C(xC, yC) song song voi AB: xU(x - xC) + yU(y - yC) = 0 => cC = xU*(-xC) + yU*(-yC)
+        cC = round((xU*(-xC) + yU*(-yC)), 10)
+        #print "cC: {}".format(cC)
+        #print "{}x + {}y + {} = 0".format(str(xU), str(yU), str(cC))
+        # Tim D(xD, yD) la giao diem cua hai duong thang:
+        ## x = (-cA - yN*y) / xN
+        ## xU*((-cA - yN*y) / xN) + yU*y + cC = 0 => xU*(-cA - yN*y) + yU*xN*y + cC*xN = 0 => -xU*cA - xU*yN*y + yU*xN*y + cC*xN = 0 => y*(yU*xN - xU*yN) + xU*(-cA) + cC*xN = 0 => y = (xU*cA - cC*xN) / (yU*xN - xU*yN)
+        yD = round((xU*cA - cC*xN) / (yU*xN - xU*yN), 10)
+        xD = round((-cA - yN*yD) / xN, 10)
+        # Tinh Vecto DA(xA - xD, yA - yD), DB(xB - xD, yB - yD)
+        xDA = round(xA - xD, 10)
+        yDA = round(yA - yD, 10)
+        xDB = round(xB - xD, 10)
+        yDB = round(yB - yD, 10)
+        #print "{}, {}".format(xD, yD)
+        #print "DA({}, {}), DB({}, {})".format(str(xDA), str(yDA), str(xDB), str(yDB))
+        lengthDA = int(math.sqrt(math.pow(xDA, 2) + math.pow(yDA, 2)))
+        lengthDB = int(math.sqrt(math.pow(xDB, 2) + math.pow(yDB, 2)))
+        lengthAB = int(math.sqrt(math.pow(xU, 2) + math.pow(yU, 2)))
+        #print "lengthDA: {}".format(lengthDA)
+        #print "lengthDB: {}".format(lengthDB)
+        #print "lengthAB: {}".format(lengthAB)
+        if lengthDA + lengthDB == lengthAB:
+            return xD, yD
+        elif lengthDA < lengthDB:
+            return xA, yA
+        elif lengthDA > lengthDB:
+            return xB, yB
         pass
 
     def Dissolve(self, fCTemp, outputDissolve, dissolveField):

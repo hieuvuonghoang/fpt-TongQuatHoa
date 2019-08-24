@@ -179,9 +179,9 @@ class FixPointRemove:
                                     pntAfter = arrPoint.getObject(indexPnt + 1)
                                     #print type(pntBefore)
                                     #print type(pntAfter)
-                                    print "{}, {}".format(str(x), str(y))
-                                    print "{}, {}".format(str(pntBefore.X), str(pntBefore.Y))
-                                    print "{}, {}".format(str(pntAfter.X), str(pntAfter.Y))
+                                    #print "{}, {}".format(str(x), str(y))
+                                    #print "{}, {}".format(str(pntBefore.X), str(pntBefore.Y))
+                                    #print "{}, {}".format(str(pntAfter.X), str(pntAfter.Y))
                             pass
         pass
 
