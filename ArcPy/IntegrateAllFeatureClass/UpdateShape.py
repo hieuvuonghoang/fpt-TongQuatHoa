@@ -34,7 +34,7 @@ class UpdateShape:
             for tempPolygon in tempConfig.listPolygon:
                 if (tempPolygon.runFeatureClass == False):
                     continue
-                #print "# Update: {}".format(tempPolygon.featureClass)
+                print "   ## {}".format(tempPolygon.featureClass)
                 tempPolygon.SetFeatureClassSimplify()
                 pathPolygonSimplify = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolygon.featureClassSimplify)
                 if not arcpy.Exists(pathPolygonSimplify) or int(arcpy.GetCount_management(pathPolygonSimplify).getOutput(0)) == 0:
@@ -58,7 +58,7 @@ class UpdateShape:
             for tempPolyline in tempConfig.listPolyline:
                 if (tempPolyline.runFeatureClass == False):
                     continue
-                #print "# Update: {}".format(tempPolyline.featureClass)
+                print "   ## {}".format(tempPolyline.featureClass)
                 tempPolyline.SetFeatureClassPointRemoveDissolve()
                 pathPointRemoveDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassPointRemoveDissolve)
                 if not arcpy.Exists(pathPointRemoveDissolve) or int(arcpy.GetCount_management(pathPointRemoveDissolve).getOutput(0)) == 0:
@@ -69,13 +69,11 @@ class UpdateShape:
                     with arcpy.da.UpdateCursor(pathPolylineFinal, ["OID@", "Shape@"]) as cursorB:
                         for rowA in cursorA:
                             #
-                            #print "   # {}".format(str(rowA[1]))
                             arrPointRemove = arcpy.Array()
                             for pnt in rowA[0]:
                                 arrPointRemove.add(pnt)
                             #
                             for rowB in cursorB:
-                                #print "      # {}".format(str(rowB[0]))
                                 if rowA[1] == rowB[0]:
                                     # Read Shape Polyline:
                                     arrPolyline = arcpy.Array()
@@ -84,10 +82,7 @@ class UpdateShape:
                                         for pnt in part:
                                             if pnt:
                                                 arrPolylinePart.add(pnt)
-                                                #print "      # {}, {}".format(pnt.X, pnt.Y)
-                                        #print "            # arrPolylinePartCount: {}".format(str(arrPolylinePart.count))
                                         arrPolyline.add(arrPolylinePart)
-                                    #print "         # arrPolyline: {}".format(str(arrPolyline.count))
                                     # Remove Point
                                     arrPart = []
                                     for part in arrPolyline:
@@ -99,39 +94,34 @@ class UpdateShape:
                                                     continue
                                                 indexPointRemove = 0
                                                 foundPnt = False
-                                                #print "               # arrPointRemove: {}".format(str(arrPointRemove.count))
                                                 for pntRemove in arrPointRemove:
                                                     if pnt.X == pntRemove.X and pnt.Y == pntRemove.Y:
                                                         foundPnt = True
                                                         break
                                                     indexPointRemove += 1
                                                 if foundPnt:
-                                                    #print "                  # indexPointRemove: {}".format(str(indexPointRemove))
                                                     arrIndex.append(indexPoint)
-                                                    arrPointRemove.remove(indexPointRemove)
+                                                    if indexPoint != 0:
+                                                        arrPointRemove.remove(indexPointRemove)
                                             indexPoint += 1
                                         arrPart.append(arrIndex)
                                     #print arrPart
                                     partNum = 0
                                     for tempPart in arrPart:
                                         indexLoop = 0
-                                        #print " Before: {}".format(str(arrPolyline[partNum].count))
                                         arrPartCount = arrPolyline[partNum].count
                                         for indexRemove in tempPart:
                                             if indexRemove == 0 and rowA[2]:
                                                 arrXY = str(rowA[2]).replace(" ", "").split(",")
                                                 pntUpdate = arcpy.Point(float(arrXY[0]), float(arrXY[1]))
-                                                #print type(pntUpdate)
                                                 arrPolyline[partNum].replace(indexRemove - indexLoop, pntUpdate)
                                             elif (indexRemove == arrPartCount - 1) and rowA[3]:
                                                 arrXY = str(rowA[3]).replace(" ", "").split(",")
                                                 pntUpdate = arcpy.Point(float(arrXY[0]), float(arrXY[1]))
-                                                #print type(pntUpdate)
                                                 arrPolyline[partNum].replace(indexRemove - indexLoop, pntUpdate)
                                             elif indexRemove != 0 and (indexRemove != arrPartCount - 1):
                                                 arrPolyline[partNum].remove(indexRemove - indexLoop)
                                                 indexLoop += 1
-                                        #print " After: {}".format(str(arrPolyline[partNum].count))
                                         partNum += 1
                                     # 
                                     rowB[1] = arcpy.Polyline(arrPolyline)
@@ -156,7 +146,6 @@ class UpdateShape:
                         continue
                     if not arcpy.Exists(pathEraseFeature):
                         continue
-                    #print pathOutEraseFeature
                     arcpy.Erase_analysis(in_features = pathInFeature,
                                          erase_features = pathEraseFeature,
                                          out_feature_class = pathOutEraseFeature,
