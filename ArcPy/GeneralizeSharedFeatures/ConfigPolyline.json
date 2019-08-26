@@ -1,0 +1,237 @@
+[
+    {
+        "featureDataSet": "GiaoThong", 
+        "listPolyline": [
+            {
+                "featureClass": "HamDiBoL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongCapTreo", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "BenBaiL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "CauDiBoL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "CauGiaoThongL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "CongGiaoThongL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DoanDuongSat", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DoanTimDuongBo", 
+                "processTopo": true, 
+                "runSimplify": true
+            }, 
+            {
+                "featureClass": "DoanVuotSongSuoiL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongNoiBoL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "HamGiaoThongL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "RanhGioiDuongBo", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "TaluyGiaoThong", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DoanTimDuongBo_Goc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "DanCuCoSoHaTang", 
+        "listPolyline": [
+            {
+                "featureClass": "NhaL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongDayTaiDien", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongOngDan", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "RanhGioiTuongRao", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "DiaHinh", 
+        "listPolyline": [
+            {
+                "featureClass": "NetChiDoc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DiaHinhDacBietL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongBinhDo_Goc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongBinhDo", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "BienGioiDiaGioi", 
+        "listPolyline": [
+            {
+                "featureClass": "DuongBienGioi", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongDiaGioi", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongCoSoLanhHai", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "MatNa", 
+        "listPolyline": [
+            {
+                "featureClass": "gachtinhchatcau", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "ThuyHe", 
+        "listPolyline": [
+            {
+                "featureClass": "RanhGioiBai", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "BienDoiDongChayL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "BoKeBoCap", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "CongThuyLoiL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DapL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DeL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongBoNuoc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "DuongMepNuoc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "KenhMuongL", 
+                "processTopo": true, 
+                "runSimplify": true
+            }, 
+            {
+                "featureClass": "MangDanNuocL", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "SongSuoiL", 
+                "processTopo": true, 
+                "runSimplify": true
+            }, 
+            {
+                "featureClass": "TaluyCongTrinhThuyLoi", 
+                "processTopo": false, 
+                "runSimplify": false
+            }, 
+            {
+                "featureClass": "RanhGioiNuocMatQuyUoc", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }, 
+    {
+        "featureDataSet": "PhuBeMat", 
+        "listPolyline": [
+            {
+                "featureClass": "RanhGioiPhuBeMat", 
+                "processTopo": false, 
+                "runSimplify": false
+            }
+        ]
+    }
+]

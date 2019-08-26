@@ -1,6 +1,6 @@
 import os
 import math
-#import arcpy
+import arcpy
 
 class Demo:
 
@@ -17,6 +17,12 @@ class Demo:
         self.fDBienGioiDiaGioi = "BienGioiDiaGioi"
         self.fCDuongDiaGioi = "DuongDiaGioi"
         self.fCDiaPhan = "DiaPhan"
+        pass
+
+    def Run(self):
+        arcpy.FeatureToPoint_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh),
+                                        os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh + "_FearuteToPoint"),
+                                        "INSIDE")
         pass
 
     def Execute(self):
@@ -309,5 +315,6 @@ class FeatureClass:
 
 if __name__ == "__main__":
     demo = Demo()
-    demo.Execute()
+    demo.Run()
+    #demo.Execute()
     pass

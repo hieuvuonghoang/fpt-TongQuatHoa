@@ -416,43 +416,43 @@ class UpdatePointRemovePolyline:
         try:
             # Duong thang di qua 2 diem A(xA, yA) va B(xB, yB)
             ## Vecto AB(xB - xA, yB- yA) => VTCP u(xU, yU)
-            xU = round((xB - xA), 3)
-            yU = round((yB - yA), 3)
+            xU = xB - xA
+            yU = yB - yA
             ## VTPT n = (-yU, xU)
             xN = -yU
             yN = xU
             ## PT duong thang di qua A nhan n lam VTPT la: xN(x - xA) + yN(y - yA) = 0 => cA = xN*-xA + yN*-yA
-            cA = round((xN*(-xA) + yN*(-yA)), 3)
+            cA = (xN*(-xA) + yN*(-yA))
             #print "cA: {}".format(cA)
             #print "{}x + {}y + {} = 0".format(str(xN), str(yN), str(cA))
             # Duong thang di qua C(xC, yC) song song voi AB:
             ## PT duong thang di qua C(xC, yC) song song voi AB: xU(x - xC) + yU(y - yC) = 0 => cC = xU*(-xC) + yU*(-yC)
-            cC = round((xU*(-xC) + yU*(-yC)), 3)
+            cC = xU*(-xC) + yU*(-yC)
             #print "cC: {}".format(cC)
             #print "{}x + {}y + {} = 0".format(str(xU), str(yU), str(cC))
             # Tim D(xD, yD) la giao diem cua hai duong thang:
             ## x = (-cA - yN*y) / xN
             ## xU*((-cA - yN*y) / xN) + yU*y + cC = 0 => xU*(-cA - yN*y) + yU*xN*y + cC*xN = 0 => -xU*cA - xU*yN*y + yU*xN*y + cC*xN = 0 => y*(yU*xN - xU*yN) + xU*(-cA) + cC*xN = 0 => y = (xU*cA - cC*xN) / (yU*xN - xU*yN)
-            yD = round((xU*cA - cC*xN) / (yU*xN - xU*yN), 3)
-            xD = round((-cA - yN*yD) / xN, 3)
+            yD = (xU*cA - cC*xN) / (yU*xN - xU*yN)
+            xD = (-cA - yN*yD) / xN
             # Tinh Vecto DA(xA - xD, yA - yD), DB(xB - xD, yB - yD)
-            xDA = round(xA - xD, 3)
-            yDA = round(yA - yD, 3)
-            xDB = round(xB - xD, 3)
-            yDB = round(yB - yD, 3)
+            xDA = xA - xD
+            yDA = yA - yD
+            xDB = xB - xD
+            yDB = yB - yD
             #print "{}, {}".format(xD, yD)
             #print "DA({}, {}), DB({}, {})".format(str(xDA), str(yDA), str(xDB), str(yDB))
-            lengthDA = round((math.sqrt(math.pow(xDA, 2) + math.pow(yDA, 2))), 3)
-            lengthDB = round((math.sqrt(math.pow(xDB, 2) + math.pow(yDB, 2))), 3)
-            lengthAB = round((math.sqrt(math.pow(xU, 2) + math.pow(yU, 2))), 3)
+            lengthDA = math.sqrt(math.pow(xDA, 2) + math.pow(yDA, 2))
+            lengthDB = math.sqrt(math.pow(xDB, 2) + math.pow(yDB, 2))
+            lengthAB = math.sqrt(math.pow(xU, 2) + math.pow(yU, 2))
             #print "lengthDA: {}".format(lengthDA)
             #print "lengthDB: {}".format(lengthDB)
             #print "lengthAB: {}".format(lengthAB)
-            if round(lengthDA + lengthDB, 3) == round(lengthAB, 3):
+            if round(lengthDA + lengthDB, 5) == round(lengthAB, 5):
                 return xD, yD
-            elif round(lengthDA, 3) < round(lengthDB, 3):
+            elif round(lengthDA, 5) < round(lengthDB, 5):
                 return xA, yA
-            elif round(lengthDA, 3) > round(lengthDB, 3):
+            elif round(lengthDA, 5) > round(lengthDB, 5):
                 return xB, yB
         except:
             return None, None

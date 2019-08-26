@@ -24,13 +24,23 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Demo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FPT_Simplify.py" />
     <Compile Include="GeneralizeSharedFeatures.py" />
+    <Compile Include="SimplifyProduction.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigToolPolygon.json" />
+    <Content Include="ConfigToolPolyline.json" />
     <Content Include="Run.bat">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="RunDemo.bat">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="RunSimplify.bat" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
