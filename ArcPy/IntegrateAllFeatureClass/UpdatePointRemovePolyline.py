@@ -31,6 +31,8 @@ class UpdatePointRemovePolyline:
             featureDataSetPolyLine = elemConfigTopo.featureDataSet
             for elemPolyline in elemConfigTopo.listPolyline:
                 featureClassPolyLine = FeatureClass(elemPolyline.featureClass)
+                if featureClassPolyLine.featureClass != "DoanTimDuongBo":
+                    continue
                 print "# {}".format(featureClassPolyLine.featureClass)
                 featureClassPolyLine.SetFeatureClassPointRemove()
                 inPathFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemove)
@@ -129,7 +131,7 @@ class UpdatePointRemovePolyline:
             for row in cursor:
                 strQuery = "OBJECTID = " + str(row[0])
                 x, y = row[1]
-                pntUpdate = arcpy.Point(round(x, 5), round(y, 5))
+                pntUpdate = arcpy.Point(round(x, 10), round(y, 10))
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = outPutPointLayer,
                                                         selection_type = "NEW_SELECTION",
                                                         where_clause = strQuery)
@@ -152,6 +154,8 @@ class UpdatePointRemovePolyline:
                         break
                 fieldName = self.GetFieldFID(featureClassPolygon.featureClass)
                 strQuery = str(fieldName) + " = " + str(fIDPolygon)
+                print row[2]
+                print strQuery
                 arcpy.SelectLayerByAttribute_management(in_layer_or_view = polygonPointRemoveLayer,
                                                         selection_type = "NEW_SELECTION",
                                                         where_clause = strQuery)
@@ -165,75 +169,7 @@ class UpdatePointRemovePolyline:
                             arrPointRemove.add(arcpy.Point(xPointRemove, yPointRemove))
                 if arrPointRemove.count == 0:
                     continue
-                # Mark Index Remove Point
-                arrPart = []
-                for part in shapePolygon:
-                    indexPoint = 0
-                    arrIndex = []
-                    for pnt in part:
-                        if pnt:
-                            if arrPointRemove.count == 0:
-                                continue
-                            indexPointRemove = 0
-                            foundPnt = False
-                            for pntRemove in arrPointRemove:
-                                if pnt.X == pntRemove.X and pnt.Y == pntRemove.Y:
-                                    foundPnt = True
-                                    break
-                                indexPointRemove += 1
-                            if foundPnt:
-                                arrIndex.append(indexPoint)
-                                arrPointRemove.remove(indexPointRemove)
-                        indexPoint += 1
-                    arrPart.append(arrIndex)
-                # Remove Point
-                partNum = 0
-                for tempPart in arrPart:
-                    indexLoop = 0
-                    for indexRemove in tempPart:
-                        shapePolygon[partNum].remove(indexRemove - indexLoop)
-                        indexLoop += 1
-                    partNum += 1
-
-                #countPoint = 0
-                #for part in shapePolygon:
-                #    for pnt in part:
-                #        countPoint += 1
-                #if countPoint == 0:
-                #    return
-
-                # Find Point
-                partNum = 0
-                indexPoint = 0
-                for part in shapePolygon:
-                    foundPoint = False
-                    indexPoint = 0
-                    for pnt in part:
-                        if pnt and pnt.X == x and pnt.Y == y:
-                            foundPoint = True
-                            break
-                        indexPoint += 1
-                    if foundPoint:
-                        break
-                    partNum += 1
-                #print "partNum: {}, indexPoint: {}, partCount: {}".format(partNum, indexPoint, shapePolygon[partNum].count)
-                #
-                if indexPoint == 0:
-                    indexBefore = shapePolygon[partNum].count - 1
-                else:
-                    indexBefore = indexPoint - 1
-                if indexPoint == shapePolygon[partNum].count -1:
-                    indexAfter = 0
-                else:
-                    indexAfter = indexPoint + 1
-                #print "indexBefore: {}".format(str(indexBefore))
-                pntBefore = shapePolygon[partNum].getObject(indexBefore)
-                pntAfter = shapePolygon[partNum].getObject(indexAfter)
-                #print "pntUpdate: {}, {}".format(str(x), str(y))
-                #print "pntBefore: {}, {}".format(str(pntBefore.X), str(pntAfter.Y))
-                #print "pntAfter: {}, {}".format(str(pntAfter.X), str(pntAfter.Y))
-                xT, yT = self.CreatePoint(pntBefore.X, pntBefore.Y, pntAfter.X, pntAfter.Y, x, y)
-                #print "pntUpdateComplite: {}, {}".format(str(xT), str(yT))
+                xT, yT = self.ReturnPointUpdate(pntUpdate, arrPointRemove, arrPolygon)
                 if xT and yT:
                     row[3] = str(xT) + ", " + str(yT)
                     cursor.updateRow(row)
@@ -242,8 +178,6 @@ class UpdatePointRemovePolyline:
                                                overlap_type = "INTERSECT",
                                                select_features = fCTempLayer,
                                                search_distance = "0 Meters")
-
-        #print "countLayer: {}".format(str(int(arcpy.GetCount_management(outPutPointLayer).getOutput(0))))
 
         with arcpy.da.SearchCursor(outPutPointLayer, ["OID@", "Shape@XY", "ORIG_FID", "pointStr"]) as cursorA:
             with arcpy.da.UpdateCursor(pathFCDissolve, ["OID@", fID, "startPoint", "endPoint"]) as cursorB:
@@ -265,7 +199,6 @@ class UpdatePointRemovePolyline:
         pass
 
     def ReturnPointUpdate(self, pntUpdate, arrPointRemove, arrPolygon):
-        print "# ReturnPointUpdate"
         # Remove pntUpdate in arrPointRemove
         arrIndexPointRemove = []
         indexPointRemove = 0
@@ -312,6 +245,7 @@ class UpdatePointRemovePolyline:
         # Find Point
         indexPartNum = 0
         indexPointInPartNum = 0
+        found = False
         for part in arrPolygon:
             indexPointInPartNum = 0
             found = False
@@ -324,10 +258,20 @@ class UpdatePointRemovePolyline:
             if found:
                 break
             indexPartNum += 1
+        # Print
+        #for part in arrPolygon:
+        #    for pnt in part:
+        #        if pnt:
+        #            print "{}, {}".format(pnt.X, pnt.Y)
         # Process IndexPoint
+        if not found:
+            return None, None
         arrPolygonCount = arrPolygon[indexPartNum].count
         if indexPointInPartNum == 0:
             pntBefore = arrPolygon[indexPartNum].getObject(indexPointInPartNum + 1)
+            pntAfter = arrPolygon[indexPartNum].getObject(arrPolygonCount - 2)
+        elif indexPointInPartNum == arrPolygonCount - 1:
+            pntBefore = arrPolygon[indexPartNum].getObject(0)
             pntAfter = arrPolygon[indexPartNum].getObject(arrPolygonCount - 2)
         else:
             pntBefore = arrPolygon[indexPartNum].getObject(indexPointInPartNum + 1)
@@ -472,43 +416,43 @@ class UpdatePointRemovePolyline:
         try:
             # Duong thang di qua 2 diem A(xA, yA) va B(xB, yB)
             ## Vecto AB(xB - xA, yB- yA) => VTCP u(xU, yU)
-            xU = round((xB - xA), 5)
-            yU = round((yB - yA), 5)
+            xU = round((xB - xA), 3)
+            yU = round((yB - yA), 3)
             ## VTPT n = (-yU, xU)
             xN = -yU
             yN = xU
             ## PT duong thang di qua A nhan n lam VTPT la: xN(x - xA) + yN(y - yA) = 0 => cA = xN*-xA + yN*-yA
-            cA = round((xN*(-xA) + yN*(-yA)), 5)
+            cA = round((xN*(-xA) + yN*(-yA)), 3)
             #print "cA: {}".format(cA)
             #print "{}x + {}y + {} = 0".format(str(xN), str(yN), str(cA))
             # Duong thang di qua C(xC, yC) song song voi AB:
             ## PT duong thang di qua C(xC, yC) song song voi AB: xU(x - xC) + yU(y - yC) = 0 => cC = xU*(-xC) + yU*(-yC)
-            cC = round((xU*(-xC) + yU*(-yC)), 5)
+            cC = round((xU*(-xC) + yU*(-yC)), 3)
             #print "cC: {}".format(cC)
             #print "{}x + {}y + {} = 0".format(str(xU), str(yU), str(cC))
             # Tim D(xD, yD) la giao diem cua hai duong thang:
             ## x = (-cA - yN*y) / xN
             ## xU*((-cA - yN*y) / xN) + yU*y + cC = 0 => xU*(-cA - yN*y) + yU*xN*y + cC*xN = 0 => -xU*cA - xU*yN*y + yU*xN*y + cC*xN = 0 => y*(yU*xN - xU*yN) + xU*(-cA) + cC*xN = 0 => y = (xU*cA - cC*xN) / (yU*xN - xU*yN)
-            yD = round((xU*cA - cC*xN) / (yU*xN - xU*yN), 5)
-            xD = round((-cA - yN*yD) / xN, 5)
+            yD = round((xU*cA - cC*xN) / (yU*xN - xU*yN), 3)
+            xD = round((-cA - yN*yD) / xN, 3)
             # Tinh Vecto DA(xA - xD, yA - yD), DB(xB - xD, yB - yD)
-            xDA = round(xA - xD, 5)
-            yDA = round(yA - yD, 5)
-            xDB = round(xB - xD, 5)
-            yDB = round(yB - yD, 5)
+            xDA = round(xA - xD, 3)
+            yDA = round(yA - yD, 3)
+            xDB = round(xB - xD, 3)
+            yDB = round(yB - yD, 3)
             #print "{}, {}".format(xD, yD)
             #print "DA({}, {}), DB({}, {})".format(str(xDA), str(yDA), str(xDB), str(yDB))
-            lengthDA = int(math.sqrt(math.pow(xDA, 2) + math.pow(yDA, 2)))
-            lengthDB = int(math.sqrt(math.pow(xDB, 2) + math.pow(yDB, 2)))
-            lengthAB = int(math.sqrt(math.pow(xU, 2) + math.pow(yU, 2)))
+            lengthDA = round((math.sqrt(math.pow(xDA, 2) + math.pow(yDA, 2))), 3)
+            lengthDB = round((math.sqrt(math.pow(xDB, 2) + math.pow(yDB, 2))), 3)
+            lengthAB = round((math.sqrt(math.pow(xU, 2) + math.pow(yU, 2))), 3)
             #print "lengthDA: {}".format(lengthDA)
             #print "lengthDB: {}".format(lengthDB)
             #print "lengthAB: {}".format(lengthAB)
-            if lengthDA + lengthDB == lengthAB:
+            if round(lengthDA + lengthDB, 3) == round(lengthAB, 3):
                 return xD, yD
-            elif lengthDA < lengthDB:
+            elif round(lengthDA, 3) < round(lengthDB, 3):
                 return xA, yA
-            elif lengthDA > lengthDB:
+            elif round(lengthDA, 3) > round(lengthDB, 3):
                 return xB, yB
         except:
             return None, None
