@@ -5,6 +5,7 @@ import sys
 import time
 import json
 import arcpy
+import ctypes
 import datetime
 
 class SimplifyProduction:
@@ -33,10 +34,28 @@ class SimplifyProduction:
     def Execute(self):
         #arcpy.env.workspace = self.pathFinalGDB
         arcpy.env.overwriteOutput = True
-        #self.GeneralizeSharedFeaturesPolygon()
-        #self.CreateFeaturePoint()
-        #self.GeneralizeSharedFeaturesPolyline()
+        # Integrate
+        ctypes.windll.kernel32.SetConsoleTitleA("Integrate ProcessGDB")
+        arrPolygon, arrPolyline = self.ReadAllPolygonAllPolylineInGDB(self.pathProcessGDB)
+        self.Integrate(arrPolygon, arrPolyline)
+        self.Integrate(arrPolyline, arrPolygon)
+        ctypes.windll.kernel32.SetConsoleTitleA("Integrate FinalGDB")
+        arrPolygon, arrPolyline = self.ReadAllPolygonAllPolylineInGDB(self.pathFinalGDB)
+        self.Integrate(arrPolygon, arrPolyline)
+        self.Integrate(arrPolyline, arrPolygon)
+        os.system('cls')
+        # Generalize Shared Features Polygons
+        ctypes.windll.kernel32.SetConsoleTitleA("Generalize Shared Features Polygons")
+        self.GeneralizeSharedFeaturesPolygon()
+        arcpy.Delete_management("in_memory")
+        os.system('cls')
+        # Generalize Shared Features Polylines
+        ctypes.windll.kernel32.SetConsoleTitleA("Generalize Shared Features Polylines")
+        self.CreateFeaturePoint()
+        self.GeneralizeSharedFeaturesPolyline()
+        arcpy.Delete_management("in_memory")
         self.CreateFeaturePointRemove()
+        os.system('cls')
         pass
     
     def CreateFeaturePointRemove(self):
@@ -52,35 +71,30 @@ class SimplifyProduction:
                     continue
                 featureClass = FeatureClass(featureClassTemp.featureClass)
                 featureClass.SetFeatureCloneA()
+                pathPolyline = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClass)
                 pathPolylineA = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneA)
                 if not arcpy.Exists(pathPolylineA) or int(arcpy.GetCount_management(pathPolylineA).getOutput(0)) == 0:
-                    continue
-                featureClass.SetFeatureCloneB()
-                pathPolylineB = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneB)
-                if not arcpy.Exists(pathPolylineB) or int(arcpy.GetCount_management(pathPolylineB).getOutput(0)) == 0:
                     continue
                 pathPolylineALayer = "pathPolylineALayer"
                 arcpy.MakeFeatureLayer_management(in_features = pathPolylineA,
                                                   out_layer = pathPolylineALayer)
-                pathPolylineBAllPoint = "in_memory\\pathPolylineBAllPoint"
-                arcpy.FeatureVerticesToPoints_management(in_features = pathPolylineB,
-                                                         out_feature_class = pathPolylineBAllPoint,
+                pathPolylineAllPoint = "in_memory\\pathPolylineAllPoint"
+                arcpy.FeatureVerticesToPoints_management(in_features = pathPolyline,
+                                                         out_feature_class = pathPolylineAllPoint,
                                                          point_location = "ALL")
-                pathPolylineBAllPointLayer = "pathPolylineBAllPointLayer"
-                arcpy.MakeFeatureLayer_management(in_features = pathPolylineBAllPoint,
-                                                  out_layer = pathPolylineBAllPointLayer)
-                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineBAllPointLayer,
+                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineAllPoint,
                                                        overlap_type = "INTERSECT",
                                                        select_features = pathPolylineALayer,
                                                        search_distance = "0 Meters",
                                                        invert_spatial_relationship = "INVERT")
-                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineBAllPointLayer,
+                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineAllPoint,
                                                        overlap_type = "INTERSECT",
                                                        select_features = pathPointTemp,
                                                        search_distance = "0 Meters",
                                                        selection_type = "REMOVE_FROM_SELECTION")
-                arcpy.CopyFeatures_management(in_features = pathPolylineBAllPointLayer,
-                                              out_feature_class = os.path.join(self.pathProcessGDB, featureClass.featureClass + "PointRemove"))
+                featureClass.SetFeatureClassPointRemove()
+                arcpy.CopyFeatures_management(in_features = pathPolylineAllPoint,
+                                              out_feature_class = os.path.join(self.pathProcessGDB, featureClass.featureClassPointRemove))
         pass
 
     def GeneralizeSharedFeaturesPolygon(self):
@@ -201,7 +215,55 @@ class SimplifyProduction:
                                                search_distance = "0 Meters")
         arcpy.CopyFeatures_management(in_features = allPolygonPointLayer,
                                       out_feature_class = os.path.join(self.pathProcessGDB, "PointTemp"))
+        pass
 
+    def MakeFeatureLayer(self, pathGDB):
+        arrLayerPolygon = []
+        arrLayerPolyline = []
+        # Polygon
+        for tempConfig in self.configToolPolygon.listConfigTools:
+            for tempPolygon in tempConfig.listPolygon:
+                if tempPolygon.runSimplify == False:
+                    continue
+                featureClass = FeatureClass(tempPolygon.featureClass)
+                featureClass.SetFeatureLayer()
+                pathPolygon = os.path.join(pathGDB, os.path.join(tempConfig.featureDataSet, featureClass.featureClass))
+                if not arcpy.Exists(pathPolygon) or int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
+                    continue
+                arcpy.MakeFeatureLayer_management(in_features = pathPolygon,
+                                                  out_layer = featureClass.featureLayer)
+                arrLayerPolygon.append(featureClass.featureLayer)
+        # Polyline
+        
+        return arrLayerPolygon, arrLayerPolyline
+        pass
+
+    def ReadAllPolygonAllPolylineInGDB(self, pathGDB):
+        arrPolygon = []
+        arrPolyline = []
+        for fcDataSetTemp in arcpy.Describe(pathGDB).children:
+            for fcTemp in arcpy.Describe(fcDataSetTemp.catalogPath).children:
+                if fcTemp.featureType == "Simple" and fcTemp.shapeType == "Polyline":
+                    pathPolyline = os.path.join(os.path.join(pathGDB, fcDataSetTemp.baseName), fcTemp.baseName)
+                    if int(arcpy.GetCount_management(pathPolyline).getOutput(0)) == 0:
+                        continue
+                    arrPolyline.append(pathPolyline)
+                if fcTemp.featureType == "Simple" and fcTemp.shapeType == "Polygon":
+                    pathPolygon = os.path.join(os.path.join(pathGDB, fcDataSetTemp.baseName), fcTemp.baseName)
+                    if int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
+                        continue
+                    arrPolygon.append(pathPolyline)
+        return arrPolygon, arrPolyline
+        pass
+
+    def Integrate(self, arrOne, arrTwo):
+        arrInput = []
+        for item in arrOne:
+            arrInput.append([item, "1"])
+        for item in arrTwo:
+            arrInput.append([item, "2"])
+        arcpy.Integrate_management(in_features = arrInput,
+                                   cluster_tolerance = "0.00000 Meters")
         pass
 
     def MergePolygon(self):
@@ -288,13 +350,9 @@ class SimplifyProduction:
                                              drop_field = fieldFID)
                 # Clone Polyline
                 featureClass.SetFeatureCloneA()
-                featureClass.SetFeatureCloneB()
                 pathPolylineCloneA = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneA)
-                pathPolylineCloneB = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneB)
                 arcpy.CopyFeatures_management(in_features = featureClass.featureClassInMemory,
                                               out_feature_class = pathPolylineCloneA)
-                arcpy.CopyFeatures_management(in_features = featureClass.featureClassInMemory,
-                                              out_feature_class = pathPolylineCloneB)
                 # Maker Layer
                 inFeatureClassMerges.append(featureClass.featureClassInMemory)
         outputMerge = "in_memory\\FeatureClassPolylineMerge"
@@ -333,8 +391,8 @@ class FeatureClass:
         self.featureClassCloneA = self.featureClass + "CloneA"
         pass
 
-    def SetFeatureCloneB(self):
-        self.featureClassCloneB = self.featureClass + "CloneB"
+    def SetFeatureClassPointRemove(self):
+        self.featureClassPointRemove = self.featureClass + "PointRemove"
         pass
 
 class ConfigToolPolyline:
