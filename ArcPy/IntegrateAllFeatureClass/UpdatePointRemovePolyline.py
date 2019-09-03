@@ -31,8 +31,6 @@ class UpdatePointRemovePolyline:
             featureDataSetPolyLine = elemConfigTopo.featureDataSet
             for elemPolyline in elemConfigTopo.listPolyline:
                 featureClassPolyLine = FeatureClass(elemPolyline.featureClass)
-                if featureClassPolyLine.featureClass != "DoanTimDuongBo":
-                    continue
                 print "# {}".format(featureClassPolyLine.featureClass)
                 featureClassPolyLine.SetFeatureClassPointRemove()
                 inPathFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemove)
@@ -106,8 +104,6 @@ class UpdatePointRemovePolyline:
                                                search_distance = "0 Meters")
         if int(arcpy.GetCount_management(outPutPointLayer).getOutput(0)) == 0:
             return
-        #print "# ProcessPointStartEnd"
-        #
         pathPolygon = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolygon), featureClassPolygon.featureClass)
         if not arcpy.Exists(pathPolygon) or int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
             return
@@ -231,8 +227,6 @@ class UpdatePointRemovePolyline:
                         arrIndexPointOfPart.append(indexPointOfPart)
                 indexPointOfPart += 1
             arrIndexPart.append(arrIndexPointOfPart)
-        #print arrIndexPart
-        #print "arrIndexPart[0] count: {}".format(len(arrIndexPart[0]))
         # Remove Point in arrPolygon
         indexPartNum = 0
         for indexPart in arrIndexPart:
@@ -241,7 +235,6 @@ class UpdatePointRemovePolyline:
                 arrPolygon[indexPartNum].remove(indexPointInPart - indexPointInPartNum)
                 indexPointInPartNum += 1
             indexPartNum += 1
-        #print "arrPolygon[0] Count: {}".format(str(arrPolygon[0].count))
         # Find Point
         indexPartNum = 0
         indexPointInPartNum = 0
@@ -258,11 +251,6 @@ class UpdatePointRemovePolyline:
             if found:
                 break
             indexPartNum += 1
-        # Print
-        #for part in arrPolygon:
-        #    for pnt in part:
-        #        if pnt:
-        #            print "{}, {}".format(pnt.X, pnt.Y)
         # Process IndexPoint
         if not found:
             return None, None

@@ -58,8 +58,6 @@ class UpdateShape:
             for tempPolyline in tempConfig.listPolyline:
                 if (tempPolyline.runFeatureClass == False):
                     continue
-                if (tempPolyline.featureClass != "DoanTimDuongBo"):
-                    continue
                 print "   ## {}".format(tempPolyline.featureClass)
                 tempPolyline.SetFeatureClassPointRemoveDissolve()
                 pathPointRemoveDissolve = os.path.join(os.path.join(self.pathProcessGDB, tempConfig.featureDataSet), tempPolyline.featureClassPointRemoveDissolve)

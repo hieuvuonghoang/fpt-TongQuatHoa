@@ -5,6 +5,7 @@ import sys
 import time
 import json
 import arcpy
+import ctypes
 import datetime
 
 class SimplifyProduction:
@@ -15,28 +16,48 @@ class SimplifyProduction:
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.pathFileConfigPolygon = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigPolygon.json")
         self.pathFileConfigPolyline = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigPolyline.json")
+        self.pathFileGSFPolygons = os.path.join(os.path.dirname(os.path.realpath(__file__)), "GeneralizeSharedFeaturesPolygons.json")
         #
         self.configToolPolyline = ConfigToolPolyline()
         self.configToolPolygon = ConfigToolPolygon()
         # Read File Config
-        if not os.path.isfile(self.pathFileConfigPolyline):
-            print "... Not Found: " + self.pathFileConfigPolyline
-            #self.CreateFileConfig()
-        self.configToolPolyline.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolyline))
+        #if not os.path.isfile(self.pathFileConfigPolyline):
+        #    print "... Not Found: " + self.pathFileConfigPolyline
+        #    #self.CreateFileConfig()
+        #self.configToolPolyline.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolyline))
         # Read File Config
-        if not os.path.isfile(self.pathFileConfigPolygon):
-            print "... Not Found: " + self.pathFileConfigPolygon
+        if not os.path.isfile(self.pathFileGSFPolygons):
+            print "... Not Found: " + self.pathFileGSFPolygons
             #self.CreateFileConfig()
-        self.configToolPolygon.InitFromDict(self.ReadFileConfig(self.pathFileConfigPolygon))
+        self.configToolPolygon.InitFromDict(self.ReadFileConfig(self.pathFileGSFPolygons))
+        print "OK"
         pass
 
     def Execute(self):
         #arcpy.env.workspace = self.pathFinalGDB
         arcpy.env.overwriteOutput = True
-        #self.GeneralizeSharedFeaturesPolygon()
+        ## Integrate
+        #ctypes.windll.kernel32.SetConsoleTitleA("Integrate ProcessGDB")
+        #arrPolygon, arrPolyline = self.ReadAllPolygonAllPolylineInGDB(self.pathProcessGDB)
+        #self.Integrate(arrPolygon, arrPolyline)
+        #self.Integrate(arrPolyline, arrPolygon)
+        #ctypes.windll.kernel32.SetConsoleTitleA("Integrate FinalGDB")
+        #arrPolygon, arrPolyline = self.ReadAllPolygonAllPolylineInGDB(self.pathFinalGDB)
+        #self.Integrate(arrPolygon, arrPolyline)
+        #self.Integrate(arrPolyline, arrPolygon)
+        #os.system('cls')
+        # Generalize Shared Features Polygons
+        ctypes.windll.kernel32.SetConsoleTitleA("Generalize Shared Features Polygons")
+        self.GeneralizeSharedFeaturesPolygon()
+        arcpy.Delete_management("in_memory")
+        os.system('cls')
+        # Generalize Shared Features Polylines
+        #ctypes.windll.kernel32.SetConsoleTitleA("Generalize Shared Features Polylines")
         #self.CreateFeaturePoint()
         #self.GeneralizeSharedFeaturesPolyline()
-        self.CreateFeaturePointRemove()
+        #arcpy.Delete_management("in_memory")
+        #self.CreateFeaturePointRemove()
+        #os.system('cls')
         pass
     
     def CreateFeaturePointRemove(self):
@@ -52,39 +73,33 @@ class SimplifyProduction:
                     continue
                 featureClass = FeatureClass(featureClassTemp.featureClass)
                 featureClass.SetFeatureCloneA()
+                pathPolyline = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClass)
                 pathPolylineA = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneA)
                 if not arcpy.Exists(pathPolylineA) or int(arcpy.GetCount_management(pathPolylineA).getOutput(0)) == 0:
-                    continue
-                featureClass.SetFeatureCloneB()
-                pathPolylineB = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneB)
-                if not arcpy.Exists(pathPolylineB) or int(arcpy.GetCount_management(pathPolylineB).getOutput(0)) == 0:
                     continue
                 pathPolylineALayer = "pathPolylineALayer"
                 arcpy.MakeFeatureLayer_management(in_features = pathPolylineA,
                                                   out_layer = pathPolylineALayer)
-                pathPolylineBAllPoint = "in_memory\\pathPolylineBAllPoint"
-                arcpy.FeatureVerticesToPoints_management(in_features = pathPolylineB,
-                                                         out_feature_class = pathPolylineBAllPoint,
+                pathPolylineAllPoint = "in_memory\\pathPolylineAllPoint"
+                arcpy.FeatureVerticesToPoints_management(in_features = pathPolyline,
+                                                         out_feature_class = pathPolylineAllPoint,
                                                          point_location = "ALL")
-                pathPolylineBAllPointLayer = "pathPolylineBAllPointLayer"
-                arcpy.MakeFeatureLayer_management(in_features = pathPolylineBAllPoint,
-                                                  out_layer = pathPolylineBAllPointLayer)
-                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineBAllPointLayer,
+                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineAllPoint,
                                                        overlap_type = "INTERSECT",
                                                        select_features = pathPolylineALayer,
                                                        search_distance = "0 Meters",
                                                        invert_spatial_relationship = "INVERT")
-                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineBAllPointLayer,
+                arcpy.SelectLayerByLocation_management(in_layer = pathPolylineAllPoint,
                                                        overlap_type = "INTERSECT",
                                                        select_features = pathPointTemp,
                                                        search_distance = "0 Meters",
                                                        selection_type = "REMOVE_FROM_SELECTION")
-                arcpy.CopyFeatures_management(in_features = pathPolylineBAllPointLayer,
-                                              out_feature_class = os.path.join(self.pathProcessGDB, featureClass.featureClass + "PointRemove"))
+                featureClass.SetFeatureClassPointRemove()
+                arcpy.CopyFeatures_management(in_features = pathPolylineAllPoint,
+                                              out_feature_class = os.path.join(self.pathProcessGDB, featureClass.featureClassPointRemove))
         pass
 
     def GeneralizeSharedFeaturesPolygon(self):
-        arrPolyline = self.GetArrPolyline()
         for featureDataSetTemp in self.configToolPolygon.listConfigTools:
             if len(featureDataSetTemp.listPolygon) == 0:
                 continue
@@ -97,17 +112,12 @@ class SimplifyProduction:
                 print "\n# Simplify: {}".format(str(os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass)))
                 arrPolygon = self.GetArrPolygon(featureClassTemp.featureClass)
                 print "# ListTopo:"
-                print "   # List Polygon:"
                 for polygon in arrPolygon:
-                    print "      # {}".format(str(polygon))
-                print "   # List Polyline:"
-                for polyline in arrPolyline:
-                    print "      # {}".format(str(polyline))
-                arrTopo = arrPolygon + arrPolyline 
+                    print "   # {}".format(str(polygon))
                 arcpy.GeneralizeSharedFeatures_production(Input_Features = os.path.join(os.path.join(self.pathFinalGDB, featureDataSetTemp.featureDataSet), featureClassTemp.featureClass),
                                                           Generalize_Operation = "SIMPLIFY",
                                                           Simplify_Tolerance = "50 Meters",
-                                                          Topology_Feature_Classes = arrTopo,
+                                                          Topology_Feature_Classes = arrPolygon,
                                                           Simplification_Algorithm = "BEND_SIMPLIFY")
         pass
 
@@ -201,7 +211,55 @@ class SimplifyProduction:
                                                search_distance = "0 Meters")
         arcpy.CopyFeatures_management(in_features = allPolygonPointLayer,
                                       out_feature_class = os.path.join(self.pathProcessGDB, "PointTemp"))
+        pass
 
+    def MakeFeatureLayer(self, pathGDB):
+        arrLayerPolygon = []
+        arrLayerPolyline = []
+        # Polygon
+        for tempConfig in self.configToolPolygon.listConfigTools:
+            for tempPolygon in tempConfig.listPolygon:
+                if tempPolygon.runSimplify == False:
+                    continue
+                featureClass = FeatureClass(tempPolygon.featureClass)
+                featureClass.SetFeatureLayer()
+                pathPolygon = os.path.join(pathGDB, os.path.join(tempConfig.featureDataSet, featureClass.featureClass))
+                if not arcpy.Exists(pathPolygon) or int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
+                    continue
+                arcpy.MakeFeatureLayer_management(in_features = pathPolygon,
+                                                  out_layer = featureClass.featureLayer)
+                arrLayerPolygon.append(featureClass.featureLayer)
+        # Polyline
+        
+        return arrLayerPolygon, arrLayerPolyline
+        pass
+
+    def ReadAllPolygonAllPolylineInGDB(self, pathGDB):
+        arrPolygon = []
+        arrPolyline = []
+        for fcDataSetTemp in arcpy.Describe(pathGDB).children:
+            for fcTemp in arcpy.Describe(fcDataSetTemp.catalogPath).children:
+                if fcTemp.featureType == "Simple" and fcTemp.shapeType == "Polyline":
+                    pathPolyline = os.path.join(os.path.join(pathGDB, fcDataSetTemp.baseName), fcTemp.baseName)
+                    if int(arcpy.GetCount_management(pathPolyline).getOutput(0)) == 0:
+                        continue
+                    arrPolyline.append(pathPolyline)
+                if fcTemp.featureType == "Simple" and fcTemp.shapeType == "Polygon":
+                    pathPolygon = os.path.join(os.path.join(pathGDB, fcDataSetTemp.baseName), fcTemp.baseName)
+                    if int(arcpy.GetCount_management(pathPolygon).getOutput(0)) == 0:
+                        continue
+                    arrPolygon.append(pathPolyline)
+        return arrPolygon, arrPolyline
+        pass
+
+    def Integrate(self, arrOne, arrTwo):
+        arrInput = []
+        for item in arrOne:
+            arrInput.append([item, "1"])
+        for item in arrTwo:
+            arrInput.append([item, "2"])
+        arcpy.Integrate_management(in_features = arrInput,
+                                   cluster_tolerance = "0 Meters")
         pass
 
     def MergePolygon(self):
@@ -288,13 +346,9 @@ class SimplifyProduction:
                                              drop_field = fieldFID)
                 # Clone Polyline
                 featureClass.SetFeatureCloneA()
-                featureClass.SetFeatureCloneB()
                 pathPolylineCloneA = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneA)
-                pathPolylineCloneB = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetTemp.featureDataSet), featureClass.featureClassCloneB)
                 arcpy.CopyFeatures_management(in_features = featureClass.featureClassInMemory,
                                               out_feature_class = pathPolylineCloneA)
-                arcpy.CopyFeatures_management(in_features = featureClass.featureClassInMemory,
-                                              out_feature_class = pathPolylineCloneB)
                 # Maker Layer
                 inFeatureClassMerges.append(featureClass.featureClassInMemory)
         outputMerge = "in_memory\\FeatureClassPolylineMerge"
@@ -333,10 +387,11 @@ class FeatureClass:
         self.featureClassCloneA = self.featureClass + "CloneA"
         pass
 
-    def SetFeatureCloneB(self):
-        self.featureClassCloneB = self.featureClass + "CloneB"
+    def SetFeatureClassPointRemove(self):
+        self.featureClassPointRemove = self.featureClass + "PointRemove"
         pass
 
+# Polyline
 class ConfigToolPolyline:
     
     def __init__(self):
@@ -353,15 +408,6 @@ class ConfigToolPolyline:
             listConfigTemp.append(elem.GetDict())
         return listConfigTemp;
         pass
-
-    def InitFromDict(self, dataJson):
-        self.listConfigTools = []
-        for elemListConfigTemp in dataJson:
-            elemListConfig = ElemAConfigToolPolyline(elemListConfigTemp['featureDataSet'])
-            for elemListPolylineTemp in elemListConfigTemp['listPolyline']:
-                elemListPolyline = ElemBConfigToolPolyline(elemListPolylineTemp['featureClass'], elemListPolylineTemp['processTopo'], elemListPolylineTemp['runSimplify'])
-                elemListConfig.ListPolylineAppend(elemListPolyline)
-            self.ListConfigToolAppend(elemListConfig)
 
 # ElemAConfigToolPolyline is Element of ConfigToolPolyline.listConfigTools
 class ElemAConfigToolPolyline:
@@ -412,6 +458,7 @@ class ElemBConfigToolPolyline:
         self.runSimplify = runSimplify
         pass
 
+#Polygon
 class ConfigToolPolygon:
     
     def __init__(self):
@@ -432,13 +479,23 @@ class ConfigToolPolygon:
     def InitFromDict(self, dataJson):
         self.listConfigTools = []
         for elemListConfigTemp in dataJson:
-            elemListConfig = ElemAConfigToolPolygon(elemListConfigTemp['featureDataSet'])
+            elemAConfigToolPolygon = ElemAConfigToolPolygon(elemListConfigTemp['featureDataSet'])
             for elemListPolygonTemp in elemListConfigTemp['listPolygon']:
-                elemListPolygon = ElemBConfigToolPolygon(elemListPolygonTemp['featureClass'], elemListPolygonTemp['runSimplify'])
-                elemListConfig.ListPolygonAppend(elemListPolygon)
-            self.ListConfigToolAppend(elemListConfig)
+                elemBConfigToolPolygon = ElemBConfigToolPolygon(elemListPolygonTemp['featureClass'], elemListPolygonTemp['runSimplify'])
+                for elemListToposTemp in elemListPolygonTemp['polylineProcessTopos']:
+                    elemCConfigToolPolygon = ElemCConfigToolPolygon(elemListToposTemp['featureDataSet'])
+                    for elemListPolyline in elemListToposTemp['listPolyline']:
+                        elemDConfigToolPolygon = ElemDConfigToolPolygon(elemListPolyline['featureClass'], elemListPolyline['processTopo'])
+                        elemCConfigToolPolygon.ListPolylineAppend(elemDConfigToolPolygon)
+                    if len(elemCConfigToolPolygon.listPolyline) == 0:
+                        continue
+                    elemBConfigToolPolygon.PolylineProcessToposAppend(elemCConfigToolPolygon)
+                if len(elemBConfigToolPolygon.polylineProcessTopos) == 0:
+                    continue
+                elemAConfigToolPolygon.ListPolygonAppend(elemBConfigToolPolygon)
+            self.ListConfigToolAppend(elemAConfigToolPolygon)
 
-# ElemAConfigToolPolyline is Element of ConfigToolPolyline.listConfigTools
+# ElemAConfigToolPolygon is Element of ConfigToolPolygon.listConfigTools
 class ElemAConfigToolPolygon:
 
     def __init__(self):
@@ -458,23 +515,87 @@ class ElemAConfigToolPolygon:
     def GetDict(self):
         listPolygonTemp = []
         for elem in self.listPolygon:
-            listPolygonTemp.append(elem.__dict__)
+            listPolygonTemp.append(elem.GetDict())
         return {
             "featureDataSet": self.featureDataSet,
             "listPolygon": listPolygonTemp
         }
 
-# ElemBConfigToolPolyline is Element of ElemAConfigToolPolyline.listPolyline
+# ElemBConfigToolPolygon is Element of ElemAConfigToolPolyline.listPolygon
 class ElemBConfigToolPolygon:
 
     def __init__(self):
         self.featureClass = ""
         self.runSimplify = False
+        self.polylineProcessTopos = []
         pass
 
     def __init__(self, featureClass, runSimplify):
         self.featureClass = featureClass
         self.runSimplify = runSimplify
+        self.polylineProcessTopos = []
+        pass
+
+    def PolylineProcessToposAppend(self, elem):
+        self.polylineProcessTopos.append(elem)
+        pass
+
+    def SetProcessTopo(self, processTopo):
+        self.processTopo = processTopo
+        pass
+
+    def SetRunSimplify(self, runSimplify):
+        self.runSimplify = runSimplify
+        pass
+
+    def GetDict(self):
+        polylineProcessToposTemp = []
+        for elem in self.polylineProcessTopos:
+            polylineProcessToposTemp.append(elem.GetDict())
+        return {
+            "featureClass": self.featureClass,
+            "runSimplify": self.runSimplify,
+            "polylineProcessTopos": polylineProcessToposTemp
+        }
+        pass
+
+# ElemCConfigToolPolygon is Element of ElemBConfigToolPolygon.polylineProcessTopos
+class ElemCConfigToolPolygon:
+
+    def __init__(self):
+        self.featureDataSet = ""
+        self.listPolyline = []
+        pass
+
+    def __init__(self, featureDataSet):
+        self.featureDataSet = featureDataSet
+        self.listPolyline = []
+        pass
+
+    def ListPolylineAppend(self, elem):
+        self.listPolyline.append(elem)
+        pass
+
+    def GetDict(self):
+        listPolylineTemp = []
+        for elem in self.listPolyline:
+            listPolylineTemp.append(elem.__dict__)
+        return {
+            "featureDataSet": self.featureDataSet,
+            "listPolyline": listPolylineTemp
+        }
+
+# ElemDConfigToolPolygon is Element of ElemCConfigToolPolygon.listPolyline
+class ElemDConfigToolPolygon:
+
+    def __init__(self):
+        self.featureClass = ""
+        self.processTopo = False
+        pass
+
+    def __init__(self, featureClass, processTopo):
+        self.featureClass = featureClass
+        self.processTopo = processTopo
         pass
 
     def SetProcessTopo(self, processTopo):

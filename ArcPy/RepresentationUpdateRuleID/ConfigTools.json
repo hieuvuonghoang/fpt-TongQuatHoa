@@ -2376,22 +2376,22 @@
               {
                 "ruleID": "1",
                 "nameRule": "76-1-Kênh mương (0,2mm)",
-                "querySQL": "loaiHienTrangSuDung = 1 AND doRong >= 10 AND doRong <= 20"
+                "querySQL": "loaiHienTrangSuDung = 1 AND loaiDoRongKenhMuong = 1"
               },
               {
                 "ruleID": "2",
                 "nameRule": "76-2-Kênh mương (0,4mm)",
-                "querySQL": "loaiHienTrangSuDung = 1 AND doRong > 20"
+                "querySQL": "loaiHienTrangSuDung = 1 AND loaiDoRongKenhMuong = 2"
               },
               {
                 "ruleID": "3",
                 "nameRule": "77-1-Sông, kênh đang đào(0.2mm)",
-                "querySQL": "loaiHienTrangSuDung = 2 AND doRong >= 10 AND doRong <= 20"
+                "querySQL": "loaiHienTrangSuDung = 2 AND loaiDoRongKenhMuong = 1"
               },
               {
                 "ruleID": "4",
                 "nameRule": "77-2-Sông, kênh đang đào(0.4mm)",
-                "querySQL": "loaiHienTrangSuDung = 2 AND doRong > 20"
+                "querySQL": "loaiHienTrangSuDung = 2 AND loaiDoRongKenhMuong = 2"
               }
             ]
           }

@@ -189,12 +189,12 @@
             }, 
             {
                 "featureClass": "DuongBoNuoc", 
-                "processTopo": false, 
+                "processTopo": true, 
                 "runSimplify": false
             }, 
             {
                 "featureClass": "DuongMepNuoc", 
-                "processTopo": false, 
+                "processTopo": true, 
                 "runSimplify": false
             }, 
             {
