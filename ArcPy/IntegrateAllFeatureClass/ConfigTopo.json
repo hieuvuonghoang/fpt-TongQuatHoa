@@ -1575,7 +1575,7 @@
                             }, 
                             {
                                 "featureClass": "KenhMuongA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MangDanNuocA", 
@@ -1587,7 +1587,7 @@
                             }, 
                             {
                                 "featureClass": "MatNuocTinh", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
@@ -6345,7 +6345,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
@@ -6747,7 +6747,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "QuanSuA", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
