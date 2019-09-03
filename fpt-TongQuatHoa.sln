@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArcObject", "ArcObject", "{5400632E-3796-4DC8-9B2D-CF63A2DADCCB}"
 EndProject
@@ -70,6 +70,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DeleteFeature", "ArcPy\DeleteFeature\DeleteFeature.pyproj", "{C44C63E2-C623-43A7-B333-71E26A8CBDBE}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IntegrateAllFeatureClass", "ArcPy\IntegrateAllFeatureClass\IntegrateAllFeatureClass.pyproj", "{6D3802F2-DFF3-48E4-99E5-FCA4B0491885}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RanhGioiBai", "ArcPy\RanhGioiBai\RanhGioiBai.pyproj", "{138379A8-8185-4831-AD16-DD5CEFB61104}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -217,6 +219,10 @@ Global
 		{6D3802F2-DFF3-48E4-99E5-FCA4B0491885}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{6D3802F2-DFF3-48E4-99E5-FCA4B0491885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3802F2-DFF3-48E4-99E5-FCA4B0491885}.Release|x86.ActiveCfg = Release|Any CPU
+		{138379A8-8185-4831-AD16-DD5CEFB61104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138379A8-8185-4831-AD16-DD5CEFB61104}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{138379A8-8185-4831-AD16-DD5CEFB61104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138379A8-8185-4831-AD16-DD5CEFB61104}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -253,5 +259,6 @@ Global
 		{2B98999F-A442-4894-937D-11974ED62DC7} = {CDF56F2F-EF9E-4278-AA4F-70BECCACE17B}
 		{C44C63E2-C623-43A7-B333-71E26A8CBDBE} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{6D3802F2-DFF3-48E4-99E5-FCA4B0491885} = {75503257-EE32-41CE-A29E-3C12C6274155}
+		{138379A8-8185-4831-AD16-DD5CEFB61104} = {75503257-EE32-41CE-A29E-3C12C6274155}
 	EndGlobalSection
 EndGlobal
