@@ -112,10 +112,10 @@ class SnapTools:
         self.SnapVsLineSnap()
 
         # Delete FeaturePoint Not Snap
-        self.DeleteFeatureClassP()
+        #self.DeleteFeatureClassP()
         
         # Delete FeatureLine Not Snap
-        self.DeleteFeatureClassL()
+        #self.DeleteFeatureClassL()
         pass
 
     def CopyFromProcessToFinal(self):
@@ -159,13 +159,21 @@ class SnapTools:
         self.pointSnapA = "in_memory\\PointSnapA"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
                                             out_name = "PointSnapA",
-                                            geometry_type = "MULTIPOINT")
+                                            geometry_type = "MULTIPOINT",
+                                            spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
         # DoanTimDuongBo Final vs SongSuoiL Final
         self.IntersectAndInsertPointSnapA(self.doanTimDuongBoInMemoryDissolve, self.pathSongSuoiLFinal)
         # DoanTimDuongBo Final vs KenhMuongL Final
         self.IntersectAndInsertPointSnapA(self.doanTimDuongBoInMemoryDissolve, self.pathKenhMuongLFinal)
         # DoanTimDuongBo Final vs MangDanNuocL Final
         self.IntersectAndInsertPointSnapA(self.doanTimDuongBoInMemoryDissolve, self.pathMangDanNuocLFinal)
+        #
+        tempFc = "in_memory\\tempFc"
+        arcpy.MultipartToSinglepart_management(in_features = self.pointSnapA,
+                                               out_feature_class = tempFc)
+        arcpy.Dissolve_management(in_features = tempFc,
+                                  out_feature_class = self.pointSnapA,
+                                  multi_part = "SINGLE_PART")
         pass
 
     def IntersectAndInsertPointSnapA(self, fCOne, fCTwo):
@@ -200,7 +208,8 @@ class SnapTools:
         self.pointSnapB = "in_memory\\PointSnapB"
         arcpy.CreateFeatureclass_management(out_path = "in_memory",
                                             out_name = "PointSnapB",
-                                            geometry_type = "POINT")
+                                            geometry_type = "POINT",
+                                            spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
         # DoanTimDuongBo vs SongSuoiA (Line vs Polygon)
         self.InsertPointSnapB(self.pathSongSuoiAFinal)
         # DoanTimDuongBo vs KenhMuongA (Line vs Polygon)

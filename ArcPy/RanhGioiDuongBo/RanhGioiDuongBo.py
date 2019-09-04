@@ -7,7 +7,7 @@ import arcpy
 import hashlib
 import datetime
 
-class RanhGioiBai:
+class RanhGioiDuongBo:
     
     def __init__(self):
         self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
@@ -201,9 +201,9 @@ class RunTime:
 
 if __name__ == '__main__':
     runTime = RunTime()
-    ranhGioiBai = RanhGioiBai()
+    ranhGioiDuongBo = RanhGioiDuongBo()
     print "Running..."
-    ranhGioiBai.Execute()
+    ranhGioiDuongBo.Execute()
     print "Success!!!"
     runTime.GetTotalRunTime()
     pass
