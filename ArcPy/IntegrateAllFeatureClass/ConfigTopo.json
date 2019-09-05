@@ -5993,7 +5993,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6017,7 +6017,7 @@
                             }, 
                             {
                                 "featureClass": "KenhMuongA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MangDanNuocA", 
@@ -6029,15 +6029,15 @@
                             }, 
                             {
                                 "featureClass": "MatNuocTinh", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "DamLay", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 
@@ -6194,7 +6194,7 @@
                             }, 
                             {
                                 "featureClass": "BaiBoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "BienA", 
@@ -6230,15 +6230,15 @@
                             }, 
                             {
                                 "featureClass": "MatNuocTinh", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "DamLay", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }, 

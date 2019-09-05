@@ -360,7 +360,7 @@
         "listPolygon": [
             {
                 "featureClass": "PhuBeMat", 
-                "runFeatureClass": false
+                "runFeatureClass": true
             }
         ], 
         "listPolyline": [

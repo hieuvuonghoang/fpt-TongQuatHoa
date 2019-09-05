@@ -23,6 +23,10 @@ class Demo:
         arcpy.FeatureToPoint_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh),
                                         os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh + "_FearuteToPoint"),
                                         "INSIDE")
+        arcpy.SelectLayerByAttribute_management(in_layer_or_view, selection_type, where_clause)
+        arcpy.MakeFeatureLayer_management(in_features, out_layer, where_clause)
+        arcpy.CopyFeatures_management(in_features, out_feature_class)
+        arcpy.Intersect_analysis(in_features, out_feature_class, join_attributes, cluster_tolerance, output_type)
         pass
 
     def Execute(self):
