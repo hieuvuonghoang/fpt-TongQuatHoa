@@ -6218,7 +6218,7 @@
                             }, 
                             {
                                 "featureClass": "KenhMuongA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MangDanNuocA", 
@@ -6448,7 +6448,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "PhuBeMat", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }
@@ -6850,7 +6850,7 @@
                         "listPolygon": [
                             {
                                 "featureClass": "PhuBeMat", 
-                                "processTopo": false
+                                "processTopo": true
                             }
                         ]
                     }
@@ -7022,7 +7022,7 @@
                             }, 
                             {
                                 "featureClass": "KenhMuongA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "MangDanNuocA", 
@@ -7034,11 +7034,11 @@
                             }, 
                             {
                                 "featureClass": "MatNuocTinh", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "SongSuoiA", 
-                                "processTopo": false
+                                "processTopo": true
                             }, 
                             {
                                 "featureClass": "DamLay", 

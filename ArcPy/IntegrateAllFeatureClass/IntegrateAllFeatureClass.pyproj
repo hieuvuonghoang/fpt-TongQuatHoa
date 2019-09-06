@@ -40,6 +40,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigSimplify.json" />
+    <Content Include="ConfigTopo.json" />
     <Content Include="Run.bat" />
     <Content Include="RunDemo.bat" />
     <Content Include="RunFixPointRemove.bat" />
