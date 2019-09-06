@@ -23,6 +23,9 @@ class Demo:
         arcpy.FeatureToPoint_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh),
                                         os.path.join(os.path.join(self.pathProcessGDB, self.fDThuyHe), self.fCMatNuocTinh + "_FearuteToPoint"),
                                         "INSIDE")
+        arcpy.DeleteIdentical_management(in_dataset,
+                                         fields)
+        arcpy.Dissolve_management(in_features, out_feature_class, dissolve_field, statistics_fields, multi_part, unsplit_lines)
         arcpy.SelectLayerByAttribute_management(in_layer_or_view, selection_type, where_clause)
         arcpy.MakeFeatureLayer_management(in_features, out_layer, where_clause)
         arcpy.CopyFeatures_management(in_features, out_feature_class)

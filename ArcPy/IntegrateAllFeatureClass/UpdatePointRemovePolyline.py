@@ -53,31 +53,31 @@ class UpdatePointRemovePolyline:
                 outputDissolve = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClassPointRemoveDissolve)
                 fieldName = self.GetFieldFID(featureClassPolyLine.featureClass)
                 self.Dissolve(fCTemp, outputDissolve, fieldName)
-                # Add Field
-                arcpy.AddField_management(in_table = outputDissolve,
-                                          field_type = "TEXT",
-                                          field_name = "startPoint",
-                                          field_length = "100")
-                arcpy.AddField_management(in_table = outputDissolve,
-                                          field_type = "TEXT",
-                                          field_name = "endPoint",
-                                          field_length = "100")
+                ## Add Field
+                #arcpy.AddField_management(in_table = outputDissolve,
+                #                          field_type = "TEXT",
+                #                          field_name = "startPoint",
+                #                          field_length = "100")
+                #arcpy.AddField_management(in_table = outputDissolve,
+                #                          field_type = "TEXT",
+                #                          field_name = "endPoint",
+                #                          field_length = "100")
 
-                # Xu ly neu diem dau hoac diem cua cua Polyline bi Remove:
-                inPathPolylineFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClass)
-                for elemPolygonTopo in elemPolyline.polygonTopos:
-                    featureDataSetPolygon = elemPolygonTopo.featureDataSet
-                    for elemPolygon in elemPolygonTopo.listPolygon:
-                        featureClassPolygon = FeatureClass(elemPolygon.featureClass)
-                        if elemPolygon.processTopo == True:
-                            ## Diem dau
-                            #print "# Diem dau"
-                            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "START", featureDataSetPolygon, featureClassPolygon, fieldName)
-                            ## Diem cuoi
-                            #print "# Diem cuoi"
-                            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "END", featureDataSetPolygon, featureClassPolygon, fieldName)
-                            pass
-                arcpy.Delete_management("in_memory")
+                ## Xu ly neu diem dau hoac diem cua cua Polyline bi Remove:
+                #inPathPolylineFC = os.path.join(os.path.join(self.pathProcessGDB, featureDataSetPolyLine), featureClassPolyLine.featureClass)
+                #for elemPolygonTopo in elemPolyline.polygonTopos:
+                #    featureDataSetPolygon = elemPolygonTopo.featureDataSet
+                #    for elemPolygon in elemPolygonTopo.listPolygon:
+                #        featureClassPolygon = FeatureClass(elemPolygon.featureClass)
+                #        if elemPolygon.processTopo == True:
+                #            ## Diem dau
+                #            #print "# Diem dau"
+                #            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "START", featureDataSetPolygon, featureClassPolygon, fieldName)
+                #            ## Diem cuoi
+                #            #print "# Diem cuoi"
+                #            self.ProcessPointStartEnd(fCTemp, inPathPolylineFC, outputDissolve, "END", featureDataSetPolygon, featureClassPolygon, fieldName)
+                #            pass
+                #arcpy.Delete_management("in_memory")
         pass
 
     def ProcessPointStartEnd(self, fCTemp, inPathPolylineFC, pathFCDissolve, option, featureDataSetPolygon, featureClassPolygon, fID):

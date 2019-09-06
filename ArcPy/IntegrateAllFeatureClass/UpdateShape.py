@@ -65,7 +65,7 @@ class UpdateShape:
                     continue
                 pathPolylineFinal = os.path.join(os.path.join(self.pathFinalGDB, tempConfig.featureDataSet), tempPolyline.featureClass)
                 fieldName, noUse = self.GetFieldFID(tempPolyline.featureClass, "")
-                with arcpy.da.SearchCursor(pathPointRemoveDissolve, ["Shape@", fieldName, "startPoint", "endPoint"]) as cursorA:
+                with arcpy.da.SearchCursor(pathPointRemoveDissolve, ["Shape@", fieldName]) as cursorA:
                     with arcpy.da.UpdateCursor(pathPolylineFinal, ["OID@", "Shape@"]) as cursorB:
                         for rowA in cursorA:
                             #
@@ -111,15 +111,7 @@ class UpdateShape:
                                         indexLoop = 0
                                         arrPartCount = arrPolyline[partNum].count
                                         for indexRemove in tempPart:
-                                            if indexRemove == 0 and rowA[2]:
-                                                arrXY = str(rowA[2]).replace(" ", "").split(",")
-                                                pntUpdate = arcpy.Point(float(arrXY[0]), float(arrXY[1]))
-                                                arrPolyline[partNum].replace(indexRemove - indexLoop, pntUpdate)
-                                            elif (indexRemove == arrPartCount - 1) and rowA[3]:
-                                                arrXY = str(rowA[3]).replace(" ", "").split(",")
-                                                pntUpdate = arcpy.Point(float(arrXY[0]), float(arrXY[1]))
-                                                arrPolyline[partNum].replace(indexRemove - indexLoop, pntUpdate)
-                                            elif indexRemove != 0 and (indexRemove != arrPartCount - 1):
+                                            if indexRemove != 0 and (indexRemove != arrPartCount - 1):
                                                 arrPolyline[partNum].remove(indexRemove - indexLoop)
                                                 indexLoop += 1
                                         partNum += 1
