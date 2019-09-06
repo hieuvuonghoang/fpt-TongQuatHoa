@@ -9,8 +9,8 @@ import datetime
 class InitData:
 
     def __init__(self):
-        self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
-        self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
+        self.pathProcessGDB = "C:\\Generalize_25_50_B\\50K_Process.gdb"
+        self.pathFinalGDB = "C:\\Generalize_25_50_B\\50K_Final.gdb"
         self.pathFileConfig = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigSimplify.json")
         self.pathFileConfigTopo = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigTopo.json")
         # Read File Config Simplify
@@ -23,7 +23,6 @@ class InitData:
             print "... Not Found: " + self.pathFileConfigTopo + "?\n  ... Create File ConfigTopo..."
             self.CreateFileConfigTopo()
         self.ReadFileConfigTopo()
-        print "OK init: InitData"
         pass
 
     def Execute(self):
@@ -416,7 +415,7 @@ class InitData:
         arcpy.SimplifyLine_cartography(in_features = inFC_SimplifyAllPolyline,
                                        out_feature_class = outPutSimplify,
                                        algorithm = "BEND_SIMPLIFY",
-                                       tolerance = "50 Meters",
+                                       tolerance = "30 Meters",
                                        collapsed_point_option = "NO_KEEP")
         return outPutSimplify
         pass
@@ -426,7 +425,7 @@ class InitData:
         arcpy.SimplifyPolygon_cartography(in_features = inFC_SimplifyAllPolygon,
                                           out_feature_class = outPutSimplify,
                                           algorithm = "BEND_SIMPLIFY",
-                                          tolerance = "50 Meters",
+                                          tolerance = "30 Meters",
                                           error_option = "RESOLVE_ERRORS",
                                           collapsed_point_option = "NO_KEEP")
         return outPutSimplify

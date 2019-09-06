@@ -9,8 +9,8 @@ import datetime
 class UpdateShape:
 
     def __init__(self):
-        self.pathProcessGDB = "C:\\Generalize_25_50\\50K_Process.gdb"
-        self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
+        self.pathProcessGDB = "C:\\Generalize_25_50_B\\50K_Process.gdb"
+        self.pathFinalGDB = "C:\\Generalize_25_50_B\\50K_Final.gdb"
         self.pathFileConfig = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ConfigSimplify.json")
         # Read File Config Simplify
         if not os.path.isfile(self.pathFileConfig):
