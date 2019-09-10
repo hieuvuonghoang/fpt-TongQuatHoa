@@ -951,7 +951,7 @@
               {
                 "ruleID": "0",
                 "nameRule": "null",
-                "querySQL": ""
+                "querySQL": "OBJECTID IS NOT NULL"
               },
               {
                 "ruleID": "1",

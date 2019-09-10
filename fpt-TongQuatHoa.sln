@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArcObject", "ArcObject", "{5400632E-3796-4DC8-9B2D-CF63A2DADCCB}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RanhGioiBai", "ArcPy\RanhGioiBai\RanhGioiBai.pyproj", "{138379A8-8185-4831-AD16-DD5CEFB61104}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RanhGioiDuongBo", "ArcPy\RanhGioiDuongBo\RanhGioiDuongBo.pyproj", "{B8FFCFAE-413C-4319-98A2-5E9C24072709}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ConflictDuongBinhDo", "ArcPy\ConflictDuongBinhDo\ConflictDuongBinhDo.pyproj", "{3C141973-8AB2-4513-BC6C-7750DEB00109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,6 +231,10 @@ Global
 		{B8FFCFAE-413C-4319-98A2-5E9C24072709}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B8FFCFAE-413C-4319-98A2-5E9C24072709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FFCFAE-413C-4319-98A2-5E9C24072709}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C141973-8AB2-4513-BC6C-7750DEB00109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C141973-8AB2-4513-BC6C-7750DEB00109}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C141973-8AB2-4513-BC6C-7750DEB00109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C141973-8AB2-4513-BC6C-7750DEB00109}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -267,5 +273,6 @@ Global
 		{6D3802F2-DFF3-48E4-99E5-FCA4B0491885} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{138379A8-8185-4831-AD16-DD5CEFB61104} = {75503257-EE32-41CE-A29E-3C12C6274155}
 		{B8FFCFAE-413C-4319-98A2-5E9C24072709} = {75503257-EE32-41CE-A29E-3C12C6274155}
+		{3C141973-8AB2-4513-BC6C-7750DEB00109} = {75503257-EE32-41CE-A29E-3C12C6274155}
 	EndGlobalSection
 EndGlobal

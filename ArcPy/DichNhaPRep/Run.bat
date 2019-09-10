@@ -8,9 +8,9 @@ set pathfileConfig=%~dp0%ConfigTools.json
 c:
 cd %python27%
 echo.%pathfileResolveBuildingConflict%
-python %pathfileResolveBuildingConflict% "60 Meters" "15 Meters" "10 Meters" "15 Meters"
+python %pathfileResolveBuildingConflict% "15 Meters" "5 Meters" "15 Meters"
 echo.%pathfileResolveConflictNhaP%
 python %pathfileResolveConflictNhaP% %pathfileConfig% "0 Meters" "0 Meters"
 
 :: Presses any key
-::pause
+pause

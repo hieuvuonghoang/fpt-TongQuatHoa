@@ -8,10 +8,9 @@ import subprocess
 
 class ResolveBuildingConflict:
 
-    def __init__(self, distanceAlign, distanceNhaP, buildingGap, minimumSize):
+    def __init__(self, distanceNhaP, buildingGap, minimumSize):
         # Set distance
-        print "distanceAlign = {0}, distanceNhaP = {1}, buildingGap = {2}, minimumSize = {3}".format(distanceAlign, distanceNhaP, buildingGap, minimumSize)
-        self.distanceAlign = distanceAlign
+        print "distanceNhaP = {}, buildingGap = {}, minimumSize = {}".format(distanceNhaP, buildingGap, minimumSize)
         self.distanceNhaP = distanceNhaP
         self.buildingGap = buildingGap
         self.minimumSize = minimumSize
@@ -62,7 +61,7 @@ class ResolveBuildingConflict:
     def AddField(self):
         arcpy.AddField_management(in_table = self.nhaPFinalLayer,
                                   field_name = self.invisibilityField,
-                                  field_type = "Short")
+                                  field_type = "SHORT")
         pass
 
     def ResolveBuildingConflict(self):
@@ -74,6 +73,6 @@ class ResolveBuildingConflict:
         pass
 
 if __name__ == "__main__":
-    resolveBuildingConflict = ResolveBuildingConflict(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    resolveBuildingConflict = ResolveBuildingConflict(sys.argv[1], sys.argv[2], sys.argv[3])
     resolveBuildingConflict.Execute()
     pass

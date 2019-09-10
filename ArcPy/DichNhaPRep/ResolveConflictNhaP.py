@@ -114,6 +114,36 @@ class ResolveConflictNhaP:
                                      drop_field = [self.invisibilityField])
         pass
 
+    def GetAndSetRepresentation(self, inFeature):
+        desc = arcpy.Describe(inFeature)
+        if len(desc.representations) == 0:
+            return None
+        elif len(desc.representations) == 1:
+            return desc.representations[0].name
+        else:
+            arrRepresentation = []
+            for child in desc.representations:
+                if child.datasetType == "RepresentationClass":
+                    arrRepresentation.append(child.name)
+            print "# Select Representation:"
+            index = 0
+            for rep in arrRepresentation:
+                print "    {}. {}".format(str(index), str(rep))
+                index += 1
+            print "# Select: "
+            while(True):
+                strKey = raw_input()
+                try:
+                    intKey = int(strKey)
+                    if intKey >= 0 and intKey <= (len(arrRepresentation) - 1):
+                        break
+                    else:
+                        print "# Out of range?"
+                except ValueError:
+                    print "# Could not convert data to an integer?"
+            return arrRepresentation[intKey]
+        pass
+
 if __name__ == "__main__":
     resolveConflictNhaP = ResolveConflictNhaP(sys.argv[1], sys.argv[2], sys.argv[3])
     resolveConflictNhaP.Execute()
