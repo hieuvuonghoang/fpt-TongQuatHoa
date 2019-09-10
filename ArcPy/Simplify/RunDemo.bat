@@ -1,8 +1,8 @@
 @echo off
-title GenFeatureClass
+title FPT_Simplify.py
 
 :: Runs your command
-set pathfile=%~dp0%GenFeatureClass.py
+set pathfile=%~dp0%FPT_Simplify.py
 echo.%pathfile%
 c:
 cd %python27%

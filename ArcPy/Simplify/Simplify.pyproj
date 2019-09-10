@@ -31,6 +31,7 @@
     <Compile Include="DuongDiaGioi.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FPT_Simplify.py" />
     <Compile Include="GenFeatureClass.py">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +44,7 @@
     <Compile Include="Simplify.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigSimplify.json" />
     <Content Include="ConfigSimplifyPolygon.json" />
     <Content Include="RunDemo.bat" />
     <Content Include="RunDuongBoNuoc.bat" />

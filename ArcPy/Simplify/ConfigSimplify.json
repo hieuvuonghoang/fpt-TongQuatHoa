@@ -1,0 +1,476 @@
+[
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "HamDiBoL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "CongGiaoThongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DuongCapTreo", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "BenBaiA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "BenBaiL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "CauDiBoL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "CauGiaoThongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "CauGiaoThongL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "CongGiaoThongL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DoanDuongSat", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DoanTimDuongBo", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DoanVuotSongSuoiL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DuongNoiBoA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "DuongNoiBoL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "HamGiaoThongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "HamGiaoThongL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "MatDuongBo", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "RanhGioiDuongBo", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "GiaoThong", 
+        "LayerName": "TaluyGiaoThong", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "NhaL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "DuongDayTaiDien", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "DiemDanCuA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "DuongOngDan", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "KhuChucNangA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "NhaA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "RanhGioiTuongRao", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "TramDienA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "TramQuanTracA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "CongTrinhKienTrucDacBietA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DanCuCoSoHaTang", 
+        "LayerName": "TramThuPhatSongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DiaHinh", 
+        "LayerName": "NetChiDoc", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DiaHinh", 
+        "LayerName": "DiaHinhDacBietA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "DiaHinh", 
+        "LayerName": "DiaHinhDacBietL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "DiaHinh", 
+        "LayerName": "DuongBinhDo", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "BienGioiDiaGioi", 
+        "LayerName": "DiaPhan", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "BienGioiDiaGioi", 
+        "LayerName": "DuongBienGioi", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "BienGioiDiaGioi", 
+        "LayerName": "DuongDiaGioi", 
+        "RunStatus": "False", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "BienGioiDiaGioi", 
+        "LayerName": "DuongCoSoLanhHai", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "BienGioiDiaGioi", 
+        "LayerName": "VungBien", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "QuanSu", 
+        "LayerName": "QuanSuA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaDen", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaLo", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaNau", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaCay", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaDiaGioi", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaKhung", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNaDayDien", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "MatNa_DiemDoCao", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "MatNa", 
+        "LayerName": "gachtinhchatcau", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "RanhGioiBai", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BaiCanBaiNgamA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BaiBoiA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BienA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BienDoiDongChayA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BienDoiDongChayL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "BoKeBoCap", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "CongThuyLoiL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DaoA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DapA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DapL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DeA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DeL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DuongBoNuoc", 
+        "RunStatus": "False", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DuongMepNuoc", 
+        "RunStatus": "False", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "KenhMuongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "KenhMuongL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "MangDanNuocA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "MangDanNuocL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "MatBoKenhMuongA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "MatNuocTinh", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "SongSuoiA", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "SongSuoiL", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    },
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "SongSuoiL_KenhMuongL_SnapPBM", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    },
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "TaluyCongTrinhThuyLoi", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "RanhGioiNuocMatQuyUoc", 
+        "RunStatus": "True", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "ThuyHe", 
+        "LayerName": "DamLay", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }, 
+    {
+        "DatasetName": "PhuBeMat", 
+        "LayerName": "RanhGioiPhuBeMat", 
+        "RunStatus": "False", 
+        "LayerType": "Polyline"
+    }, 
+    {
+        "DatasetName": "PhuBeMat", 
+        "LayerName": "PhuBeMat", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    },
+    {
+        "DatasetName": "PhuBeMat", 
+        "LayerName": "PhuBeMat_Full", 
+        "RunStatus": "True", 
+        "LayerType": "Polygon"
+    }
+]

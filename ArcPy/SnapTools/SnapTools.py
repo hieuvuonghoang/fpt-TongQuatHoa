@@ -97,7 +97,7 @@ class SnapTools:
         self.DissolveDoanTimDuongBo()
 
         # Copy
-        #self.CopyFromProcessToFinal()
+        self.CopyFromProcessToFinal()
 
         # Snap FeatureClass Point
         ## Snap vs FeatureClassPointSnapA (Point = Line Intersect Line)
@@ -112,7 +112,7 @@ class SnapTools:
         self.SnapVsLineSnap()
 
         # Delete FeaturePoint Not Snap
-        #self.DeleteFeatureClassP()
+        self.DeleteFeatureClassP()
         
         # Delete FeatureLine Not Snap
         #self.DeleteFeatureClassL()
@@ -309,9 +309,14 @@ class SnapTools:
     def CreateFeatureClassLineSnap(self):
         # CreateFeatureclass self.pointSnapB
         self.lineSnap = "in_memory\\lineSnap"
-        arcpy.CreateFeatureclass_management(out_path = "in_memory",
-                                            out_name = "lineSnap",
-                                            geometry_type = "POLYLINE")
+        #arcpy.CreateFeatureclass_management(out_path = "in_memory",
+        #                                    out_name = "lineSnap",
+        #                                    geometry_type = "POLYLINE")
+        self.lineSnap = os.path.join(self.pathProcessGDB, "LineSnap")
+        arcpy.CreateFeatureclass_management(out_path = self.pathProcessGDB,
+                                            out_name = "LineSnap",
+                                            geometry_type = "POLYLINE",
+                                            spatial_reference = arcpy.Describe(self.pathDoanTimDuongBoFinal).spatialReference)
         # DoanTimDuongBo vs SongSuoiA (Line vs Polygon)
         self.InsertLineSnap(self.pathSongSuoiAFinal)
         # DoanTimDuongBo vs KenhMuongA (Line vs Polygon)
@@ -339,7 +344,7 @@ class SnapTools:
         pass
 
     def SnapVsLineSnap(self):
-        snapEnv = [self.pathDoanTimDuongBoFinal, "EDGE", self.distance]
+        snapEnv = [self.lineSnap, "VERTEX", self.distance]
         arcpy.Snap_edit(in_features = self.pathCongThuyLoiLFinal,
                         snap_environment = [snapEnv])
         arcpy.Snap_edit(in_features = self.pathCauGiaoThongLFinal,
@@ -356,12 +361,15 @@ class SnapTools:
         self.congThuyLoiPFinalLayer = "congThuyLoiPFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathCongThuyLoiPFinal,
                                           out_layer = self.congThuyLoiPFinalLayer)
-        self.cauGiaoThongPFinalLayer = "cauGiaoThongPFinalLayer"
-        arcpy.MakeFeatureLayer_management(in_features = self.pathCauGiaoThongPFinal,
-                                          out_layer = self.cauGiaoThongPFinalLayer)
+        #self.cauGiaoThongPFinalLayer = "cauGiaoThongPFinalLayer"
+        #arcpy.MakeFeatureLayer_management(in_features = self.pathCauGiaoThongPFinal,
+        #                                  out_layer = self.cauGiaoThongPFinalLayer)
         self.congGiaoThongPFinalLayer = "congGiaoThongPFinalLayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pathCongGiaoThongPFinal,
                                           out_layer = self.congGiaoThongPFinalLayer)
+        self.doanVuotSongSuoiPFinalLayer = "doanVuotSongSuoiPFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanVuotSongSuoiPFinal,
+                                          out_layer = self.doanVuotSongSuoiPFinalLayer)
         ## 
         self.pointSnapALayer = "pointSnapALayer"
         arcpy.MakeFeatureLayer_management(in_features = self.pointSnapA,
@@ -385,18 +393,18 @@ class SnapTools:
                                                selection_type = "REMOVE_FROM_SELECTION")
         arcpy.DeleteFeatures_management(in_features = self.congThuyLoiPFinalLayer)
         ##
-        arcpy.SelectLayerByLocation_management(in_layer = self.cauGiaoThongPFinalLayer,
-                                               overlap_type = "INTERSECT",
-                                               select_features = self.pointSnapALayer,
-                                               search_distance = "0 Meters",
-                                               selection_type = "NEW_SELECTION",
-                                               invert_spatial_relationship = "INVERT")
-        arcpy.SelectLayerByLocation_management(in_layer = self.cauGiaoThongPFinalLayer,
-                                               overlap_type = "INTERSECT",
-                                               select_features = self.pointSnapBLayer,
-                                               search_distance = "0 Meters",
-                                               selection_type = "REMOVE_FROM_SELECTION")
-        arcpy.DeleteFeatures_management(in_features = self.cauGiaoThongPFinalLayer)
+        #arcpy.SelectLayerByLocation_management(in_layer = self.cauGiaoThongPFinalLayer,
+        #                                       overlap_type = "INTERSECT",
+        #                                       select_features = self.pointSnapALayer,
+        #                                       search_distance = "0 Meters",
+        #                                       selection_type = "NEW_SELECTION",
+        #                                       invert_spatial_relationship = "INVERT")
+        #arcpy.SelectLayerByLocation_management(in_layer = self.cauGiaoThongPFinalLayer,
+        #                                       overlap_type = "INTERSECT",
+        #                                       select_features = self.pointSnapBLayer,
+        #                                       search_distance = "0 Meters",
+        #                                       selection_type = "REMOVE_FROM_SELECTION")
+        #arcpy.DeleteFeatures_management(in_features = self.cauGiaoThongPFinalLayer)
         ##
         arcpy.SelectLayerByLocation_management(in_layer = self.congGiaoThongPFinalLayer,
                                                overlap_type = "INTERSECT",
@@ -410,6 +418,19 @@ class SnapTools:
                                                search_distance = "0 Meters",
                                                selection_type = "REMOVE_FROM_SELECTION")
         arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
+        ##
+        arcpy.SelectLayerByLocation_management(in_layer = self.doanVuotSongSuoiPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointSnapALayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.SelectLayerByLocation_management(in_layer = self.doanVuotSongSuoiPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pointSnapBLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "REMOVE_FROM_SELECTION")
+        arcpy.DeleteFeatures_management(in_features = self.doanVuotSongSuoiPFinalLayer)
         pass
 
     def DeleteFeatureClassL(self):
