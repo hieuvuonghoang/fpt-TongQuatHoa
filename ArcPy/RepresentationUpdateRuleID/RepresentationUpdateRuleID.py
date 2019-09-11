@@ -31,29 +31,32 @@ class RepresentationUpdateRuleID:
             pathFeatureDataSet = os.path.join(self.pathFinalGDB, elemConfig["nameFeatureDataset"])
             for elemFeatureClass in elemConfig["listFeatureClass"]:
                 pathFeatureClass = os.path.join(pathFeatureDataSet, elemFeatureClass["nameFeatureClass"])
-                outLayer = elemFeatureClass["nameFeatureClass"] + "Layer"
-                arcpy.MakeFeatureLayer_management(in_features = pathFeatureClass,
-                                                  out_layer = outLayer)
+                if not arcpy.Exists(pathFeatureClass) or int(arcpy.GetCount_management(pathFeatureClass).getOutput(0)) == 0:
+                    continue
+                print " # {}".format(str(pathFeatureClass))
                 desc = arcpy.Describe(pathFeatureClass)
                 for child in desc.representations:
                     if child.datasetType == "RepresentationClass":
                         for elemRepresentation in elemFeatureClass["listRepresentation"]:
                             if child.name == elemRepresentation["nameRepresentation"]:
-                                with arcpy.da.UpdateCursor(pathFeatureClass, [child.ruleIDFieldName]) as cursor:
-                                    for row in cursor:
-                                        row[0] = None
-                                        cursor.updateRow(row)
+                                print "    ## {}".format(str(child.name))
+                                outLayer = arcpy.MakeFeatureLayer_management(in_features = pathFeatureClass)
+                                arcpy.CalculateField_management(in_table = outLayer,
+                                                                field = child.ruleIDFieldName,
+                                                                expression = "None",
+                                                                expression_type = "PYTHON_9.3")
                                 for elemRule in elemRepresentation["listRule"]:
                                     if elemRule["querySQL"] == "":
                                         continue
+                                    print "       ### {}".format(elemRule["querySQL"])
                                     arcpy.SelectLayerByAttribute_management(in_layer_or_view = outLayer,
                                                                             selection_type = "NEW_SELECTION",
                                                                             where_clause = elemRule["querySQL"])
+                                    print "           #### Count Select {}".format(arcpy.GetCount_management(outLayer).getOutput(0))
                                     arcpy.CalculateField_management(in_table = outLayer,
                                                                     field = child.ruleIDFieldName,
                                                                     expression = elemRule["ruleID"],
                                                                     expression_type = "PYTHON_9.3")
-                                #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, elemFeatureClass["nameFeatureClass"], elemRepresentation["nameRepresentation"], child.ruleIDFieldName + " IS NULL"])
                                 break
         pass
 
