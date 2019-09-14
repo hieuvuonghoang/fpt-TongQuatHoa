@@ -59,7 +59,7 @@ class ResolveConflictNhaP:
 
         # 
         self.CallToolSetEmptyShape()
-        self.DeleteField()
+        #self.DeleteField()
         pass
 
     def MakeFeatureLayerAndSetLayerRepresentation(self, pathFeatureClass, representationName):

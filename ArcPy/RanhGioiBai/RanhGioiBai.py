@@ -76,7 +76,8 @@ class RanhGioiBai:
         pathBaiBoiFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCBaiBoiA)
         #
         baiBoiALayer = arcpy.MakeFeatureLayer_management(pathBaiBoiFinal)
-        baiBoiALayerSelect = arcpy.SelectLayerByAttribute_management(baiBoiALayer, "NEW_SELECTION", "loaiTrangThaiXuatLo = 2 OR loaiTrangThaiXuatLo = 3")
+        #baiBoiALayerSelect = arcpy.SelectLayerByAttribute_management(baiBoiALayer, "NEW_SELECTION", "loaiTrangThaiXuatLo = 2 OR loaiTrangThaiXuatLo = 3")
+        baiBoiALayerSelect = arcpy.SelectLayerByAttribute_management(baiBoiALayer, "NEW_SELECTION", "")
         #
         outputPolygonToLineTempA = "in_memory\\outputPolygonToLineTempA"
         arcpy.PolygonToLine_management(baiBoiALayerSelect, outputPolygonToLineTempA)

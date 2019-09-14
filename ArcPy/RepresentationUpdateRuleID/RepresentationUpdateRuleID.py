@@ -13,7 +13,7 @@ class RepresentationUpdateRuleID:
     def __init__(self, pathFileConfig):
         self.pathFinalGDB = "C:\\Generalize_25_50\\50K_Final.gdb"
         self.pathFileConfig = pathFileConfig
-        self.dirPathArcObject = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), "Release"), "SetEmptyShapeRepresentation.exe")
+        #self.dirPathArcObject = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), "Release"), "SetEmptyShapeRepresentation.exe")
         pass
 
     def ReadFile(self):

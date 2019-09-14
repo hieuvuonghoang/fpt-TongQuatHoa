@@ -167,6 +167,7 @@ class SnapTools:
         self.IntersectAndInsertPointSnapA(self.doanTimDuongBoInMemoryDissolve, self.pathKenhMuongLFinal)
         # DoanTimDuongBo Final vs MangDanNuocL Final
         self.IntersectAndInsertPointSnapA(self.doanTimDuongBoInMemoryDissolve, self.pathMangDanNuocLFinal)
+        # SongSuoiL Final vs MatNuocTinh Final
         #
         tempFc = "in_memory\\tempFc"
         arcpy.MultipartToSinglepart_management(in_features = self.pointSnapA,

@@ -30,6 +30,8 @@ class RanhGioiDuongBo:
         pathHamGiaoThongAFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCHamGiaoThongA)
         arcpy.Merge_management(inputs = [pathMatDuongBoFinal, pathCauGiaoThongAFinal, pathHamGiaoThongAFinal],
                                output = outPutMerge)
+        if int(arcpy.GetCount_management(outPutMerge).getOutput(0)) == 0:
+            return
         # Dissolve
         outPutMatDuongBoDissolve = "in_memory\\outPutMatDuongBoDissolve"
         arcpy.Dissolve_management(in_features = outPutMerge,
