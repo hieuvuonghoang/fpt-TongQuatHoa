@@ -56,7 +56,7 @@ class ResolveBuildingConflict:
         arcpy.env.overwriteOutput = True
         arcpy.env.referenceScale = "50000"
         #
-        arcpy.CopyFeatures_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDDanCuCoSoHaTang), self.fCNhaP), self.pathNhaPFinal)
+        #arcpy.CopyFeatures_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDDanCuCoSoHaTang), self.fCNhaP), self.pathNhaPFinal)
         print self.dirPathArcObject
         subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCNhaP, self.repNhaP, ""])
         #
