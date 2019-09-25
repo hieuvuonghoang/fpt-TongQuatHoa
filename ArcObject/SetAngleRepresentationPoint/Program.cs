@@ -20,12 +20,16 @@ namespace SetAngleRepresentationPoint
             //ESRI License Initializer generated code.
             m_AOLicenseInitializer.InitializeApplication(new esriLicenseProductCode[] { esriLicenseProductCode.esriLicenseProductCodeBasic, esriLicenseProductCode.esriLicenseProductCodeStandard, esriLicenseProductCode.esriLicenseProductCodeAdvanced },
             new esriLicenseExtensionCode[] { });
-            //Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
-            SetAngleRepresentationPoint(args[0], args[1], args[2], args[3]);
-            //SetEmptyShapeOverride(args[0], args[1], args[2], args[3]);
+            Console.WriteLine("Check License OK!!!");
+            //Console.ReadKey();
+            Console.WriteLine("pathGDB = \"{0}\", featureClassName = \"{1}\", representationName = \"{2}\", whereClause = \"{3}\"", args[0], args[1], args[2], args[3]);
+            //SetAngleRepresentationPoint(args[0], args[1], args[2], args[3]);
+            SetEmptyShapeOverride(args[0], args[1], args[2], args[3]);
+            //SetEmptyShapeOverride(@"C:\Generalize_25_50\50K_Final.gdb", "NhaP", "NhaP_Rep1", "");
             //SetAngleRepresentationPoint(@"C:\Generalize_25_50_B\50K_Final.gdb", "NhaP", "NhaP_Rep1", "");
             //ESRI License Initializer generated code.
             //Do not make any call to ArcObjects after ShutDownApplication()
+            //Console.ReadKey();
             m_AOLicenseInitializer.ShutdownApplication();
         }
 

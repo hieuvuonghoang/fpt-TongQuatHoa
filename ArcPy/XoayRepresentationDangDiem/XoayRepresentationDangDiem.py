@@ -40,14 +40,14 @@ class XoayRepresentationDangDiem:
         #
         #"PERPENDICULAR" 90
         #"PARALLEL" 0
-        print self.dirPathArcObject
+        #print self.dirPathArcObject
         self.UpdateAngle(self.pathDoanTimDuongBoFinal, self.pathCauGiaoThongPFinal, 0)
-        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCauGiaoThongP, self.cauGiaoThongPRepName, ""])
+        #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCauGiaoThongP, self.cauGiaoThongPRepName, ""])
         self.UpdateAngle(self.pathDoanTimDuongBoFinal, self.pathCongGiaoThongPFinal, 90)
-        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongGiaoThongP, self.congGiaoThongPRepPhaiName, ""])
-        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongGiaoThongP, self.congGiaoThongPRepTraiName, ""])
+        #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongGiaoThongP, self.congGiaoThongPRepPhaiName, ""])
+        #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongGiaoThongP, self.congGiaoThongPRepTraiName, ""])
         self.UpdateAngle(self.pathDoanTimDuongBoFinal, self.pathCongThuyLoiPFinal, 0)
-        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongThuyLoiP, self.congThuyLoiPRepName, ""])
+        #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCCongThuyLoiP, self.congThuyLoiPRepName, ""])
         pass
 
     def ReadFile(self):

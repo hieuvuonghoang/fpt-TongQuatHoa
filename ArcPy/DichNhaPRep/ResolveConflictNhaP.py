@@ -58,7 +58,7 @@ class ResolveConflictNhaP:
                 self.AddJoinAndMarkInvisibility()
 
         # 
-        self.CallToolSetEmptyShape()
+        #self.CallToolSetEmptyShape()
         #self.DeleteField()
         pass
 

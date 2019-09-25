@@ -57,8 +57,8 @@ class ResolveBuildingConflict:
         arcpy.env.referenceScale = "50000"
         #
         #arcpy.CopyFeatures_management(os.path.join(os.path.join(self.pathProcessGDB, self.fDDanCuCoSoHaTang), self.fCNhaP), self.pathNhaPFinal)
-        print self.dirPathArcObject
-        subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCNhaP, self.repNhaP, ""])
+        #print self.dirPathArcObject
+        #subprocess.call([self.dirPathArcObject, self.pathFinalGDB, self.fCNhaP, self.repNhaP, ""])
         #
         arcpy.CalculateField_management(in_table = self.pathNhaPFinal,
                                         field = "NhaP_Rep1_ID",
