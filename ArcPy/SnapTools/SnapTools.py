@@ -9,7 +9,7 @@ class SnapTools:
 
     def __init__(self, distance):
         # 
-        print "CongThuyLoi (P, L)\nCongGiaoThong (P, L)\nCauGiaoThong (P, L)\nDoanVuotSongSuoi (P, L)"
+        print "CongThuyLoi (P, L)\nCongGiaoThong (P, L)\nCauGiaoThong (P, L)\nDoanVuotSongSuoi (P, L)\nHam (P)"
         # Distance Snap
         self.distance = distance
         # Path GDB
@@ -22,6 +22,8 @@ class SnapTools:
         self.fCCongGiaoThongP = "CongGiaoThongP"
         self.fCCauGiaoThongP = "CauGiaoThongP"
         self.fCDoanVuotSongSuoiP = "DoanVuotSongSuoiP"
+        self.fCHamDiBoP = "HamDiBoP"
+        self.fCDeo = "Deo"
         # GiaoThong Line
         self.fCDoanTimDuongBo = "DoanTimDuongBo"
         self.fCCauGiaoThongL = "CauGiaoThongL"
@@ -47,6 +49,7 @@ class SnapTools:
         self.pathCauGiaoThongPProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCCauGiaoThongP)
         self.pathCongGiaoThongPProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCCongGiaoThongP)
         self.pathDoanVuotSongSuoiPProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDoanVuotSongSuoiP)
+        self.pathHamDiBoPProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCHamDiBoP)
         ### GiaoThong Line
         self.pathDoanTimDuongBoProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDoanTimDuongBo)
         self.pathCauGiaoThongLProcess = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCCauGiaoThongL)
@@ -76,6 +79,8 @@ class SnapTools:
         self.pathCauGiaoThongPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCCauGiaoThongP)
         self.pathCongGiaoThongPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCCongGiaoThongP)
         self.pathDoanVuotSongSuoiPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDGiaoThong), self.fCDoanVuotSongSuoiP)
+        self.pathHamDiBoPFinal = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCHamDiBoP)
+        self.pathDeoFinal = os.path.join(os.path.join(self.pathProcessGDB, self.fDGiaoThong), self.fCDeo)
         ### ThuyHe Point
         self.pathCongThuyLoiPFinal = os.path.join(os.path.join(self.pathFinalGDB, self.fDThuyHe), self.fCCongThuyLoiP)
         ### ThuyHe Area
@@ -97,7 +102,7 @@ class SnapTools:
         self.DissolveDoanTimDuongBo()
 
         # Copy
-        self.CopyFromProcessToFinal()
+        #self.CopyFromProcessToFinal()
 
         # Snap FeatureClass Point
         ## Snap vs FeatureClassPointSnapA (Point = Line Intersect Line)
@@ -117,6 +122,47 @@ class SnapTools:
         # Delete FeatureLine Not Snap
         self.DeleteFeatureClassL()
         pass
+
+    def XuLyDeo(self):
+        self.deoFinalLayer = "deoFinalLayer"
+        self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDeoFinal,
+                                          out_layer = self.deoFinalLayer)
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                          out_layer = self.doanTimDuongBoFinalLayer)
+        snapEnv = [self.doanTimDuongBoFinalLayer, "EDGE", self.distance]
+        arcpy.Snap_edit(in_features = self.deoFinalLayer, snap_environment = snapEnv)
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                          out_layer = self.doanTimDuongBoFinalLayer,
+                                          where_clause = "phanLoaiDuong = 3 OR phanLoaiDuong = 2 OR phanLoaiDuong = 1 OR phanLoaiDuong = 11 OR phanLoaiDuong = 4")
+        arcpy.SelectLayerByLocation_management(in_layer = self.deoFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.doanTimDuongBoFinalLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.DeleteFeatures_management(in_features = self.deoFinalLayer)
+        pass
+
+    def XuLyHamP(self):
+        self.hamDiBoPFinalLayer = "hamDiBoPFinalLayer"
+        self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathHamDiBoPFinal,
+                                          out_layer = self.hamDiBoPFinalLayer)
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                          out_layer = self.doanTimDuongBoFinalLayer)
+        snapEnv = [self.doanTimDuongBoFinalLayer, "EDGE", self.distance]
+        arcpy.Snap_edit(in_features = self.hamDiBoPFinalLayer, snap_environment = snapEnv)
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                          out_layer = self.doanTimDuongBoFinalLayer,
+                                          where_clause = "phanLoaiDuong = 3 OR phanLoaiDuong = 2 OR phanLoaiDuong = 1 OR phanLoaiDuong = 11 OR phanLoaiDuong = 4")
+        arcpy.SelectLayerByLocation_management(in_layer = self.hamDiBoPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.doanTimDuongBoFinalLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.DeleteFeatures_management(in_features = self.hamDiBoPFinalLayer)
 
     def CopyFromProcessToFinal(self):
         # Point
@@ -450,7 +496,15 @@ class SnapTools:
                                                selection_type = "NEW_SELECTION",
                                                invert_spatial_relationship = "INVERT")
         arcpy.DeleteFeatures_management(in_features = self.congGiaoThongPFinalLayer)
-        ##
+        ## DoanVuotSongSuoiP
+        ### Rule 1
+        arcpy.SelectLayerByLocation_management(in_layer = self.doanVuotSongSuoiPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.pathDoanTimDuongBoFinal,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
+        arcpy.DeleteFeatures_management(in_features = self.doanVuotSongSuoiPFinalLayer)
         arcpy.SelectLayerByLocation_management(in_layer = self.doanVuotSongSuoiPFinalLayer,
                                                overlap_type = "INTERSECT",
                                                select_features = self.pathSongSuoiAFinal,
@@ -477,6 +531,21 @@ class SnapTools:
                                                select_features = self.pathKenhMuongLFinal,
                                                search_distance = "0 Meters",
                                                selection_type = "REMOVE_FROM_SELECTION")
+        arcpy.DeleteFeatures_management(in_features = self.doanVuotSongSuoiPFinalLayer)
+        ### Rule 2
+        self.doanTimDuongBoFinalLayer = "doanTimDuongBoFinalLayer"
+        self.doanVuotSongSuoiPFinalLayer = "doanVuotSongSuoiPFinalLayer"
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanVuotSongSuoiPFinal,
+                                          out_layer = self.doanVuotSongSuoiPFinalLayer)
+        arcpy.MakeFeatureLayer_management(in_features = self.pathDoanTimDuongBoFinal,
+                                          out_layer = self.doanTimDuongBoFinalLayer,
+                                          where_clause = "phanLoaiDuong = 3 OR phanLoaiDuong = 2 OR phanLoaiDuong = 1 OR phanLoaiDuong = 11 OR phanLoaiDuong = 4")
+        arcpy.SelectLayerByLocation_management(in_layer = self.doanVuotSongSuoiPFinalLayer,
+                                               overlap_type = "INTERSECT",
+                                               select_features = self.doanTimDuongBoFinalLayer,
+                                               search_distance = "0 Meters",
+                                               selection_type = "NEW_SELECTION",
+                                               invert_spatial_relationship = "INVERT")
         arcpy.DeleteFeatures_management(in_features = self.doanVuotSongSuoiPFinalLayer)
         pass
 
